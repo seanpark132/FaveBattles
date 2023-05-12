@@ -4,7 +4,7 @@ import './css/App.css'
 import Home from "./pages/Home"
 import Game from "./pages/Game"
 import Create from "./pages/Create"
-import NoPage from './pages/noPage'
+import NoPage from './pages/NoPage'
 import {db} from "./firebaseConfig"
 import {collection, getDocs} from "firebase/firestore"
 
