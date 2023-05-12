@@ -4,6 +4,7 @@ import './css/App.css'
 import Home from "./pages/Home"
 import Game from "./pages/Game"
 import Create from "./pages/Create"
+import NoPage from './pages/noPage'
 import {db} from "./firebaseConfig"
 import {collection, getDocs} from "firebase/firestore"
 
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/home" element={<Home gameData={gameData} />}/>
             <Route path="/create" element={<Create/>} />       
             {gameRoutes}
+            <Route path="*" element={<NoPage />} />
           </Routes> 
         </BrowserRouter>
         : null
