@@ -63,7 +63,7 @@ export default function GameScreen(props) {
         }
 
         if (props.currChoices.length === 0) {      
-            props.setNextChoices(prev => [...prev, props.leftChoice])
+            props.setNextChoices(prev => [...prev, props.rightChoice])
             props.setNextChoices(newChoices => {                  
                 const copyNewChoices = _.cloneDeep(newChoices)              
                 const [newLeft, newRight] = getTwoChoices(copyNewChoices)
