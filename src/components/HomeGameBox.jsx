@@ -15,9 +15,9 @@ export default function HomeGameBox(props) {
                 <a href={`/game/${props.id}`} target="_blank" className="box-btn" id="start-btn">
                     <i className="btn-icon fa-solid fa-play fa-xs"></i>Start!
                 </a>            
-                <a href="https://example.com" target="_blank" className="box-btn" id="stats-btn">
+                {/* <a href="https://example.com" target="_blank" className="box-btn" id="stats-btn">
                     <i className="btn-icon fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>Game Stats
-                </a>
+                </a> */}
             </div>
         </div>
     )
