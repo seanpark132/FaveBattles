@@ -11,14 +11,16 @@ import UploadedImg from "../components/UploadedImg"
 
 export default function Create() {
     const [inputtedImgs, setInputtedImgs] = useState(null)
-    const [imgsData, setImgsData] = useState([])
+    const [imgsData, setImgsData] = useState(null)
     const [formData, setFormData] = useState({})
     const [selectedCategories, setSelectedCategories] = useState([])
 
+    // create a new id for the game, or if game creation was in progress, restore saved id from local storage
     const storedUid = localStorage.getItem('create-uid')
     const uid = storedUid ? storedUid : v4()
     localStorage.setItem('create-uid', uid)     
-        
+    
+    // handle upload image button, upload image(s) file to cloud, add new image data with URL to imgsData state
     async function uploadImage(event) {        
         if (inputtedImgs == null) {
             alert("Please add a file first")
@@ -27,9 +29,9 @@ export default function Create() {
                   
         for (const img of inputtedImgs) {
             const id = v4()
-            const fullName = img.name + id
+            const fullName = img.name + id          
             const imageRef = ref(storage, `all_games/${uid}/${fullName}`)  
-
+            console.log(img)
             let uploaded = null
             try {
                 uploaded = await uploadBytes(imageRef, img)
@@ -45,10 +47,28 @@ export default function Create() {
                 alert("Image uploaded, but could not access download URL")
                 return
             }
-                       
-            const defaultName = (img.name.charAt(0).toUpperCase() + img.name.slice(1)).slice(0, img.name.length-4)   
+            
+            let charsToRemove = 4
+            if (img.type === "image/webp") {
+                charsToRemove = 5
+            }
+            const defaultName = (img.name.charAt(0).toUpperCase() + img.name.slice(1)).slice(0, img.name.length- charsToRemove)   
             setImgsData(prev => 
+                prev ? 
                 [...prev, 
+                    {   
+                        id: id,
+                        url:imgURL, 
+                        name:defaultName,
+                        fullName:fullName,
+                        numWins: 0,
+                        numGames: 0,
+                        numFirst: 0,
+                        winPercent: 0,
+                        firstPercent: 0
+                    }
+                ]
+                :[
                     {   
                         id: id,
                         url:imgURL, 
@@ -67,6 +87,7 @@ export default function Create() {
         setInputtedImgs(null)
     }
 
+    // handle form data change (title, description)
     function handleChange(event) {       
         const {name, value} = event.target
         setFormData(prevFormData => {
@@ -77,6 +98,7 @@ export default function Create() {
         })
     }
 
+    // final "create game" button submit
     async function handleSubmit(event) {
         event.preventDefault()        
         let fullFormData = _.cloneDeep(formData)
@@ -100,7 +122,7 @@ export default function Create() {
     }, [])
 
     useEffect(() => {
-        if (imgsData.length !== 0) {            
+        if (imgsData !== null) {            
             localStorage.setItem('create-imgsData', JSON.stringify(imgsData))
         }   
     },[imgsData])
@@ -166,7 +188,7 @@ export default function Create() {
                 </fieldset>  
                 <div className="create-container">                                             
                     <div className="uploaded-container">
-                        {imgsData.map(imgData => {
+                        {imgsData && imgsData.map(imgData => {
                             return (
                                 <UploadedImg 
                                 key={imgData.id} 
@@ -181,7 +203,7 @@ export default function Create() {
                     <button
                         className="btn-create-game"                       
                         type="submit"
-                    >Create Game! ({imgsData.length} choices)</button>
+                    >Create Game! ({imgsData ? imgsData.length: 0} choices)</button>
                 </div>
             </form>   
         </div>

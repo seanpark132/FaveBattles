@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { _, random } from 'lodash'
+import { _ } from 'lodash'
 
 export default function FormBox(props) {
     const [visible, setVisible] = useState(true)

@@ -1,9 +1,37 @@
-.nav {
-  z-index: 10000;
-  width: 100%;
+a {  
+  color: rgba(255, 255, 255, 0.87);
+  text-decoration: inherit;
+}
+
+a:visited {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+a:hover { 
+  color: rgb(172, 172, 172);  
+}
+
+body {
+  margin: 0rem;    
+}
+
+div {
+  margin: 0rem;
+}
+
+p {
+  margin: 0rem;
+}
+
+button:hover {
+  color: rgb(172, 172, 172);  
+}
+
+nav {
+  z-index: 10000;  
   height: 2.75rem;
   background-color: #3d3d3d;     
-  box-shadow: 0rem 0.125rem 0.375rem rgba(255, 255, 255, 0.432); 
+  box-shadow: 0rem 0.125rem 0.125rem rgba(255, 255, 255, 0.432); 
   position: sticky; top:0;
 }
 
@@ -38,19 +66,6 @@
   transform: translate(-50%, 0);
 }
 
-.log-in {
-  margin-left: auto;
-}
-
 .btn-icon {
   margin-right: 0.5rem; 
 }
-
-.flex {
-  display: flex;
-}
-
-.grid {
-  display:grid
-}
-

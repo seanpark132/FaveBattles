@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,34 +17,3 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
-a {  
-  color: rgba(255, 255, 255, 0.87);
-  text-decoration: inherit;
-
-}
-
-a:visited {
-  color: rgba(255, 255, 255, 0.87);
-}
-
-a:hover { 
-  color: rgb(172, 172, 172);  
-}
-
-body {
-  margin: 0px;    
-}
-
-div {
-  margin: 0px;
-}
-
-p {
-  margin: 0px;
-}
-
-button:hover {
-  color: rgb(172, 172, 172);  
-}
-

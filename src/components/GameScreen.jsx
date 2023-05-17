@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { _ } from 'lodash'
+import {db} from "../firebaseConfig"
+import {updateDoc, doc, increment} from "firebase/firestore"
 
 export default function GameScreen(props) {
     const [roundNum, setRoundNum] = useState(1)    
 
+    // remove 2 random choices from remaining choices, and set them as new left and right to be displayed
     function getTwoChoices(array) {
         const index1 = Math.floor(Math.random() * array.length)
         let index2 = Math.floor(Math.random() * array.length)        
@@ -24,6 +27,7 @@ export default function GameScreen(props) {
         return [lChoice[0], rChoice[0]]
     }
 
+    // handle left button click to proceed to next round
     function handleLeft() {    
         if (props.gameSize === 2) {
             props.setGameActive(false)
@@ -38,10 +42,9 @@ export default function GameScreen(props) {
                 const [newLeft, newRight] = getTwoChoices(copyNewChoices)
                 props.setLeftChoice(newLeft)
                 props.setRightChoice(newRight)  
-                return newChoices
+                return []
             })
 
-            props.setNextChoices([])
             props.setGameSize(prevGameSize => prevGameSize/2)
             setRoundNum(1)   
             return        
@@ -55,6 +58,7 @@ export default function GameScreen(props) {
         props.setRightChoice(newRight) 
     }
 
+    // handle right button click to proceed to next round
     function handleRight() {
         if (props.gameSize === 2) {
             props.setGameActive(false)
@@ -69,10 +73,9 @@ export default function GameScreen(props) {
                 const [newLeft, newRight] = getTwoChoices(copyNewChoices)
                 props.setLeftChoice(newLeft)
                 props.setRightChoice(newRight)  
-                return newChoices
+                return []
             })
-
-            props.setNextChoices([])
+            
             props.setGameSize(prevGameSize => prevGameSize/2)
             setRoundNum(1)   
             return                      
@@ -84,6 +87,13 @@ export default function GameScreen(props) {
         const [newLeft, newRight] = getTwoChoices(copyCurrChoices)
         props.setLeftChoice(newLeft)
         props.setRightChoice(newRight)
+    }
+
+    async function updateWin(choiceId) {
+        const gameDoc = doc(db, "all_games", props.id)
+        await updateDoc(gameDoc, {
+            "choices[0]": increment(1)
+        })
     }
 
     return (

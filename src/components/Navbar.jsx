@@ -1,6 +1,6 @@
 export default function Navbar() {
     return (
-        <div className="nav">  
+        <nav>  
             <div className="nav-wrapper">         
                 <a href="/home" className="nav-btn-home">
                     <i className="btn-icon fa-solid fa-house fa-xs"/>Home
@@ -10,6 +10,6 @@ export default function Navbar() {
                 </a>           
                 <img className="logo" src="/logo.png" />           
             </div>
-        </div>
+        </nav>
     )
 }
