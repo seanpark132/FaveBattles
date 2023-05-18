@@ -4,7 +4,7 @@ export default function NoPage() {
     return (
         <>
             <Navbar />
-            <h1>Error 404: Page not found.</h1>
+            <h1 className="m-4">Error 404: Page not found.</h1>
         </>
     )
 }

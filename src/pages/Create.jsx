@@ -144,11 +144,12 @@ export default function Create() {
     return (
         <div>
             <Navbar />
-            <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <div className="upload-container">
+            <form className="grid" onSubmit={handleSubmit}>
+                <fieldset className="flex bg-teal-700">
+                    <div className="grid m-4 h-fit">
                         <input                
-                            type="file"
+                            type="file"     
+                            className="mt-1"                       
                             accept="image/png, image/jpeg, image/jpg, image/webp"
                             multiple={true}                                                     
                             onChange={event => {setInputtedImgs(event.target.files)}}
@@ -156,11 +157,11 @@ export default function Create() {
                         />                         
                         <button type="button" className="btn-upload" onClick={uploadImage}>Upload Images</button>
                     </div>   
-                    <div className="input-title-category-container">                            
+                    <div className="grid m-3 w-1/4">                            
                         <label>Game Title:</label>
                         <input                                     
                             type="text" 
-                            className="input-title"
+                            className="mb-4 p-1"
                             value={formData.title}
                             onChange={handleChange}
                             name="title"                                    
@@ -169,25 +170,25 @@ export default function Create() {
                         <Select 
                             isMulti
                             options={categoryOptions}                                    
-                            className="select-categories"                              
+                            className="mb-4 text-black"                              
                             value={selectedCategories}     
                             onChange={setSelectedCategories}                          
                             name="categories"                           
                         />                       
                     </div>
-                    <div className="description-container">
+                    <div className="ml-12 mt-3 w-1/3">
                         <label>Enter a description for your game:</label>
                         <br/>
                         <textarea 
-                            className="textarea-description"
+                            className="text-base mt-2 h-24 w-full"
                             value={formData.description}
                             onChange={handleChange}
                             name="description"   
                         />
                     </div>          
                 </fieldset>  
-                <div className="create-container">                                             
-                    <div className="uploaded-container">
+                <div className="grid m-4 justify-items-center">                                             
+                    <div className="w-full flex flex-wrap">
                         {imgsData && imgsData.map(imgData => {
                             return (
                                 <UploadedImg 

@@ -1,42 +1,32 @@
-form {
-    display: grid;
-}
-
 input {   
     font-weight: 600;
     font-size: 1rem;
 }
 
 label {
-    font-weight: 600;
-    font-size: 1.2rem;    
+    font-weight: 600;            
 }
 
 input::file-selector-button {
-    font-weight: 600;
+    font-weight: 600;    
     padding: 0.5rem 0.95rem;
     margin-right: 0.6rem;
     border: 1px solid grey;
     border-radius: 0.25rem;    
     transition: 0.5s;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    background-color: rgb(17 24 39);
 }
 
 input::file-selector-button:hover {
-    background-color: #770268;
+    background-color: #203acf;
     border: 1px solid #00cec9;
     color: rgb(172, 172, 172);  
 }
 
 button:hover {
-    background-color: #770268;       
-}
-
-fieldset {
-    display: flex;
-    margin: 0.125rem 0rem;
-    background-color: #056664;   
+    background-color: #203acf;     
+    border: 1px solid #00cec9;  
 }
 
 .btn-upload {
@@ -45,58 +35,10 @@ fieldset {
     font-size: 1rem;
     border: 1px solid grey;
     border-radius: 0.25rem;
-    width: fit-content;
-    height: fit-content;
+    width: fit-content;    
     margin-top: 1rem;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;    
-}
-
-.upload-container {
-    display:grid;     
-    margin: 1rem;
-    width: fit-content;
-    height: fit-content;
-}
-
-.input-title-category-container {
-    display:grid;
-    margin: 0.7rem;
-    width: 37.5rem;
-}
-
-.input-title {
-    margin-bottom: 1rem;
-    padding: 0.3rem;
-}
-
-.select-categories {
-    color: black;   
-    margin-bottom: 1rem;    
-}
-
-.description-container {
-    margin-left: 3rem;
-    margin-top: 0.7rem;
-}
-
-.textarea-description { 
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    height: 6rem;
-    width: 37.5rem;
-}
-
-.create-container { 
-    display: grid;
-    margin: 1rem 1.5rem;    
-    justify-items: center;    
-}
-
-.uploaded-container {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    color: rgba(255, 255, 255, 0.87);  
+    background-color: rgb(17 24 39);    
 }
 
 .uploaded-box {
@@ -108,52 +50,14 @@ fieldset {
     height: 10rem;
 }
 
-.btn-delete {
-    height: fit-content;
-    width: fit-content;           
-    padding: 0.35rem 0.4rem;    
-    background-color: red;
-    margin-left: auto;
-    border: 1px solid transparent;
-}
-
-.uploaded-img {
-    width: 12.5rem;
-    height: 10rem;
-    object-fit: cover;
-}
-
-.input-name-box {
-    margin: 1rem;    
-    width: 60%;
-}
-
-.input-name-label {
-    margin-top: 0rem;
-    margin-bottom: 1rem;
-}
-
-.input-name {
-    border: 2px solid blue;
-    border-radius: 0.35rem;
-    font-size: 1.25rem;
-    padding: 0.5rem;
-    width: 100%;
-}
-
-.x-icon {
-    color: white;
-}
-
 .btn-create-game {
     border: 1px solid transparent;
     border-radius: 0.5rem;
     padding: 0.6rem;
-    width: 50%;    
-    background-color: rgba(8, 204, 8, 0.822);
+    width: 50%;      
     color: rgba(255, 255, 255, 0.87);
+    background-color: green;
     font-size: 2rem;
     font-weight: 700;
     margin-top: 2rem;
-
 }

@@ -17,7 +17,7 @@ export default function Game(props) {
     return(
         <div>
             <Navbar />  
-            <div className="game-content">
+            <div className="flex justify-center text-center">
                 <FormBox                  
                     gameSize={gameSize}                    
                     setGameActive={setGameActive}

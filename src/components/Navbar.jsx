@@ -1,7 +1,7 @@
 export default function Navbar() {
     return (
         <nav>  
-            <div className="nav-wrapper">         
+            <div className="relative flex items-center">         
                 <a href="/home" className="nav-btn-home">
                     <i className="btn-icon fa-solid fa-house fa-xs"/>Home
                 </a>                     

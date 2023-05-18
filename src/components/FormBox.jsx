@@ -85,19 +85,19 @@ export default function FormBox(props) {
         )
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>{`[${props.mainCategory}] ${props.title} (${props.choices.length} choices)`}</h2>
-            <form className="form" onSubmit={handleSubmit}>
+        <div className='formbox-container'>
+            <h2 className='text-black m-3'>{`[${props.mainCategory}] ${props.title} (${props.choices.length} choices)`}</h2>
+            <form className="flex" onSubmit={handleSubmit}>
                 <select 
                     value={props.gameSize}
                     onChange={handleChange}
                     name='startingOptions'
-                    className='form-dropdown'
+                    className='formbox-dropdown'
                 >                    
                     {selectOptions} 
                 </select>
                 <br />
-                <button className='form-btn'>Start game with {props.gameSize} choices!</button>
+                <button className='formbox-btn'>Start game with {props.gameSize} choices!</button>
             </form>
         </div>
     )

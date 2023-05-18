@@ -96,15 +96,15 @@ export default function GameScreen(props) {
         })
     }
 
-    return (
-    <div className="gameScreen">
-        <h1>{`[${props.mainCategory}] ${props.title} : TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2})`}</h1>               
+    return (    
+    <div className="w-full">
+        <h1 className="m-4">{`[${props.mainCategory}] ${props.title} : TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2})`}</h1>               
         <div className="game-imgs-container">
-            <div className="img-container">
-                <img className="game-lImg" src={props.leftChoice.url} alt="left img"/>
+            <div className="h-full w-1/2">
+                <img className="h-full max-w-full object-contain float-right" src={props.leftChoice.url} alt="left img"/>
             </div>
-            <div className="img-container">
-               <img className="game-rImg" src={props.rightChoice.url} alt="right img"/>   
+            <div className="h-full w-1/2">
+                <img className="h-full max-w-full object-contain float-left" src={props.rightChoice.url} alt="right img"/>   
             </div>                            
         </div>
         <button className="gameScreen-btn" onClick={handleLeft}>{props.leftChoice.name}</button>

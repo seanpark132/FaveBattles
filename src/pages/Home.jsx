@@ -14,7 +14,7 @@ export default function Home(props) {
     return (
         <div>
             <Navbar />     
-            <div className="home-content">
+            <div className="m-5 flex flex-wrap">
                 {homeGameBoxes}
             </div>
         </div>
