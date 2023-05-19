@@ -17,18 +17,18 @@ export default function UploadedImg(props) {
         });
     };
 
-    function deleteBtn(event, fullName) {        
-        const imgRef = ref(storage, `all_games/${props.uid}/${fullName}`);
+    async function deleteBtn(event, fullName) {        
+        const imgRef = ref(storage, `all_games/${props.gameId}/${fullName}`);
 
-        deleteObject(imgRef).then(() => {
+        try {
+            deleteObject(imgRef);
             props.setImgsData(prev => {
                 return prev.filter((imgData) => imgData.fullName !== fullName );
             });
-
-            alert("Item deleted");            
-        }).catch((error) => {   
-            alert("An error has occurred");
-        });
+            alert("Choice deleted"); 
+        } catch(error) {
+            alert("An error has occurred")
+        };           
     };
 
     return (

@@ -16,9 +16,9 @@ export default function Create() {
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     // create a new id for the game, or if game creation was in progress, restore saved id from local storage
-    const storedUid = localStorage.getItem('create-uid');
-    const uid = storedUid ? storedUid : v4();
-    localStorage.setItem('create-uid', uid);
+    const storedGameId = localStorage.getItem('create-GameId');
+    const gameId = storedGameId ? storedGameId : v4();
+    localStorage.setItem('create-GameId', gameId);
     
     // handle upload image button, upload image(s) file to cloud, add new image data with URL to imgsData state
     async function uploadImage(event) {        
@@ -28,9 +28,8 @@ export default function Create() {
         };
                   
         for (const img of inputtedImgs) {
-            const id = v4();
-            const fullName = img.name + id;        
-            const imageRef = ref(storage, `all_games/${uid}/${fullName}`);         
+            const imgId = v4();                
+            const imageRef = ref(storage, `all_games/${gameId}/${img.name}`);         
             let uploaded = null;
             try {
                 uploaded = await uploadBytes(imageRef, img);
@@ -56,35 +55,29 @@ export default function Create() {
                 prev ? 
                 [...prev, 
                     {   
-                        id: id,
+                        id: imgId,
                         url:imgURL, 
-                        name:defaultName,
-                        fullName:fullName,
+                        name:defaultName,                        
                         numWins: 0,
                         numGames: 0,
-                        numFirst: 0,
-                        winPercent: 0,
-                        firstPercent: 0
+                        numFirst: 0                
                     }
                 ]
                 :[
                     {   
-                        id: id,
+                        id: imgId,
                         url:imgURL, 
-                        name:defaultName,
-                        fullName:fullName,
+                        name:defaultName,                        
                         numWins: 0,
                         numGames: 0,
-                        numFirst: 0,
-                        winPercent: 0,
-                        firstPercent: 0
+                        numFirst: 0       
                     }
                 ]
             );
         }                
         alert("Image(s) uploaded");
         setInputtedImgs(null);
-    }
+    };
 
     // handle form data change (title, description)
     function handleChange(event) {       
@@ -93,7 +86,7 @@ export default function Create() {
             return {
                 ...prevFormData,
                 [name]: value
-            }
+            };
         });
     };
 
@@ -101,17 +94,16 @@ export default function Create() {
     async function handleSubmit(event) {
         event.preventDefault();        
         let fullFormData = _.cloneDeep(formData);
-        fullFormData.id = uid;
+        fullFormData.id = gameId;
         fullFormData.choices = imgsData;
         fullFormData.categories = selectedCategories;
         fullFormData.mainCategory = selectedCategories[0].label;
         fullFormData.numPlays = 0;
-        localStorage.removeItem('create-uid');
+        localStorage.removeItem('create-GameId');
         localStorage.removeItem('create-imgsData');
-        await setDoc(doc(db, "all_games", uid), fullFormData);
-        alert("Game created!");
-        
-    }
+        await setDoc(doc(db, "all_games", gameId), fullFormData);
+        alert("Game created!");        
+    };
 
     useEffect(() => {
         const storedImgsData = localStorage.getItem('create-imgsData');            
@@ -193,11 +185,11 @@ export default function Create() {
                                 <UploadedImg 
                                 key={imgData.id} 
                                 id={imgData.id}                          
-                                uid={uid}   
+                                gameId={gameId}   
                                 setImgsData={setImgsData}                           
                                 {...imgData}    
                                 />                             
-                            )
+                            );
                         })}
                     </div>  
                     <button
