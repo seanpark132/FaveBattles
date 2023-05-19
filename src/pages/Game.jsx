@@ -39,8 +39,7 @@ export default function Game(props) {
                                     leftChoice={leftChoice}
                                     rightChoice={rightChoice}
                                     setLeftChoice={setLeftChoice}
-                                    setRightChoice={setRightChoice}      
-                                    winner={winner}
+                                    setRightChoice={setRightChoice}                                    
                                     setWinner={setWinner}                                                              
                                     {...props.gameData}
                                 />
