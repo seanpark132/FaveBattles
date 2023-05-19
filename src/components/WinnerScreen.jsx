@@ -6,5 +6,5 @@ export default function WinnerScreen(props) {
                 <img className="h-full w-full object-contain" src={props.winner.url} alt="winnerImg"/>   
             </div>              
          </div>
-    )
-}
+    );
+};

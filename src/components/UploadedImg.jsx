@@ -1,33 +1,35 @@
 // box component for each img the user uploaded in the Create page
 
-import { storage } from "../firebaseConfig"
-import { ref, deleteObject } from "firebase/storage"
+import { storage } from "../firebaseConfig";
+import { ref, deleteObject } from "firebase/storage";
+import { _ } from 'lodash';
 
 export default function UploadedImg(props) { 
 
     function handleNameChange(event) {
-        props.setImgsData(prev => {                     
-            let newArray = JSON.parse(JSON.stringify(prev))
-            const imgData = newArray.find(obj => obj.id === props.id)
-            const index = newArray.findIndex(obj => obj.id === props.id)
-            const newData = {...imgData, name:event.target.value}
-            newArray[index] = newData            
-            return newArray
-        })
-    }
+        props.setImgsData(prev => {   
+            let newArray = _.cloneDeep(prev);
+            const imgData = newArray.find(obj => obj.id === props.id);
+            const index = newArray.findIndex(obj => obj.id === props.id);
+            const newData = {...imgData, name:event.target.value};
+            newArray[index] = newData;          
+            return newArray;
+        });
+    };
 
     function deleteBtn(event, fullName) {        
-        const imgRef = ref(storage, `all_games/${props.uid}/${fullName}`)
+        const imgRef = ref(storage, `all_games/${props.uid}/${fullName}`);
 
         deleteObject(imgRef).then(() => {
             props.setImgsData(prev => {
-                return prev.filter((imgData) => imgData.fullName !== fullName )
-            })
-            alert("Item deleted")            
+                return prev.filter((imgData) => imgData.fullName !== fullName );
+            });
+
+            alert("Item deleted");            
         }).catch((error) => {   
-            alert("An error has occurred")
-        })
-    }
+            alert("An error has occurred");
+        });
+    };
 
     return (
         <div className="uploaded-box">
@@ -44,5 +46,5 @@ export default function UploadedImg(props) {
                 <i className="fa-solid fa-xmark fa-lg text-white"></i>
             </button>
         </div>  
-    )
-}
+    );
+};

@@ -11,5 +11,5 @@ export default function Navbar() {
                 <img className="logo" src="/logo.png" />           
             </div>
         </nav>
-    )
-}
+    );
+};

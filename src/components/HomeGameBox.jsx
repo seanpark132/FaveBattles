@@ -20,5 +20,5 @@ export default function HomeGameBox(props) {
                 </a> */}
             </div>
         </div>
-    )
-}
+    );
+};

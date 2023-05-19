@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar"
-import HomeGameBox from "../components/HomeGameBox"
-import "../css/Home.css"
+import Navbar from "../components/Navbar";
+import HomeGameBox from "../components/HomeGameBox";
+import "../css/Home.css";
 
 export default function Home(props) {
 
@@ -9,7 +9,7 @@ export default function Home(props) {
             key={data.id}
             {...data}
         />
-        )
+    );
 
     return (
         <div>
@@ -18,5 +18,5 @@ export default function Home(props) {
                 {homeGameBoxes}
             </div>
         </div>
-    )
-}
+    );
+};

@@ -1,18 +1,18 @@
-import {useState} from "react"
-import Navbar from "../components/Navbar"
-import FormBox from "../components/FormBox"
-import GameScreen from "../components/GameScreen"
-import WinnerScreen from "../components/WinnerScreen"
-import "../css/Game.css"
+import {useState} from "react";
+import Navbar from "../components/Navbar";
+import FormBox from "../components/FormBox";
+import GameScreen from "../components/GameScreen";
+import WinnerScreen from "../components/WinnerScreen";
+import "../css/Game.css";
 
 export default function Game(props) {
-    const [gameSize, setGameSize] = useState(4)
-    const [gameActive, setGameActive] = useState(false)
-    const [currChoices, setCurrChoices] = useState(props.gameData.choices)
-    const [nextChoices, setNextChoices] = useState([])
-    const [leftChoice, setLeftChoice] = useState({})
-    const [rightChoice, setRightChoice] = useState({})   
-    const [winner, setWinner] = useState(null)
+    const [gameSize, setGameSize] = useState(4);
+    const [gameActive, setGameActive] = useState(false);
+    const [currChoices, setCurrChoices] = useState(props.gameData.choices);
+    const [nextChoices, setNextChoices] = useState([]);
+    const [leftChoice, setLeftChoice] = useState({});
+    const [rightChoice, setRightChoice] = useState({});
+    const [winner, setWinner] = useState(null);
 
     return(
         <div>
@@ -52,5 +52,5 @@ export default function Game(props) {
                 : null}            
             </div>                                              
         </div>
-    )    
-}
+    );    
+};
