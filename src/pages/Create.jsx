@@ -28,8 +28,8 @@ export default function Create() {
         };
                   
         for (const img of inputtedImgs) {
-            const imgId = v4();                
-            const imageRef = ref(storage, `all_games/${gameId}/${img.name}`);         
+            const imgId = v4();                            
+            const imageRef = ref(storage, `all_games/${gameId}/${imgId}`);         
             let uploaded = null;
             try {
                 uploaded = await uploadBytes(imageRef, img);
@@ -184,7 +184,7 @@ export default function Create() {
                             return (
                                 <UploadedImg 
                                 key={imgData.id} 
-                                id={imgData.id}                          
+                                imgId={imgData.id}                          
                                 gameId={gameId}   
                                 setImgsData={setImgsData}                           
                                 {...imgData}    

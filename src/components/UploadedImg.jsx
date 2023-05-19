@@ -9,21 +9,21 @@ export default function UploadedImg(props) {
     function handleNameChange(event) {
         props.setImgsData(prev => {   
             let newArray = _.cloneDeep(prev);
-            const imgData = newArray.find(obj => obj.id === props.id);
-            const index = newArray.findIndex(obj => obj.id === props.id);
+            const imgData = newArray.find(obj => obj.id === props.imgId);
+            const index = newArray.findIndex(obj => obj.id === props.imgId);
             const newData = {...imgData, name:event.target.value};
             newArray[index] = newData;          
             return newArray;
         });
     };
 
-    async function deleteBtn(event, fullName) {        
-        const imgRef = ref(storage, `all_games/${props.gameId}/${fullName}`);
+    async function deleteBtn(event, imgId) {        
+        const imgRef = ref(storage, `all_games/${props.gameId}/${imgId}`);
 
         try {
-            deleteObject(imgRef);
+            await deleteObject(imgRef);
             props.setImgsData(prev => {
-                return prev.filter((imgData) => imgData.fullName !== fullName );
+                return prev.filter((imgData) => imgData.id !== imgId );
             });
             alert("Choice deleted"); 
         } catch(error) {
@@ -42,7 +42,7 @@ export default function UploadedImg(props) {
                     onChange={handleNameChange} value={props.name}
                 />
             </div>
-            <button type="button" className="h-fit p-1.5 bg-red-500 ml-auto" onClick={(event) => deleteBtn(event, props.fullName)}>
+            <button type="button" className="h-fit p-1.5 bg-red-500 ml-auto" onClick={(event) => deleteBtn(event, props.imgId)}>
                 <i className="fa-solid fa-xmark fa-lg text-white"></i>
             </button>
         </div>  
