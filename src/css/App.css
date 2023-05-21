@@ -50,8 +50,7 @@ nav {
   color: white;
 }
 
-.logo {
-  height: 1.75rem;
+.centered {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
