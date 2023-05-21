@@ -8,7 +8,7 @@ export default function Navbar() {
                 <a href="/create" className="nav-btn-create">
                     <i className="btn-icon fa-solid fa-plus fa-xs"></i>Create a new game
                 </a>           
-                <img className="logo" src="/logo.png" />           
+                <img className="centered h-7" src="/logo.png" />           
             </div>
         </nav>
     );
