@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import { _ } from 'lodash';
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { db } from "../firebaseConfig"
 
 export default function FormBox(props) {
     const [visible, setVisible] = useState(true);
@@ -47,23 +49,28 @@ export default function FormBox(props) {
         return randomChoices;
     };
 
-    function handleChange(e) {
+    function handleGameSizeChange(e) {
         const {name, value} = e.target;
         props.setGameSize(value);
     };
     
-    function handleSubmit(e) {
+    async function handleGameStart(e) {
         e.preventDefault();
         setVisible(false);
-        props.setGameActive(true);     
-        const copyCurrChoices = _.cloneDeep(props.currChoices);    
+        props.setGameActive(true);   
 
+        const copyCurrChoices = _.cloneDeep(props.currChoices);    
         const gameSizedChoices = props.gameSize === copyCurrChoices.length ? 
             copyCurrChoices: getRandomChoices(copyCurrChoices, props.gameSize);
 
         const [initialLeft, initialRight] = getTwoChoices(gameSizedChoices);
         props.setLeftChoice(initialLeft);
         props.setRightChoice(initialRight);
+
+        const gameDocRef = doc(db, "all_games", props.gameData.id);
+        await updateDoc(gameDocRef, {
+            numStarts: increment(1)
+        });
     };
   
     // function to create the dropdown options based on the total number of choices of the game (ex: if 65 choices, 4, 8, 16, 32, 64 will be options)
@@ -78,7 +85,7 @@ export default function FormBox(props) {
         return result;
     };
 
-    const totalNumChoices = props.choices.length;
+    const totalNumChoices = props.gameData.choices.length;
     const choicesArray = generateChoicesArray(totalNumChoices);
     const selectOptions = choicesArray.map(numChoices =>
         <option key={numChoices} value={numChoices}>{numChoices} choices</option>
@@ -86,11 +93,11 @@ export default function FormBox(props) {
 
     return (
         <div className='formbox-container'>
-            <h2 className='text-black m-3'>{`[${props.mainCategory}] ${props.title} (${props.choices.length} choices)`}</h2>
-            <form className="flex" onSubmit={handleSubmit}>
+            <h2 className='text-black m-3'>{`[${props.gameData.mainCategory}] ${props.gameData.title} (${props.gameData.choices.length} choices)`}</h2>
+            <form className="flex" onSubmit={handleGameStart}>
                 <select 
                     value={props.gameSize}
-                    onChange={handleChange}
+                    onChange={handleGameSizeChange}
                     name='startingOptions'
                     className='formbox-dropdown'
                 >                    

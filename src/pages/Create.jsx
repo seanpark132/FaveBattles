@@ -98,7 +98,8 @@ export default function Create() {
         fullFormData.choices = imgsData;
         fullFormData.categories = selectedCategories;
         fullFormData.mainCategory = selectedCategories[0].label;
-        fullFormData.numPlays = 0;
+        fullFormData.numStarts = 0;
+        fullFormData.numCompletes = 0;
         localStorage.removeItem('create-GameId');
         localStorage.removeItem('create-imgsData');
         await setDoc(doc(db, "all_games", gameId), fullFormData);

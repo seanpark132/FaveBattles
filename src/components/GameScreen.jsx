@@ -29,7 +29,7 @@ export default function GameScreen(props) {
     
     // counter function for choice stats (numGames, numWins, numFirst) when choice is clicked
     async function updateChoiceStats(winId, loseId, isFinalRound) {
-        const gameDocRef = doc(db, "all_games", props.id);
+        const gameDocRef = doc(db, "all_games", props.gameData.id);
         const gameDocSnap = await getDoc(gameDocRef);
         const gameDocData = gameDocSnap.data();
         
@@ -41,9 +41,10 @@ export default function GameScreen(props) {
 
         if (isFinalRound) {
             gameDocData.choices[winIndex].numFirst += 1; 
+            gameDocData.numCompletes += 1;
         }
 
-        await setDoc(doc(db, "all_games", props.id), gameDocData);
+        await setDoc(doc(db, "all_games", props.gameData.id), gameDocData);
     };
 
     // handle left button click to proceed to next round
@@ -121,7 +122,7 @@ export default function GameScreen(props) {
 
     return (    
     <div className="w-full">
-        <h1 className="m-4">{`[${props.mainCategory}] ${props.title} : TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2})`}</h1>               
+        <h1 className="m-4">{`[${props.gameData.mainCategory}] ${props.gameData.title} : TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2})`}</h1>               
         <div className="game-imgs-container">
             <div className="h-full w-1/2">
                 <img className="h-full max-w-full object-contain float-right" src={props.leftChoice.url} alt="left img"/>

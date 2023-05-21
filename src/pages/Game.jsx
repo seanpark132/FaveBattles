@@ -25,8 +25,8 @@ export default function Game(props) {
                     currChoices={currChoices}
                     setCurrChoices={setCurrChoices}
                     setLeftChoice={setLeftChoice}
-                    setRightChoice={setRightChoice}                    
-                    {...props.gameData}
+                    setRightChoice={setRightChoice}       
+                    gameData={props.gameData}                  
                 />               
                 {gameActive ? <GameScreen                                                   
                                     gameSize={gameSize}                                 
@@ -41,7 +41,7 @@ export default function Game(props) {
                                     setLeftChoice={setLeftChoice}
                                     setRightChoice={setRightChoice}                                    
                                     setWinner={setWinner}                                                              
-                                    {...props.gameData}
+                                    gameData={props.gameData}
                                 />
                 : null}   
                 {winner ? <WinnerScreen
