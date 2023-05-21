@@ -3,6 +3,7 @@
 import { storage } from "../firebaseConfig";
 import { ref, deleteObject } from "firebase/storage";
 import { _ } from 'lodash';
+import { Image } from "primereact/image"
 
 export default function UploadedImg(props) { 
 
@@ -33,7 +34,7 @@ export default function UploadedImg(props) {
 
     return (
         <div className="uploaded-box">
-            <img className="w-48 h-40 object-cover" src={props.url} />
+            <Image src={props.url} alt="choice-img" imageClassName="uploaded-img" preview />
             <div className="m-4 w-3/5">
                 <h3 className="mt-0 mb-4">Name of choice:</h3>
                 <input 
