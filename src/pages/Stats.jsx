@@ -11,6 +11,7 @@ import { ProgressBar } from "primereact/progressbar"
 import "primereact/resources/themes/lara-light-indigo/theme.css";     
 import "primereact/resources/primereact.min.css";   
 import "../css/Stats.css"
+import "primereact/resources/themes/arya-purple/theme.css"
 
 export default function Stats(props) {
     const [choicesData, setChoicesData] = useState([]);
@@ -68,7 +69,7 @@ export default function Stats(props) {
 
     const renderHeader = () => {
         return (
-            <div className="h-12 m-4 flex">
+            <div className="h-12 m-4 flex items-center">
                 <span className="p-input-icon-left">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <InputText 
@@ -80,7 +81,7 @@ export default function Stats(props) {
                         placeholder="Search by Name"                    
                     />
                 </span>                  
-                <h2 className="centered">[{props.gameData.mainCategory}] {props.gameData.title}</h2>         
+                <h2 className="text-white centered">[{props.gameData.mainCategory}] {props.gameData.title}</h2>         
         </div>
         )
     };
@@ -112,7 +113,8 @@ export default function Stats(props) {
     return (
         <div>
             <Navbar />       
-            <DataTable 
+            <DataTable     
+                tableStyle={{fontSize:"1.5rem"}}
                 value={choicesData} 
                 sortMode="multiple" 
                 filters={filters}             
@@ -124,10 +126,10 @@ export default function Stats(props) {
                 header={renderHeader}
             >
                 <Column className="font-bold" field="rank" header="Rank" sortable />
-                <Column className="font-bold" field="name" header="Name" sortable />
-                <Column field="url" header="Image" body={imageBody} />
-                <Column field="firstPercent" header="Game Win %" body={firstPercentBody} sortable />
-                <Column field="winPercent" header="Round Win %" body={winPercentBody} sortable />            
+                <Column className="font-bold" field="name" header="Name" style={{width: "30rem"}} sortable />
+                <Column field="url" header="Image" body={imageBody} style={{width:"25rem"}}/>
+                <Column field="firstPercent" header="Game Win %" body={firstPercentBody} style={{width: "24rem"}} sortable />
+                <Column field="winPercent" header="Round Win %" body={winPercentBody} style={{width: "24rem"}} sortable />            
             </DataTable>
         </div>   
     );
