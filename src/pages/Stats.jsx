@@ -43,7 +43,15 @@ export default function Stats(props) {
                 };                       
             });
             
-            docChoicesData.sort((a, b) => b.firstPercent - a.firstPercent);    
+            docChoicesData.sort((a, b) => {
+                if (b.firstPercent === a.firstPercent) {
+                    return b.winPercent - a.winPercent
+                };
+
+                return b.firstPercent - a.firstPercent
+            });    
+
+
             let rank = 1
             docChoicesData.forEach(choice => {
                 choice.rank = rank
