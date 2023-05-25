@@ -1,7 +1,7 @@
 .home-box {
-    width: 24rem;
+    width: 22.25rem;
     border: 0.125rem solid rgb(163, 163, 163);  
-    margin: 0.625rem;  
+    margin: 0.625rem; 
     display: flex;
     flex-direction: column;
 }
