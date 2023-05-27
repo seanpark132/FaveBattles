@@ -29,6 +29,25 @@ button:hover {
     border: 1px solid #00cec9;  
 }
 
+.create-landing-choose-btn {
+    margin: 2rem;
+    width: 45%;
+    height: 41rem;
+    text-align: center;
+    border: 2px solid white;
+    border-radius: 8px;
+}
+
+.create-landing-choose-btn:hover {
+    color: #00cec9;
+    border: 2px solid #00cec9 ;
+}
+
+.create-landing-title {
+    margin: 3rem 0;
+    font-size: 3rem;
+}
+
 .btn-upload {
     font-weight: 600;
     padding: 0.5rem;
@@ -41,7 +60,7 @@ button:hover {
     background-color: rgb(17 24 39);    
 }
 
-.uploaded-box {
+.uploaded-img-box {
     display: flex;
     margin: 1rem 2rem;    
     border: 2px solid rgb(163, 163, 163); 
@@ -71,4 +90,27 @@ button:hover {
 
 .p-component-overlay {
     top: 2.75rem;
+}
+
+/* CreateVideo specific CSS */
+
+.btn-video-add {
+    font-weight: 600;
+    padding: 0.5rem 7.625rem;
+    font-size: 1rem;
+    border: 1px solid grey;
+    border-radius: 0.25rem;  
+    width: fit-content;       
+    margin-left: 1rem;
+    color: rgba(255, 255, 255, 0.87);  
+    background-color: rgb(17 24 39);    
+}
+
+.uploaded-video-box {
+    display: flex;
+    margin: 1rem 1rem;    
+    border: 2px solid rgb(163, 163, 163); 
+    background-color: rgb(73, 73, 73);
+    width: 57rem;
+    height: 17.125rem;
 }

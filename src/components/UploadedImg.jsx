@@ -8,23 +8,23 @@ import { Image } from "primereact/image"
 export default function UploadedImg(props) { 
 
     function handleNameChange(event) {
-        props.setImgsData(prev => {   
+        props.setChoicesData(prev => {   
             let newArray = _.cloneDeep(prev);
-            const imgData = newArray.find(obj => obj.id === props.imgId);
-            const index = newArray.findIndex(obj => obj.id === props.imgId);
+            const imgData = newArray.find(obj => obj.id === props.choiceId);
+            const index = newArray.findIndex(obj => obj.id === props.choiceId);
             const newData = {...imgData, name:event.target.value};
             newArray[index] = newData;          
             return newArray;
         });
     };
 
-    async function deleteBtn(event, imgId) {        
-        const imgRef = ref(storage, `all_games/${props.gameId}/${imgId}`);
+    async function deleteBtn(event, choiceId) {        
+        const imgRef = ref(storage, `all_games/${props.gameId}/${choiceId}`);
 
         try {
             await deleteObject(imgRef);
-            props.setImgsData(prev => {
-                return prev.filter((imgData) => imgData.id !== imgId );
+            props.setChoicesData(prev => {
+                return prev.filter((choiceData) => choiceData.id !== choiceId );
             });
             alert("Choice deleted"); 
         } catch(error) {
@@ -33,7 +33,7 @@ export default function UploadedImg(props) {
     };
 
     return (
-        <div className="uploaded-box">
+        <div className="uploaded-img-box">
             <Image src={props.url} alt="choice-img" imageClassName="uploaded-img" preview />
             <div className="m-4 w-3/5">
                 <h3 className="mt-0 mb-4">Name of choice:</h3>
@@ -43,7 +43,7 @@ export default function UploadedImg(props) {
                     onChange={handleNameChange} value={props.name}
                 />
             </div>
-            <button type="button" className="h-fit p-1.5 bg-red-500 ml-auto" onClick={(event) => deleteBtn(event, props.imgId)}>
+            <button type="button" className="h-fit p-1.5 bg-red-500 ml-auto" onClick={(event) => deleteBtn(event, props.choiceId)}>
                 <i className="fa-solid fa-xmark fa-lg text-white"></i>
             </button>
         </div>  

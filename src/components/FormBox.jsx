@@ -99,6 +99,7 @@ export default function FormBox(props) {
                     value={props.gameSize}
                     onChange={handleGameSizeChange}
                     name='startingOptions'
+                    id='startingOptions'
                     className='formbox-dropdown'
                 >                    
                     {selectOptions} 

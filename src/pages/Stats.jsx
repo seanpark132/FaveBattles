@@ -14,8 +14,8 @@ import "../css/Stats.css"
 import "primereact/resources/themes/arya-purple/theme.css"
 
 export default function Stats(props) {
-    const [choicesData, setChoicesData] = useState([]);
-    const [isDataFetched, setIsDataFetched] = useState(false)   
+    const [choicesData, setChoicesData] = useState([]); 
+    const [isTypeYoutube, setIsTypeYoutube] = useState(false)
     const [filters, setFilters] = useState({
         global: {value: null, matchMode: FilterMatchMode.CONTAINS }
     });
@@ -23,7 +23,11 @@ export default function Stats(props) {
     
     // get choicesData array for the specified gameId, calculate and add first% and win% for each choice, 
     // sort choices array by first%, set choicesData state to sorted array
-    useEffect(() => {                
+    useEffect(() => {   
+        if (props.gameData.gameType === "video-youtube") {
+            setIsTypeYoutube(true)
+        }
+        
         const gameDocRef = doc(db, "all_games", props.gameData.id);
         getDoc(gameDocRef).then(res => {
             let gameNumCompletes = res.data().numCompletes; 
@@ -58,20 +62,15 @@ export default function Stats(props) {
                 choice.rank = rank
                 rank += 1
             })        
-            setChoicesData(docChoicesData);
-            setIsDataFetched(true)
+            setChoicesData(docChoicesData);           
         });   
     }, []);
-
-    useEffect(() => {
-        console.log(choicesData)
-    }, [choicesData])
 
     const renderHeader = () => {
         return (
             <div className="h-12 m-4 flex items-center">
                 <span className="p-input-icon-left">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i className="fa-solid fa-magnifying-glass"></i>
                     <InputText 
                         onInput={(e) => 
                             setFilters({
@@ -83,7 +82,7 @@ export default function Stats(props) {
                 </span>                  
                 <h2 className="text-white centered">[{props.gameData.mainCategory}] {props.gameData.title}</h2>         
         </div>
-        )
+        );
     };
 
     const imageBody = (rowData) => {
@@ -92,13 +91,29 @@ export default function Stats(props) {
         )
     };
 
+    const youtubeBody = (rowData) => {
+        return (
+            <iframe         
+                width="320"
+                height="180"
+                className=""          
+                src={rowData.embedUrl}
+                frameBorder="0" 
+                title="YouTube video player"                 
+                allow="accelerometer;"                                
+                allowFullScreen               
+            >                
+            </iframe> 
+        );
+    };
+
     const firstPercentBody = (rowData) => {
         return (
             <div className="text-center mb-6">
                 <p>{rowData.firstPercent}%</p>
                 <ProgressBar value={rowData.firstPercent} showValue={false}></ProgressBar> 
             </div>        
-        )  
+        );
     };
 
     const winPercentBody = (rowData) => {
@@ -107,7 +122,7 @@ export default function Stats(props) {
                 <p>{rowData.winPercent}%</p>
                 <ProgressBar value={rowData.winPercent} showValue={false}></ProgressBar> 
             </div>        
-        )  
+        );
     };
 
     return (
@@ -127,7 +142,8 @@ export default function Stats(props) {
             >
                 <Column className="font-bold" field="rank" header="Rank" sortable />
                 <Column className="font-bold" field="name" header="Name" style={{width: "30rem"}} sortable />
-                <Column field="url" header="Image" body={imageBody} style={{width:"25rem"}}/>
+                {isTypeYoutube ? <Column field="embedUrl" header="Video" body={youtubeBody} style={{width:"25rem"}}/>
+                :<Column field="url" header="Image" body={imageBody} style={{width:"25rem"}}/> }
                 <Column field="firstPercent" header="Game Win %" body={firstPercentBody} style={{width: "24rem"}} sortable />
                 <Column field="winPercent" header="Round Win %" body={winPercentBody} style={{width: "24rem"}} sortable />            
             </DataTable>

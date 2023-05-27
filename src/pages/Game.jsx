@@ -45,6 +45,7 @@ export default function Game(props) {
                                 />
                 : null}   
                 {winner ? <WinnerScreen
+                                gameType={props.gameData.gameType}
                                 winner={winner}
                           /> 
                 

@@ -47,5 +47,10 @@
 
 .winner-img-container {
     width: 44rem;
-    height: 44rem;  
+    height: 44rem;
 }
+
+.winner-video-container {
+    width: 60rem;
+    height: 33.75rem;
+}   

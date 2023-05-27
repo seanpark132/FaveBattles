@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { _ } from 'lodash';
-import {db} from "../firebaseConfig";
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import { doc, getDoc, setDoc}  from "firebase/firestore";
+import GameScreenImage from "./GameScreenImage"
+import GameScreenYoutube from "./GameScreenYoutube"
 
 export default function GameScreen(props) {
     const [roundNum, setRoundNum] = useState(1);    
-
+    
     // remove 2 random choices from remaining choices, and set them as new left and right to be displayed
     function getTwoChoices(array) {
         const index1 = Math.floor(Math.random() * array.length);
@@ -66,11 +68,9 @@ export default function GameScreen(props) {
                 props.setRightChoice(newRight);  
                 return [];
             });
-
             props.setGameSize(prevGameSize => prevGameSize/2);
-            setRoundNum(1);       
+            setRoundNum(1);  
 
-        // any other round
         } else {
             setRoundNum(prevRoundNum => prevRoundNum + 1);
             props.setNextChoices(prev => [...prev, props.leftChoice]);
@@ -79,9 +79,7 @@ export default function GameScreen(props) {
             props.setLeftChoice(newLeft);
             props.setRightChoice(newRight);
         }; 
-
-        updateChoiceStats(props.leftChoice.id, props.rightChoice.id, isFinalRound);
-                
+        updateChoiceStats(props.leftChoice.id, props.rightChoice.id, isFinalRound);                
     };
 
     // handle right button click to proceed to next round
@@ -106,8 +104,7 @@ export default function GameScreen(props) {
             
             props.setGameSize(prevGameSize => prevGameSize/2);
             setRoundNum(1);            
-        
-        // any other round
+
         } else {
             setRoundNum(prevRoundNum => prevRoundNum + 1);      
             props.setNextChoices(prev => [...prev, props.rightChoice]);
@@ -116,23 +113,17 @@ export default function GameScreen(props) {
             props.setLeftChoice(newLeft);
             props.setRightChoice(newRight);
         };          
-
         updateChoiceStats(props.rightChoice.id, props.leftChoice.id, isFinalRound);
     };
-
+      
     return (    
-    <div className="w-full">
-        <h1 className="m-4">{`[${props.gameData.mainCategory}] ${props.gameData.title} : TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2})`}</h1>               
-        <div className="game-imgs-container">
-            <div className="h-full w-1/2">
-                <img className="h-full max-w-full object-contain float-right" src={props.leftChoice.url} alt="left img"/>
-            </div>
-            <div className="h-full w-1/2">
-                <img className="h-full max-w-full object-contain float-left" src={props.rightChoice.url} alt="right img"/>   
-            </div>                            
+        <div className="w-full">
+            <h1 className="m-4">{`[${props.gameData.mainCategory}] ${props.gameData.title} : TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2})`}</h1>              
+            {props.gameData.gameType === "image" ? 
+            <GameScreenImage leftUrl={props.leftChoice.url} rightUrl={props.rightChoice.url} /> 
+            :<GameScreenYoutube leftEmbedUrl={props.leftChoice.embedUrl} rightEmbedUrl={props.rightChoice.embedUrl} />}
+            <button className="gameScreen-btn" onClick={handleLeft}>{props.leftChoice.name}</button>
+            <button className="gameScreen-btn" onClick={handleRight}>{props.rightChoice.name}</button>
         </div>
-        <button className="gameScreen-btn" onClick={handleLeft}>{props.leftChoice.name}</button>
-        <button className="gameScreen-btn" onClick={handleRight}>{props.rightChoice.name}</button>
-    </div>
     );
 };
