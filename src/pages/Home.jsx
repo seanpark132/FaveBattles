@@ -4,10 +4,10 @@ import "../css/Home.css";
 
 export default function Home(props) {
 
-    const homeGameBoxes = props.gameData.map(data =>
+    const homeGameBoxes = props.allGameData.map(gameData =>
         <HomeGameBox
-            key={data.id}
-            {...data}
+            key={gameData.id}
+            {...gameData}
         />
     );
 

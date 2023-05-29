@@ -10,6 +10,8 @@ import Navbar from "../components/Navbar";
 import UploadedImg from "../components/UploadedImg";
 
 export default function CreateImg() {
+    const FIRESTORE_COLLECTION_NAME = "all_games"
+
     const [inputtedImgs, setInputtedImgs] = useState([]);
     const [choicesData, setChoicesData] = useState(null);
     const [formData, setFormData] = useState({});
@@ -108,7 +110,7 @@ export default function CreateImg() {
         fullFormData.gameType = "image"
         localStorage.removeItem('create-img-gameId');
         localStorage.removeItem('create-img-choicesData');
-        await setDoc(doc(db, "all_games", gameId), fullFormData);
+        await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
         alert("Game created!");        
     };
 
@@ -150,6 +152,7 @@ export default function CreateImg() {
                 name="imgUpload"
             />                         
             <button type="button" className="btn-upload" onClick={uploadImage}>Upload Images</button>
+            <p className="ml-2 mt-2"><em>Accepts .png, .jpg, .jpeg, .webp image types</em></p>
         </section>;
 
     return (

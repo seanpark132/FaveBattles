@@ -37,7 +37,7 @@ export default function HomeGameBox(props) {
                     <i className="btn-icon fa-solid fa-play fa-xs"></i>Start!
                 </a>            
                 <a href={`/stats/${props.id}`} target="_blank" className="box-btn bg-purple-900">
-                    <i className="btn-icon fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>Game Stats
+                    <i className="btn-icon fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>Rankings
                 </a>
             </div>
         </div>

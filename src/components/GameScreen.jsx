@@ -6,10 +6,11 @@ import GameScreenImage from "./GameScreenImage"
 import GameScreenYoutube from "./GameScreenYoutube"
 
 export default function GameScreen(props) {
-    const [roundNum, setRoundNum] = useState(1);    
+    const [roundNum, setRoundNum] = useState(1);   
+    const FIRESTORE_COLLECTION_NAME = "all_games"; 
     
     // remove 2 random choices from remaining choices, and set them as new left and right to be displayed
-    function getTwoChoices(array) {
+    function getTwoChoicesFromCurrentChoices(array) {
         const index1 = Math.floor(Math.random() * array.length);
         let index2 = Math.floor(Math.random() * array.length);      
         while (index2 === index1) {
@@ -31,7 +32,7 @@ export default function GameScreen(props) {
     
     // counter function for choice stats (numGames, numWins, numFirst) when choice is clicked
     async function updateChoiceStats(winId, loseId, isFinalRound) {
-        const gameDocRef = doc(db, "all_games", props.gameData.id);
+        const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id);
         const gameDocSnap = await getDoc(gameDocRef);
         const gameDocData = gameDocSnap.data();
         
@@ -46,16 +47,16 @@ export default function GameScreen(props) {
             gameDocData.numCompletes += 1;
         }
 
-        await setDoc(doc(db, "all_games", props.gameData.id), gameDocData);
+        await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id), gameDocData);
     };
-
-    // handle left button click to proceed to next round
+   
     function handleLeft() {  
         let isFinalRound = false;
         // final round  
         if (props.gameSize === 2) {
             props.setGameActive(false);
             props.setWinner(props.leftChoice);
+            props.setGameCompleted(true);
             isFinalRound = true; 
         
         // last round of a bracket (ex. round 4/4 or round 8/8)
@@ -63,7 +64,7 @@ export default function GameScreen(props) {
             props.setNextChoices(prev => [...prev, props.leftChoice]);
             props.setNextChoices(newChoices => {                
                 const copyNewChoices = _.cloneDeep(newChoices);                
-                const [newLeft, newRight] = getTwoChoices(copyNewChoices);
+                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices);
                 props.setLeftChoice(newLeft);
                 props.setRightChoice(newRight);  
                 return [];
@@ -75,20 +76,21 @@ export default function GameScreen(props) {
             setRoundNum(prevRoundNum => prevRoundNum + 1);
             props.setNextChoices(prev => [...prev, props.leftChoice]);
             const copyCurrChoices = _.cloneDeep(props.currChoices);
-            const [newLeft, newRight] = getTwoChoices(copyCurrChoices);
+            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices);
             props.setLeftChoice(newLeft);
             props.setRightChoice(newRight);
         }; 
+
         updateChoiceStats(props.leftChoice.id, props.rightChoice.id, isFinalRound);                
     };
-
-    // handle right button click to proceed to next round
+    
     function handleRight() {
         let isFinalRound = false;
         // final round
         if (props.gameSize === 2) {
             props.setGameActive(false);
-            props.setWinner(props.rightChoice);            
+            props.setWinner(props.rightChoice);  
+            props.setGameCompleted(true);        
             isFinalRound = true;
         
         // last round of a bracket (ex. round 4/4 or round 8/8)
@@ -96,7 +98,7 @@ export default function GameScreen(props) {
             props.setNextChoices(prev => [...prev, props.rightChoice]);
             props.setNextChoices(newChoices => {                  
                 const copyNewChoices = _.cloneDeep(newChoices);              
-                const [newLeft, newRight] = getTwoChoices(copyNewChoices);
+                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices);
                 props.setLeftChoice(newLeft);
                 props.setRightChoice(newRight);
                 return [];
@@ -109,10 +111,11 @@ export default function GameScreen(props) {
             setRoundNum(prevRoundNum => prevRoundNum + 1);      
             props.setNextChoices(prev => [...prev, props.rightChoice]);
             const copyCurrChoices = _.cloneDeep(props.currChoices);
-            const [newLeft, newRight] = getTwoChoices(copyCurrChoices);
+            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices);
             props.setLeftChoice(newLeft);
             props.setRightChoice(newRight);
         };          
+
         updateChoiceStats(props.rightChoice.id, props.leftChoice.id, isFinalRound);
     };
       

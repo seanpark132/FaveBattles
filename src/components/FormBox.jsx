@@ -12,7 +12,7 @@ export default function FormBox(props) {
     };
 
     // remove two random choices from current array, return these two as left and right
-    function getTwoChoices(array) {
+    function getTwoChoicesFromCurrentChoices(array) {
         const index1 = Math.floor(Math.random() * array.length);
         let index2 = Math.floor(Math.random() * array.length);        
         while (index2 === index1) {
@@ -63,7 +63,7 @@ export default function FormBox(props) {
         const gameSizedChoices = props.gameSize === copyCurrChoices.length ? 
             copyCurrChoices: getRandomChoices(copyCurrChoices, props.gameSize);
 
-        const [initialLeft, initialRight] = getTwoChoices(gameSizedChoices);
+        const [initialLeft, initialRight] = getTwoChoicesFromCurrentChoices(gameSizedChoices);
         props.setLeftChoice(initialLeft);
         props.setRightChoice(initialRight);
 

@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import {db} from "../firebaseConfig";
-import {doc, getDoc} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
@@ -14,56 +14,75 @@ import "../css/Stats.css"
 import "primereact/resources/themes/arya-purple/theme.css"
 
 export default function Stats(props) {
+    const YOUTUBE_GAMETYPE = "video-youtube";
+    const FIRESTORE_COLLECTION_NAME = "all_games";
+
     const [choicesData, setChoicesData] = useState([]); 
-    const [isTypeYoutube, setIsTypeYoutube] = useState(false)
+    const [isTypeYoutube, setIsTypeYoutube] = useState(false);
     const [filters, setFilters] = useState({
         global: {value: null, matchMode: FilterMatchMode.CONTAINS }
-    });
+    });   
 
-    
-    // get choicesData array for the specified gameId, calculate and add first% and win% for each choice, 
-    // sort choices array by first%, set choicesData state to sorted array
+    function fetchLiveData() {           
+        const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id);
+        getDoc(gameDocRef).then(res => {
+            const liveGameData = res.data();           
+        }); 
+    };   
+     
+    function addFirstAndWinPercentsToChoices(choicesArray, gameNumCompletes) {
+        choicesArray.forEach(choice => {
+            if (choice.numGames !== 0) {
+                const firstPercent = parseFloat((100 * choice.numFirst /gameNumCompletes).toFixed(1));
+                const winPercent = parseFloat((100 * choice.numWins / choice.numGames).toFixed(1));
+
+                choice.firstPercent = firstPercent;
+                choice.winPercent = winPercent;       
+            } else {
+                choice.firstPercent = 0;
+                choice.winPercent = 0;
+            };                       
+        });
+    };
+
+    function sortByFirstPercentThenWinPercent(choicesArray) {
+        choicesArray.sort((a, b) => {
+            if (b.firstPercent === a.firstPercent) {
+                return b.winPercent - a.winPercent
+            };
+
+            return b.firstPercent - a.firstPercent
+        });    
+    };
+
     useEffect(() => {   
-        if (props.gameData.gameType === "video-youtube") {
+        if (props.gameData.gameType === YOUTUBE_GAMETYPE) {
             setIsTypeYoutube(true)
         }
+
+        const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id);
         
-        const gameDocRef = doc(db, "all_games", props.gameData.id);
         getDoc(gameDocRef).then(res => {
-            let gameNumCompletes = res.data().numCompletes; 
+            const liveGameData = res.data();   
+            let gameNumCompletes = liveGameData.numCompletes;
             if (gameNumCompletes === 0) {
                 gameNumCompletes = 1;
             };
-            let docChoicesData = res.data().choices;
-            docChoicesData.forEach(choice => {
-                if (choice.numGames !== 0) {
-                    const firstPercent = parseFloat((100 * choice.numFirst / gameNumCompletes).toFixed(1));
-                    const winPercent = parseFloat((100 * choice.numWins / choice.numGames).toFixed(1));
-    
-                    choice.firstPercent = firstPercent;
-                    choice.winPercent = winPercent;       
-                } else {
-                    choice.firstPercent = 0;
-                    choice.winPercent = 0;
-                };                       
-            });
+                        
+            let choicesArray = liveGameData.choices;                 
             
-            docChoicesData.sort((a, b) => {
-                if (b.firstPercent === a.firstPercent) {
-                    return b.winPercent - a.winPercent
-                };
-
-                return b.firstPercent - a.firstPercent
-            });    
-
-
+            addFirstAndWinPercentsToChoices(choicesArray, gameNumCompletes);    
+            sortByFirstPercentThenWinPercent(choicesArray);
+                
             let rank = 1
-            docChoicesData.forEach(choice => {
+            choicesArray.forEach(choice => {
                 choice.rank = rank
                 rank += 1
-            })        
-            setChoicesData(docChoicesData);           
-        });   
+            })      
+
+            setChoicesData(choicesArray);            
+        }); 
+        
     }, []);
 
     const renderHeader = () => {

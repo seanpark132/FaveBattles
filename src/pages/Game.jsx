@@ -12,7 +12,8 @@ export default function Game(props) {
     const [nextChoices, setNextChoices] = useState([]);
     const [leftChoice, setLeftChoice] = useState({});
     const [rightChoice, setRightChoice] = useState({});
-    const [winner, setWinner] = useState(null);
+    const [winner, setWinner] = useState({});
+    const [gameCompleted, setGameCompleted] = useState(false);
 
     return(
         <div>
@@ -40,11 +41,12 @@ export default function Game(props) {
                                     rightChoice={rightChoice}
                                     setLeftChoice={setLeftChoice}
                                     setRightChoice={setRightChoice}                                    
-                                    setWinner={setWinner}                                                              
+                                    setWinner={setWinner}    
+                                    setGameCompleted={setGameCompleted}                                                          
                                     gameData={props.gameData}
                                 />
                 : null}   
-                {winner ? <WinnerScreen
+                {gameCompleted ? <WinnerScreen
                                 gameType={props.gameData.gameType}
                                 winner={winner}
                           /> 

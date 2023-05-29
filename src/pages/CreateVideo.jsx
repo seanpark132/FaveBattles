@@ -9,6 +9,8 @@ import Navbar from "../components/Navbar";
 import UploadedVideo from "../components/UploadedVideo";
 
 export default function CreateVideo() {
+    const FIRESTORE_COLLECTION_NAME = "all_games"
+
     const [inputUrl, setInputUrl] = useState("");
     const [inputTime, setInputTime] = useState("0:00");   
     const [choicesData, setChoicesData] = useState(null);  
@@ -117,7 +119,7 @@ export default function CreateVideo() {
         fullFormData.gameType = "video-youtube"
         localStorage.removeItem('create-video-gameId');
         localStorage.removeItem('create-video-choicesData');
-        await setDoc(doc(db, "all_games", gameId), fullFormData);
+        await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
         alert("Game created!");        
 
     };
@@ -132,10 +134,8 @@ export default function CreateVideo() {
     useEffect(() => {
         if (choicesData !== null) {            
             localStorage.setItem('create-video-choicesData', JSON.stringify(choicesData));
-        };        
-        
-        
-    },[choicesData]);
+        };
+     },[choicesData]);
 
     const categoryOptions = [
         {value:"food", label:"Food"},
