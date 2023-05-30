@@ -18,7 +18,7 @@ export default function WinnerScreen(props) {
         </div>
 
     return (
-        <div>
+        <div className="flex flex-col items-center">
             <h1 className="m-4">The winner is: {props.winner.name}</h1>          
             {props.gameType === "image" ? imgWinner: youtubeWinner}                 
          </div>
