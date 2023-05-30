@@ -18,7 +18,7 @@ export default function CreateVideo() {
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     // create a new id for the game, or if game creation was in progress, restore saved id from local storage
-    const storedGameId = localStorage.getItem('create-video-GameId');
+    const storedGameId = localStorage.getItem('create-video-gameId');
     const gameId = storedGameId ? storedGameId : v4();
     localStorage.setItem('create-video-GameId', gameId);    
 
