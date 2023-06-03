@@ -9,6 +9,8 @@
 .formbox-dropdown {
     width: 90%;    
     color: rgb(43, 13, 35);
+    background-color: white;
+    font-weight: 600;
     margin: 0.625rem;
     padding: 0.3rem;
     border: 1px solid transparent;
