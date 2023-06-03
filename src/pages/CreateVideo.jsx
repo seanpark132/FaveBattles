@@ -173,8 +173,7 @@ export default function CreateVideo() {
                     name="inputTime"
                 />
                 <button type="button" className="btn-video-add" onClick={handleAddVideo}>Add Video</button>
-            </div>
-            
+            </div>            
         </section>
 
     return (

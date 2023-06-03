@@ -29,7 +29,7 @@ export default function Game(props) {
                     setRightChoice={setRightChoice}       
                     gameData={props.gameData}                  
                 />               
-                {gameActive ? <GameScreen                                                   
+                {gameActive && <GameScreen                                                   
                                     gameSize={gameSize}                                 
                                     setGameSize={setGameSize}
                                     setGameActive={setGameActive}
@@ -45,13 +45,12 @@ export default function Game(props) {
                                     setGameCompleted={setGameCompleted}                                                          
                                     gameData={props.gameData}
                                 />
-                : null}   
-                {gameCompleted ? <WinnerScreen
+                }   
+                {gameCompleted && <WinnerScreen
                                 gameType={props.gameData.gameType}
                                 winner={winner}
-                          /> 
-                
-                : null}            
+                          />                 
+                }            
             </div>                                              
         </div>
     );    
