@@ -18,7 +18,7 @@ export default function UploadedImg(props) {
         });
     };
 
-    async function deleteBtn(event, choiceId) {        
+    async function deleteBtn(choiceId) {        
         const imgRef = ref(storage, `all_games/${props.gameId}/${choiceId}`);
 
         try {
@@ -43,7 +43,7 @@ export default function UploadedImg(props) {
                     onChange={handleNameChange} value={props.name}
                 />
             </div>
-            <button type="button" className="h-fit p-1.5 bg-red-500 ml-auto" onClick={(event) => deleteBtn(event, props.choiceId)}>
+            <button type="button" className="h-fit p-1.5 bg-red-500 ml-auto" onClick={() => deleteBtn(props.choiceId)}>
                 <i className="fa-solid fa-xmark fa-lg text-white"></i>
             </button>
         </div>  

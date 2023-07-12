@@ -32,30 +32,10 @@ nav {
   position: sticky; top:0;
 }
 
-.nav-btn-home {
-  padding: 0.47rem 0.8rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #0a5300;
-  color: white;
-}
-
 .nav-btn-create {
   padding: 0.47rem 0.8rem;
   font-size: 1.2rem;
   font-weight: 500;
-  font-family: inherit;
   background-color: #a37309;
   color: white;
-}
-
-.centered {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.btn-icon {
-  margin-right: 0.5rem; 
 }

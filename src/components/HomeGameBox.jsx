@@ -34,10 +34,10 @@ export default function HomeGameBox(props) {
             <p className="box-desc">{props.description}</p>          
             <div className="mt-auto">
                 <a href={`/game/${props.id}`} target="_blank" className="box-btn bg-cyan-800">
-                    <i className="btn-icon fa-solid fa-play fa-xs"></i>Start!
+                    <i className="mr-2 fa-solid fa-play fa-xs"></i>Start!
                 </a>            
                 <a href={`/stats/${props.id}`} target="_blank" className="box-btn bg-purple-900">
-                    <i className="btn-icon fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>Rankings
+                    <i className="mr-2 fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>Rankings
                 </a>
             </div>
         </div>
