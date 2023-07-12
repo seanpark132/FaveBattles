@@ -1,6 +1,5 @@
 import Navbar from "../components/Navbar";
 import HomeGameBox from "../components/HomeGameBox";
-import "../css/Home.css";
 
 export default function Home(props) {
 
@@ -14,7 +13,7 @@ export default function Home(props) {
     return (
         <div>
             <Navbar />     
-            <div className="m-4 flex flex-wrap">
+            <div className="m-4 flex flex-wrap justify-center">
                 {homeGameBoxes} 
             </div>
         </div>

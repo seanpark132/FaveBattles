@@ -1,17 +1,3 @@
-.home-box {
-    width: 27.5rem;
-    border: 0.125rem solid rgb(163, 163, 163);  
-    margin: 0.75rem; 
-    display: flex;
-    flex-direction: column;
-}
-
-.box-label-container {  
-    border-bottom: 0.125rem solid rgb(163, 163, 163);
-    display: flex;
-    margin-bottom: 0.5rem;
-}
-
 .box-img-label {      
     margin: 0.25rem 0.5rem;
     text-align: center;

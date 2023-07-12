@@ -5,9 +5,22 @@ import { doc, setDoc} from "firebase/firestore";
 import { v4 } from "uuid";
 import { _ } from 'lodash';
 import Select from 'react-select';
-import "../css/Create.css";
 import Navbar from "../components/Navbar";
 import UploadedImg from "../components/UploadedImg";
+
+const CATEGORYOPTIONS= [
+    {value:"food", label:"Food"},
+    {value:"entertainment", label:"Entertainment"},
+    {value:"music", label:"Music"},
+    {value:"games", label:"Games"},
+    {value:"tv", label:"TV"},
+    {value:"movies", label:"Movies"},
+    {value:"anime", label:"Anime"},
+    {value:"books", label:"Books"},
+    {value:"sports", label:"Sports"},
+    {value:"kpop", label:"Kpop"},
+    {value:"other", label:"Other"} 
+];
 
 export default function CreateImg() {
     const FIRESTORE_COLLECTION_NAME = "all_games"
@@ -94,12 +107,13 @@ export default function CreateImg() {
 
     // final "create game" button submit - initialize game object on firestore database
     async function handleSubmit(event) {
+        event.preventDefault();  
+
         if (choicesData.length < 4) {
             alert("The minimum game size is 4 choices. Make sure to have at least 4 choices.");
             return;
         };
-        
-        event.preventDefault();        
+                
         let fullFormData = _.cloneDeep(formData);
         fullFormData.id = gameId;
         fullFormData.choices = choicesData;
@@ -125,21 +139,7 @@ export default function CreateImg() {
         if (choicesData !== null) {            
             localStorage.setItem('create-img-choicesData', JSON.stringify(choicesData));
         };   
-    },[choicesData]);
-
-    const categoryOptions = [
-        {value:"food", label:"Food"},
-        {value:"entertainment", label:"Entertainment"},
-        {value:"music", label:"Music"},
-        {value:"games", label:"Games"},
-        {value:"tv", label:"TV"},
-        {value:"movies", label:"Movies"},
-        {value:"anime", label:"Anime"},
-        {value:"books", label:"Books"},
-        {value:"sports", label:"Sports"},
-        {value:"kpop", label:"Kpop"},
-        {value:"other", label:"Other"} 
-    ];
+    },[choicesData]); 
 
     const uploadBtnSection = 
         <section className="m-0 grid">
@@ -175,7 +175,7 @@ export default function CreateImg() {
                         <label>Categories (First category will be the main one):</label>
                         <Select 
                             isMulti
-                            options={categoryOptions}                                    
+                            options={CATEGORYOPTIONS}                                    
                             className="mb-4 text-black"                              
                             value={selectedCategories}     
                             onChange={setSelectedCategories}                          
@@ -210,7 +210,9 @@ export default function CreateImg() {
                     <button
                         className="btn-create-game"                       
                         type="submit"
-                    >Create Game! ({choicesData ? choicesData.length: 0} choices)</button>
+                    >
+                        Create Game! ({choicesData ? choicesData.length: 0} choices)
+                    </button>
                 </div>
             </form>   
         </div>

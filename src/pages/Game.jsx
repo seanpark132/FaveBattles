@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import FormBox from "../components/FormBox";
 import GameScreen from "../components/GameScreen";
 import WinnerScreen from "../components/WinnerScreen";
-import "../css/Game.css";
 
 export default function Game(props) {
     const [gameSize, setGameSize] = useState(4);

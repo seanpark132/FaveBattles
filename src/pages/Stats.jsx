@@ -8,27 +8,18 @@ import { FilterMatchMode } from "primereact/api";
 import { InputText } from "primereact/inputtext";
 import { Image } from "primereact/image";
 import { ProgressBar } from "primereact/progressbar"
-import "primereact/resources/themes/lara-light-indigo/theme.css";     
 import "primereact/resources/primereact.min.css";   
-import "../css/Stats.css"
 import "primereact/resources/themes/arya-purple/theme.css"
 
-export default function Stats(props) {
-    const YOUTUBE_GAMETYPE = "video-youtube";
-    const FIRESTORE_COLLECTION_NAME = "all_games";
+const YOUTUBE_GAMETYPE = "video-youtube";
+const FIRESTORE_COLLECTION_NAME = "all_games";
 
+export default function Stats(props) {
     const [choicesData, setChoicesData] = useState([]); 
     const [isTypeYoutube, setIsTypeYoutube] = useState(false);
     const [filters, setFilters] = useState({
         global: {value: null, matchMode: FilterMatchMode.CONTAINS }
-    });   
-
-    function fetchLiveData() {           
-        const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id);
-        getDoc(gameDocRef).then(res => {
-            const liveGameData = res.data();           
-        }); 
-    };   
+    });     
      
     function addFirstAndWinPercentsToChoices(choicesArray, gameNumCompletes) {
         choicesArray.forEach(choice => {
@@ -87,7 +78,7 @@ export default function Stats(props) {
 
     const renderHeader = () => {
         return (
-            <div className="h-12 m-4 flex items-center">
+            <div className="h-12 m-4 flex items-center relative">
                 <span className="p-input-icon-left">
                     <i className="fa-solid fa-magnifying-glass"></i>
                     <InputText 
@@ -99,14 +90,14 @@ export default function Stats(props) {
                         placeholder="Search by Name"                    
                     />
                 </span>                  
-                <h2 className="text-white centered">[{props.gameData.mainCategory}] {props.gameData.title}</h2>         
-        </div>
+                <h2 className="absolute text-white text-2xl left-1/2 -translate-x-1/2">[{props.gameData.mainCategory}] {props.gameData.title}</h2>         
+            </div>
         );
     };
 
     const imageBody = (rowData) => {
         return (
-            <Image src={rowData.url} alt="choice-img" imageClassName="stats-img" preview/>
+            <Image src={rowData.url} alt="choice-img" imageClassName="w-48 h-32 object-cover" preview/>
         )
     };
 
@@ -116,8 +107,7 @@ export default function Stats(props) {
                 width="320"
                 height="180"
                 className=""          
-                src={rowData.embedUrl}
-                frameBorder="0" 
+                src={rowData.embedUrl}            
                 title="YouTube video player"                 
                 allow="accelerometer;"                                
                 allowFullScreen               

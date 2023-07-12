@@ -4,7 +4,6 @@ import { doc, setDoc} from "firebase/firestore";
 import { v4 } from "uuid";
 import { _ } from 'lodash';
 import Select from 'react-select';
-import "../css/Create.css";
 import Navbar from "../components/Navbar";
 import UploadedVideo from "../components/UploadedVideo";
 
