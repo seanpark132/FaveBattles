@@ -34,7 +34,7 @@ export default function UploadedImg(props) {
 
     return (
         <div className="uploaded-img-box">
-            <Image src={props.url} alt="choice-img" imageClassName="uploaded-img" preview />
+            <Image src={props.url} alt="choice-img" imageClassName="w-39 h-39 object-cover" preview />
             <div className="m-4 w-3/5">
                 <h3 className="mt-0 mb-4">Name of choice:</h3>
                 <input 

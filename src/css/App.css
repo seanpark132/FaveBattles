@@ -1,3 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  -webkit-text-size-adjust: 100%;
+}
+
 a {  
   color: rgba(255, 255, 255, 0.87);
   text-decoration: inherit;
@@ -24,7 +36,18 @@ button:hover {
   color: rgb(172, 172, 172);  
 }
 
+input {   
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: 600;            
+}
+
 nav {
+  display:flex;
+  align-items: center;
   z-index: 10000;  
   height: 2.75rem;
   background-color: #3d3d3d;     
@@ -32,10 +55,21 @@ nav {
   position: sticky; top:0;
 }
 
-.nav-btn-create {
-  padding: 0.47rem 0.8rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-  background-color: #a37309;
-  color: white;
+/* For primereact Image component, toolbar under navbar */
+.p-image-toolbar {
+  margin-top: 2rem;
+}
+
+.nav-menu {
+  display: none;
+  position: absolute;
+  background-color: #616161;
+  top: 2.75rem;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  border-right: transparent;
+  border-bottom-right-radius: 2rem;
+}
+
+.nav-menu.open {
+  display: block;
 }
