@@ -32,6 +32,21 @@ p {
   margin: 0rem;    
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.17rem;
+  font-weight: bold;
+}
+
 button:hover {
   color: rgb(172, 172, 172);  
 }

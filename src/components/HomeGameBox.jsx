@@ -30,7 +30,7 @@ export default function HomeGameBox(props) {
                 <p className="box-img-label">{leftName}</p>
                 <p className="box-img-label">{rightName}</p> 
             </div>
-            <h3 className="my-1 mx-2 font-medium text-lg max-h-16 overflow-hidden">[{props.mainCategory}] {props.title} ({props.choices.length} choices)</h3>
+            <h3 className="my-1 mx-2 max-h-16 overflow-hidden">[{props.mainCategory}] {props.title} ({props.choices.length} choices)</h3>
             <p className="box-desc">{props.description}</p>          
             <div className="mt-auto">
                 <a href={`/game/${props.id}`} target="_blank" className="box-btn bg-green-600">
