@@ -18,7 +18,7 @@ export default function Navbar() {
                 </ul>
             </div>
             <a href="/" className="absolute -translate-x-1/2 left-1/2">
-                <img className="h-6" src="/logo.png" />   
+                <img className="max-h-7" src="/logo.png" />   
             </a>
         </nav>
     );

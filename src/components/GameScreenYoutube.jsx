@@ -4,8 +4,7 @@ export default function GameScreenYoutube(props) {
             <div className="w-1/2">
                 <iframe        
                     className="h-full w-full" 
-                    src={props.leftEmbedUrl}
-                    frameBorder="0" 
+                    src={props.leftEmbedUrl}                   
                     title="YouTube video player"                 
                     allow="accelerometer;"                                
                     allowFullScreen               
@@ -15,8 +14,7 @@ export default function GameScreenYoutube(props) {
             <div className="w-1/2">
                 <iframe           
                     className="h-full w-full" 
-                    src={props.rightEmbedUrl}
-                    frameBorder="0" 
+                    src={props.rightEmbedUrl}                  
                     title="YouTube video player"                     
                     allow="accelerometer;"
                     allowFullScreen                

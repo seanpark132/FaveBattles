@@ -1,4 +1,12 @@
-.box-img-label {      
+.home-box-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0.75rem;
+    border: 1px solid rgb(226 232 240);
+    width: 22.5%;
+}
+
+.home-box-img-label {      
     margin: 0.25rem 0.5rem;
     text-align: center;
     width: 50%;
@@ -9,7 +17,7 @@
     line-height: normal;       
 }
 
-.box-desc {
+.home-box-desc {
     display: -webkit-box;
     -webkit-line-clamp: 3; /* Number of lines to show before truncating */
     -webkit-box-orient: vertical;
@@ -21,11 +29,29 @@
     word-wrap: break-word;  
 }
 
-.box-btn {    
+.home-box-btn {    
     border: 1px solid transparent;
+    font-weight: bold;
     border-radius: 0.375rem;  
     display: inline-block;
-    padding: 0.375rem 0.625rem;  
-    margin: 0.625rem;  
+    padding: 0.5rem 0.75rem;  
+    margin: 0.75rem;  
 }
 
+@media (max-width: 48rem) {
+    .home-box-container {
+        width: clamp(18rem, 90%, 35rem);
+    }
+}
+
+@media (min-width: 48rem) and (max-width: 64rem) {
+    .home-box-container {
+        width: clamp(22rem, 45%, 30rem);
+    }
+}
+
+@media (min-width: 64rem) and (max-width: 90rem) {
+    .home-box-container {
+        width: clamp(19rem, 30%, 28rem);
+    }
+}

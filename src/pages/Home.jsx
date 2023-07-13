@@ -11,11 +11,11 @@ export default function Home(props) {
     );
 
     return (
-        <div>
+        <>
             <Navbar />     
-            <div className="m-4 flex flex-wrap justify-center">
+            <div className="my-4 flex flex-wrap justify-center">
                 {homeGameBoxes} 
             </div>
-        </div>
+        </>
     );
 };
