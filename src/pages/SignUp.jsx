@@ -1,7 +1,7 @@
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
-import NavbarFixed from "../components/NavbarFixed";
+import Navbar from "../components/Navbar";
 
 export default function SignUp() {
     const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ export default function SignUp() {
         };
 
         try {
-            const user = await createUserWithEmailAndPassword(auth, email, password);      
+            await createUserWithEmailAndPassword(auth, email, password);      
             alert(`Account successfully registered with ${email}.`);          
             window.location.href = "/"  
 
@@ -37,10 +37,10 @@ export default function SignUp() {
 
     return (
         <div className="h-screen flex flex-col justify-center items-center">
-            <NavbarFixed />
+            <Navbar type="fixed" />
             <div>
-                <div className="mb-6 px-4">
-                    <p className="mb-4 text-3xl font-bold sm:text-4xl">Create Account</p>
+                <div className="mb-6 px-4 sign-up-width-clamp">
+                    <p className="mb-4 text-3xl font-bold md:text-4xl">Create Account</p>
                     <p>Already have an account? <a href="/sign-in" className="underline underline-offset-2">Sign In.</a> </p>
                 </div>     
                 <form>

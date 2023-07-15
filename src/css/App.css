@@ -5,18 +5,9 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(255, 255, 255, 0.90);
   background-color: #242424;
   -webkit-text-size-adjust: 100%;
-}
-
-a {  
-  color: rgba(255, 255, 255, 0.87);
-  text-decoration: inherit;
-}
-
-a:visited {
-  color: rgba(255, 255, 255, 0.87);
 }
 
 a:hover { 

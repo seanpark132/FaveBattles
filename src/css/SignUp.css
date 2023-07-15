@@ -3,8 +3,8 @@
     border-radius: 0.5rem;
     padding: 0.75rem;
     font-size: 1.25rem;    
-    width: clamp(14rem, 60vw, 36rem);
-    margin-bottom: 1rem;
+    width: clamp(13rem, 70vw, 36rem);
+    margin-bottom: 0.5rem;
 }
 
 .sign-up-button {
@@ -14,11 +14,15 @@
     font-size: 1.5rem;
     font-weight: bold;
     padding: 0.75rem;  
-    margin-top: 1rem;
-    width: clamp(14rem, 60vw, 36rem);
+    margin-top: 1.5rem;
+    width: clamp(13rem, 70vw, 36rem);
 }
 
-@media (max-width: 40rem) {
+.sign-up-width-clamp {
+    width: clamp(18rem, 75vw, 40rem);
+}
+
+@media (max-width: 48rem) {
     .sign-up-input {
         font-size: 1rem;
         padding: 0.5rem;

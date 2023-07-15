@@ -1,27 +1,41 @@
 import { auth } from "../firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useState } from 'react';
-import NavbarFixed from "../components/NavbarFixed";
+import Navbar from "../components/Navbar";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
-    async function signIn(e) {     
+    async function signIn(e) { 
+        e.preventDefault();
         try {
-            const user = await signInWithEmailAndPassword(auth, email, password);
-            console.log(user);
+            await signInWithEmailAndPassword(auth, email, password);      
+            alert(`Successfully signed in with ${email}`);
+            window.location.href = "/";
         } catch(err) {
             console.error(err.message);
+
+            if (err.message === "Firebase: Error (auth/wrong-password).") {
+                alert("Incorrect password.");
+                return;
+            };
+
+            if (err.message === "Firebase: Error (auth/user-not-found).") {
+                alert("An account with this email does not exist.")
+                return;
+            };
+            
+            alert("An error has occured while signing in. Please try again.")
         };        
     };
 
     return (
         <div className="h-screen flex flex-col justify-center items-center">
-            <NavbarFixed />
-            <div className="max-w-3xl">
-                <div className="mb-6 px-4">
-                    <p className="mb-4 text-3xl font-bold sm:text-4xl">Sign In to Account</p>
+            <Navbar type="fixed" />
+            <div>
+                <div className="mb-6 px-4 sign-up-width-clamp">
+                    <p className="mb-4 text-3xl font-bold md:text-4xl">Sign In to Account</p>
                     <p>Don't have an account? <a href="/sign-up" className="underline underline-offset-2">Sign Up.</a> </p>
                 </div>     
                 <form>
@@ -31,13 +45,14 @@ export default function Login() {
                             className="sign-up-input"                             
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <label className="mb-2">Password:</label>
+                        <label className="my-2">Password:</label>
                         <input 
                             className="sign-up-input"                           
                             type="password" 
                             onChange={(e) => setPassword(e.target.value)}
-                        />          
-                        <button className="sign-up-button" onClick={(e) => signIn(e)}>Sign In</button>                   
+                        />     
+                        <a className="text-blue-400" href="/reset-password">Reset Password</a>     
+                        <button className="sign-up-button"  onClick={(e) => signIn(e)}>Sign In</button>                   
                     </div>   
                 </form>   
             </div>                   
