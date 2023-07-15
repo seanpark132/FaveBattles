@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-export default function Navbar() {
+export default function NavbarFixed() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="sticky top-0">     
+        <nav className="fixed top-0 w-full">     
             <button className="ml-4 text-2xl" onClick={() => setIsMenuOpen(prev => !prev)}>
                 <i className="fa-solid fa-bars"></i>
             </button>            
