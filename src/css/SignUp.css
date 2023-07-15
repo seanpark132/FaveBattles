@@ -1,0 +1,31 @@
+.sign-up-input {
+    border: transparent;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-size: 1.25rem;    
+    width: clamp(14rem, 60vw, 36rem);
+    margin-bottom: 1rem;
+}
+
+.sign-up-button {
+    border: transparent;
+    border-radius: 0.5rem;
+    background-color: rgb(74, 74, 230);  
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.75rem;  
+    margin-top: 1rem;
+    width: clamp(14rem, 60vw, 36rem);
+}
+
+@media (max-width: 40rem) {
+    .sign-up-input {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .sign-up-button {
+        font-size: 1.25rem;
+        padding: 0.5rem;
+    }
+}

@@ -53,7 +53,6 @@ button:hover {
 
 input {   
   font-weight: 600;
-  font-size: 1rem;
 }
 
 label {
@@ -67,7 +66,6 @@ nav {
   height: 2.75rem;
   background-color: #3d3d3d;     
   box-shadow: 0rem 0.125rem 0.125rem rgba(255, 255, 255, 0.432); 
-  position: sticky; top:0;
 }
 
 /* For primereact Image component, toolbar under navbar */

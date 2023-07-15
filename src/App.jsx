@@ -6,12 +6,15 @@ import Stats from "./pages/Stats";
 import Create from "./pages/Create"
 import CreateImg from "./pages/CreateImg";
 import CreateVideo from "./pages/CreateVideo";
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import Profile from './pages/Profile';
 import NoPage from './pages/NoPage';
 import {db} from "./firebaseConfig";
 import {collection, getDocs} from "firebase/firestore";
 
-export default function App() {  
 
+export default function App() {  
   const [allGameData, setAllGameData] = useState({});
   const [isDataFetched, setIsDataFetched] = useState(false);
 
@@ -36,18 +39,19 @@ export default function App() {
     initializeGameData();   
   }, []);
 
-
   
   return(
     <>
       {isDataFetched &&       
         <BrowserRouter>
           <Routes>
-            <Route index element={<Home allGameData={allGameData} />} />
-            <Route path="/home" element={<Home allGameData={allGameData} />}/>
+            <Route index element={<Home allGameData={allGameData} />} /> 
             <Route path="/create" element={<Create />} />   
             <Route path="/create-img" element={<CreateImg />} />     
-            <Route path="/create-video" element={<CreateVideo />} />     
+            <Route path="/create-video" element={<CreateVideo />} /> 
+            <Route path="/sign-up" element={<SignUp />}/>
+            <Route path="/sign-in" element={<SignIn/>}/>
+            <Route path='/profile' element={<Profile />}/>    
             {allGameData.map(game => 
               <Route key={game.id} path={`/game/${game.id}`} element={<Game key={game.id} gameData={game}/>}/>
             )}
