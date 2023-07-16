@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HomeGameBox(props) { 
     return (
         <div className="home-box-container">                         
@@ -12,12 +14,12 @@ export default function HomeGameBox(props) {
             <h3 className="my-1 mx-2 max-h-16 overflow-hidden">[{props.mainCategory}] {props.title} ({props.choices.length} choices)</h3>
             <p className="home-box-desc">{props.description}</p>          
             <div className="mt-auto">
-                <a href={`/game/${props.id}`} target="_blank" className="home-box-btn bg-green-600">
+                <Link to={`/game/${props.id}`} target="_blank" className="home-box-btn bg-green-600">
                     <i className="mr-2 fa-solid fa-play fa-xs"></i>Play!
-                </a>            
-                <a href={`/stats/${props.id}`} target="_blank" className="home-box-btn bg-purple-900">
+                </Link>            
+                <Link to={`/stats/${props.id}`} target="_blank" className="home-box-btn bg-purple-900">
                     <i className="mr-2 fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>Rankings
-                </a>
+                </Link>
             </div>
         </div>
     );

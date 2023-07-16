@@ -2,10 +2,12 @@ import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
     
     async function signUpUser(e) {
         e.preventDefault();
@@ -17,7 +19,7 @@ export default function SignUp() {
         try {
             await createUserWithEmailAndPassword(auth, email, password);      
             alert(`Account successfully registered with ${email}.`);          
-            window.location.href = "/"  
+            navigate("/");
 
         } catch(err) {            
             console.error(err.message);
@@ -41,7 +43,7 @@ export default function SignUp() {
             <div>
                 <div className="mb-6 px-4 sign-up-width-clamp">
                     <p className="mb-4 text-3xl font-bold md:text-4xl">Create Account</p>
-                    <p>Already have an account? <a href="/sign-in" className="underline underline-offset-2">Sign In.</a> </p>
+                    <p>Already have an account? <Link to="/sign-in" className="underline underline-offset-2">Sign In.</Link> </p>
                 </div>     
                 <form>
                     <div className="flex flex-col border rounded-3xl p-8 w-fit m-2">

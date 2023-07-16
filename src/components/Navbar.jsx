@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { auth } from "../firebaseConfig"
 
 export default function Navbar(props) {
@@ -12,25 +13,25 @@ export default function Navbar(props) {
             <div className={`nav-menu ${isMenuOpen ? 'open' : ''}`}>
                 <ul>                          
                     <li className="my-2">
-                        <a href="/create" className="text-lg">
+                        <Link to="/create" className="text-lg">
                             <i className="mr-3 fa-solid fa-plus fa-xs"></i>Create a new game
-                        </a>            
+                        </Link>            
                     </li>                
                     <li className="my-2">
                         {auth.currentUser ? 
-                            <a href="/profile" className="text-lg">
+                            <Link to="/profile" className="text-lg">
                                 <i className="mr-3 fa-solid fa-plus fa-xs"></i>My Profile
-                            </a>
-                            :<a href="/sign-in" className="text-lg">
+                            </Link>
+                            :<Link to="/sign-in" className="text-lg">
                                 <i className="mr-3 fa-solid fa-plus fa-xs"></i>Sign In
-                            </a>   
+                            </Link >   
                         }      
                     </li>            
                 </ul>
             </div>
-            <a href="/" className="absolute -translate-x-1/2 left-1/2">
+            <Link to="/" className="absolute -translate-x-1/2 left-1/2">
                 <img className="max-h-7" src="/logo.png" />   
-            </a>
+            </Link >
         </nav>  
     );
 };

@@ -1,18 +1,20 @@
 import { auth } from "../firebaseConfig";
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
     
     async function signIn(e) { 
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);      
             alert(`Successfully signed in with ${email}`);
-            window.location.href = "/";
+            navigate("/");
         } catch(err) {
             console.error(err.message);
 
@@ -36,7 +38,7 @@ export default function Login() {
             <div>
                 <div className="mb-6 px-4 sign-up-width-clamp">
                     <p className="mb-4 text-3xl font-bold md:text-4xl">Sign In to Account</p>
-                    <p>Don't have an account? <a href="/sign-up" className="underline underline-offset-2">Sign Up.</a> </p>
+                    <p>Don't have an account? <Link to="/sign-up" className="underline underline-offset-2">Sign Up.</Link ></p>
                 </div>     
                 <form>
                     <div className="flex flex-col border rounded-3xl p-8 w-fit m-2">
@@ -51,7 +53,7 @@ export default function Login() {
                             type="password" 
                             onChange={(e) => setPassword(e.target.value)}
                         />     
-                        <a className="text-blue-400" href="/reset-password">Reset Password</a>     
+                        <Link className="text-blue-400" to="/reset-password">Reset Password</Link>     
                         <button className="sign-up-button"  onClick={(e) => signIn(e)}>Sign In</button>                   
                     </div>   
                 </form>   
