@@ -1,39 +1,42 @@
 import { auth } from "../firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { useState } from 'react';
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     
     async function signUpUser(e) {
         e.preventDefault();
         if (password.length < 6) {
-            alert("Please enter a password that is at least 6 characters.")
+            setErrorMessage("Please enter a password that is at least 6 characters.")
             return;
         };
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password);      
+            await createUserWithEmailAndPassword(auth, email, password); 
+            setErrorMessage("");     
             alert(`Account successfully registered with ${email}.`);          
             navigate("/");
 
-        } catch(err) {            
-            console.error(err.message);
-            if (err.message === "Firebase: Error (auth/invalid-email).") {
-                alert("Please enter a valid email");
+        } catch(error) {            
+            console.error(error.message); 
+
+            if (error.code === AuthErrorCodes.INVALID_EMAIL) {
+                setErrorMessage("Invalid email address.");
                 return;
             };            
 
-            if (err.message === "Firebase: Error (auth/email-already-in-use).") {
-                alert("An account already exists with this email address.");
+            if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+                setErrorMessage("An account already exists with this email address.");
                 return;
             };
 
-            alert("An error occured while creating your account. Please try again.");
+            setErrorMessage("An error occured while creating your account. Please try again.");
         };        
     };
 
@@ -41,7 +44,7 @@ export default function SignUp() {
         <div className="h-screen flex flex-col justify-center items-center">
             <Navbar type="fixed" />
             <div>
-                <div className="mb-6 px-4 sign-up-width-clamp">
+                <div className="mb-6 px-4 sign-up-title-width">
                     <p className="mb-4 text-3xl font-bold md:text-4xl">Create Account</p>
                     <p>Already have an account? <Link to="/sign-in" className="underline underline-offset-2">Sign In.</Link> </p>
                 </div>     
@@ -57,7 +60,8 @@ export default function SignUp() {
                             className="sign-up-input"                           
                             type="password" 
                             onChange={(e) => setPassword(e.target.value)}
-                        />          
+                        />        
+                        {errorMessage && <p className="text-red-500 sign-up-form-width">{errorMessage}</p> }  
                         <button className="sign-up-button" onClick={(e) => signUpUser(e)}>Sign Up</button>                   
                     </div>   
                 </form>   

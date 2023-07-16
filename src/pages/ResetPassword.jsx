@@ -1,19 +1,28 @@
 import { auth } from "../firebaseConfig";
-import { sendPasswordResetEmail } from "firebase/auth";
+import { AuthErrorCodes, sendPasswordResetEmail } from "firebase/auth";
 import { useState } from 'react';
 import Navbar from "../components/Navbar";
 
 export default function ResetPassword() {
     const [email, setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     
     async function resetPassword(e) {
         e.preventDefault();
         try {
             await sendPasswordResetEmail(auth, email);
-            alert(`An email with steps to reset your password has been sent to ${email}.`)
+            setErrorMessage("");
             setEmail("");
-        } catch(err) {
-            console.error(err.message);
+            alert(`An email with steps to reset your password has been sent to ${email}.`)            
+        } catch(error) {
+            console.error(error.message);
+
+            if (error.code === AuthErrorCodes.INVALID_EMAIL) {
+                setErrorMessage("Invalid Email Address");
+                return;
+            };
+
+            setErrorMessage("An error occurred while reseting your password. Please try again");
         };
     };
 
@@ -21,7 +30,7 @@ export default function ResetPassword() {
         <div className="h-screen flex flex-col justify-center items-center">
             <Navbar type="fixed" />
             <div>
-                <div className="mb-6 px-4 sign-up-width-clamp">
+                <div className="mb-6 px-4 sign-up-title-width">
                     <p className="mb-4 text-3xl font-bold md:text-4xl">Reset Password</p>    
                     <p className="text-sm md:text-base">Please enter your email below and click Reset Password. An email will be sent to reset your password.</p>       
                 </div>     
@@ -32,6 +41,7 @@ export default function ResetPassword() {
                             className="sign-up-input"                             
                             onChange={(e) => setEmail(e.target.value)}
                         />      
+                        {errorMessage && <p className="text-red-500 sign-up-form-width">{errorMessage}</p>}
                         <button className="sign-up-button" onClick={(e) => resetPassword(e)}>Reset Password</button>                   
                     </div>   
                 </form>   

@@ -18,8 +18,12 @@
     width: clamp(13rem, 70vw, 36rem);
 }
 
-.sign-up-width-clamp {
+.sign-up-title-width {
     width: clamp(18rem, 75vw, 40rem);
+}
+
+.sign-up-form-width {
+    width: clamp(13rem, 70vw, 36rem);
 }
 
 @media (max-width: 48rem) {

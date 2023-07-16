@@ -1,6 +1,7 @@
 // Landing page for create game function, 2 options: images (upload images), youtube videos (youtube URL)
 
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 export default function Create() {
 
