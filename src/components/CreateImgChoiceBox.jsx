@@ -5,7 +5,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { _ } from 'lodash';
 import { Image } from "primereact/image"
 
-export default function UploadedImg(props) { 
+export default function CreateImgChoiceBox(props) { 
 
     function handleNameChange(event) {
         props.setChoicesData(prev => {   
@@ -33,7 +33,7 @@ export default function UploadedImg(props) {
     };
 
     return (
-        <div className="flex relative mb-8 border bg-neutral-600 w-full h-32">
+        <div className="flex relative mb-8 border rounded bg-neutral-600 w-full h-32">
             <Image src={props.url} alt="choice-img" imageClassName="h-full w-32 object-cover" preview />
             <div className="p-4 w-3/5">
                 <h3 className="mb-4">Name:</h3>

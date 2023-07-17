@@ -58,8 +58,8 @@ export default function App() {
 
   
   return(
-    <>
-      {isDataFetched &&       
+    <>    
+      {isDataFetched &&           
         <BrowserRouter> 
           <Routes>
             <Route index element={<Home allGameData={allGameData} />} /> 

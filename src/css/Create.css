@@ -47,6 +47,7 @@ input::file-selector-button:hover {
     display: none;
     margin-bottom: 2rem;     
     border: 2px solid rgb(163, 163, 163); 
+    border-radius: 0.25rem;
     background-color: rgb(82, 82, 82);
     width: 100%;
 }
@@ -55,6 +56,7 @@ input::file-selector-button:hover {
     display: block;  
     margin-bottom: 2rem;
     border: 2px solid rgb(163, 163, 163); 
+    border-radius: 0.25rem;
     background-color: rgb(82, 82, 82);       
     width: calc(100vw - 3rem);
     height: calc((100vw - 3rem)*9/16 + 9rem);

@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 import { _ } from 'lodash';
 import Select from 'react-select';
 import Navbar from "../components/Navbar";
-import UploadedImg from "../components/UploadedImg";
+import CreateImgChoiceBox from "../components/CreateImgChoiceBox";
 
 const CATEGORY_OPTIONS= [
     {value:"food", label:"Food"},
@@ -166,7 +166,7 @@ export default function CreateImg() {
             />                         
             <button 
                 type="button" 
-                className="mt-4 py-2 px-20 w-fit bg-blue-400 font-bold border-transparent rounded" 
+                className="mt-4 py-2 px-20 w-fit bg-blue-400 border-transparent rounded" 
                 onClick={uploadImage}
             >Add Images
             </button>
@@ -183,7 +183,7 @@ export default function CreateImg() {
                             <label htmlFor="title">Game Title:</label>
                             <input                                     
                                 type="text" 
-                                className="mb-4 p-1"
+                                className="mb-4 p-2"
                                 value={formData.title}
                                 onChange={(e) => handleChange(e)}
                                 id="title"                                                       
@@ -217,7 +217,7 @@ export default function CreateImg() {
                     <div className="create-img-choice-container">
                         {choicesData && choicesData.map(choiceData => {
                             return (
-                                <UploadedImg 
+                                <CreateImgChoiceBox 
                                     key={choiceData.id} 
                                     choiceId={choiceData.id}                          
                                     gameId={gameId}   
@@ -228,7 +228,7 @@ export default function CreateImg() {
                         })}
                     </div>  
                     <button
-                        className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl font-bold md:text-3xl"                         
+                        className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"                         
                         type="submit"
                     >Create Game! ({choicesData ? choicesData.length: 0} choices)
                     </button>

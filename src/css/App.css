@@ -29,6 +29,10 @@ h3 {
   font-weight: bold;
 }
 
+button {
+  font-weight: 600;
+}
+
 button:hover {
   color: rgb(172, 172, 172);  
 }

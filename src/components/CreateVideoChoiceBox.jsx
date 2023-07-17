@@ -2,11 +2,7 @@
 
 import { _ } from 'lodash';
 
-export default function UploadedVideo(props) { 
-    const DEVICE_WIDTH = window.innerWidth;
-    const SPACED_WIDTH = DEVICE_WIDTH - 48;
-    const IFRAME_WIDTH_MD = SPACED_WIDTH.toString();
-    const IFRAME_HEIGHT_MD = Math.round(SPACED_WIDTH/ 1.9).toString();
+export default function CreateVideoChoiceBox(props) { 
 
     function handleNameChange(event) {
         props.setChoicesData(prev => {   
@@ -28,7 +24,7 @@ export default function UploadedVideo(props) {
 
     // Component viable for screens below 768 px 
     const mdScreen =
-        <div className="create-video-choice-box-md ">
+        <div className="create-video-choice-box-md">
             <iframe                        
                 className='create-iframe-dimensions-md'
                 src={props.embedUrl}

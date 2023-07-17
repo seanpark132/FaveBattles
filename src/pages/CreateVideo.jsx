@@ -6,7 +6,7 @@ import { _ } from 'lodash';
 import { Link } from "react-router-dom";
 import Select from 'react-select';
 import Navbar from "../components/Navbar";
-import UploadedVideo from "../components/UploadedVideo";
+import CreateVideoChoiceBox from "../components/CreateVideoChoiceBox";
 
 const FIRESTORE_COLLECTION_NAME = "all_games"
 const CATEGORY_OPTIONS = [
@@ -186,7 +186,7 @@ export default function CreateVideo() {
                 onChange={(e) => setInputTime(e.target.value)}
                 id="inputTime"
             />              
-            <button type="button" className="mt-2 p-2 font-bold border-transparent rounded bg-blue-800" onClick={handleAddVideo}>Add Video</button>         
+            <button type="button" className="mt-2 p-2 border-transparent rounded bg-blue-800" onClick={handleAddVideo}>Add Video</button>         
         </section>
 
     return (
@@ -199,7 +199,7 @@ export default function CreateVideo() {
                             <label htmlFor="title">Game Title:</label>
                             <input                                     
                                 type="text" 
-                                className="mb-4 p-1"
+                                className="mb-4 p-2"
                                 value={formData.title}
                                 onChange={(e) => handleChange(e)}
                                 id="title"                                                       
@@ -232,7 +232,7 @@ export default function CreateVideo() {
                     <div className="create-video-choice-container ">
                         {choicesData && choicesData.map(choiceData => {
                             return (
-                                <UploadedVideo
+                                <CreateVideoChoiceBox
                                     key={choiceData.id} 
                                     choiceId={choiceData.id}                          
                                     gameId={gameId}   
@@ -243,7 +243,7 @@ export default function CreateVideo() {
                         })}
                     </div>
                     <button
-                        className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl font-bold md:text-3xl"                       
+                        className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"                       
                         type="submit"
                     >Create Game! ({choicesData ? choicesData.length: 0} choices)</button>
                 </div>
