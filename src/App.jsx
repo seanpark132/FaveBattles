@@ -25,16 +25,15 @@ export default function App() {
   const [isDataFetched, setIsDataFetched] = useState(false);
   // const [user, setUser] = useState({});
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {   
-      console.log(auth);
-      console.log(currentUser); 
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {   
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  //   });
+
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
   
   useEffect(() => {
     const initializeGameData = async () => {

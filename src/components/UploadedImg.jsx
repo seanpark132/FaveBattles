@@ -33,17 +33,17 @@ export default function UploadedImg(props) {
     };
 
     return (
-        <div className="uploaded-img-box">
-            <Image src={props.url} alt="choice-img" imageClassName="w-39 h-39 object-cover" preview />
-            <div className="m-4 w-3/5">
-                <h3 className="mt-0 mb-4">Name of choice:</h3>
+        <div className="flex relative mb-8 border bg-neutral-600 w-full h-32">
+            <Image src={props.url} alt="choice-img" imageClassName="h-full w-32 object-cover" preview />
+            <div className="p-4 w-3/5">
+                <h3 className="mb-4">Name:</h3>
                 <input 
                     type="text" 
-                    className="w-full text-lg p-2 rounded border-2 border-blue-700"
-                    onChange={handleNameChange} value={props.name}
+                    className="w-full p-2 text-sm rounded border-2 md:text-lg"
+                    onChange={(e) => handleNameChange(e)} value={props.name}
                 />
             </div>
-            <button type="button" className="h-fit p-1.5 bg-red-500 ml-auto" onClick={() => deleteBtn(props.choiceId)}>
+            <button type="button" className="absolute top-0 right-0 h-fit py-1 px-1.5 bg-red-500" onClick={() => deleteBtn(props.choiceId)}>
                 <i className="fa-solid fa-xmark fa-lg text-white"></i>
             </button>
         </div>  

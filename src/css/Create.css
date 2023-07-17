@@ -1,98 +1,91 @@
-input::file-selector-button {
-    font-weight: 600;    
-    padding: 0.5rem 0.95rem;
-    margin-right: 0.6rem;
-    border: 1px solid grey;
-    border-radius: 0.25rem;    
-    transition: 0.5s;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: rgb(17 24 39);
-}
-
-input::file-selector-button:hover {
-    background-color: #203acf;
-    border: 1px solid #00cec9;
-    color: rgb(172, 172, 172);  
-}
-
-.create-landing-choose-btn {
-    margin: 2rem;
+.create-landing-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0rem 1rem;
     width: 45%;
-    height: 41rem;
+    height: 70%;
     text-align: center;
     border: 2px solid white;
     border-radius: 8px;
 }
 
-.create-landing-choose-btn:hover {
+.create-landing-btn:hover {
     color: #00cec9;
     border: 2px solid #00cec9 ;
 }
 
-.create-landing-title {
-    margin: 3rem 0;
-    font-size: 3rem;
+input::file-selector-button {
+    font-weight: 700;    
+    padding: 0.5rem 1rem;
+    margin-right: 0.6rem;
+    border: transparent;
+    border-radius: 0.25rem;    
+    transition: 0.5s;   
 }
 
-.btn-upload {
-    font-weight: 600;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid grey;
-    border-radius: 0.25rem;
-    width: fit-content;    
-    margin-top: 1rem;
-    color: rgba(255, 255, 255, 0.87);  
-    background-color: rgb(17 24 39);    
+input::file-selector-button:hover {
+    color: rgb(172, 172, 172);  
 }
 
-.uploaded-img-box {
+.create-img-choice-container {
+    width: 100%;
     display: flex;
-    margin: 1rem 2rem;    
-    border: 2px solid rgb(163, 163, 163); 
-    background-color: rgb(73, 73, 73);
-    width: 46%;
-    height: 10rem;
+    flex-direction: column;
+    align-items: center;    
 }
 
-.uploaded-img {   
-    width: 9.75rem;
-    height: 9.75rem;
-    object-fit: cover;
-}
-
-.btn-create-game {
-    border: 1px solid transparent;
-    border-radius: 0.5rem;
-    padding: 0.6rem;
-    width: 50%;      
-    color: rgba(255, 255, 255, 0.87);
-    background-color: green;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-top: 2rem;
-}
-
-
-/* CreateVideo specific CSS */
-
-.btn-video-add {
-    font-weight: 600;
-    padding: 0.5rem 7.625rem;
-    font-size: 1rem;
-    border: 1px solid grey;
-    border-radius: 0.25rem;  
-    width: fit-content;       
-    margin-left: 1rem;
-    color: rgba(255, 255, 255, 0.87);  
-    background-color: rgb(17 24 39);    
-}
-
-.uploaded-video-box {
+.create-video-choice-container {
+    width: 100%;
     display: flex;
-    margin: 1rem 1rem;    
-    border: 2px solid rgb(163, 163, 163); 
-    background-color: rgb(73, 73, 73);
-    width: 57rem;
-    height: 17.125rem;
+    flex-direction: column;
+    align-items: center;    
 }
+
+.create-video-choice-box {
+    position: relative;
+    display: none;
+    margin-bottom: 2rem;     
+    border: 2px solid rgb(163, 163, 163); 
+    background-color: rgb(82, 82, 82);
+    width: 100%;
+}
+
+.create-video-choice-box-md {
+    display: block;  
+    margin-bottom: 2rem;
+    border: 2px solid rgb(163, 163, 163); 
+    background-color: rgb(82, 82, 82);       
+    width: calc(100vw - 3rem);
+    height: calc((100vw - 3rem)*9/16 + 9rem);
+}
+
+.create-iframe-dimensions-md {
+    width: calc(100vw - 3rem - 4px);
+    height: calc((100vw - 3rem - 4px)*9/16);
+}
+
+@media (min-width: 48rem) {
+    .create-img-choice-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;    
+        grid-column-gap: 2rem;   
+    }
+
+    .create-video-choice-box  {
+        display: flex;
+    }
+
+    .create-video-choice-box-md   {
+        display: none;
+    }
+}
+
+@media (min-width: 90rem) {
+    .create-video-choice-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 2rem;  
+    }
+}
+

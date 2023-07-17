@@ -13,7 +13,7 @@ export default function ResetPassword() {
             await sendPasswordResetEmail(auth, email);
             setErrorMessage("");
             setEmail("");
-            alert(`An email with steps to reset your password has been sent to ${email}.`)            
+            alert(`An email with instructions to reset your password has been sent to ${email}.`)            
         } catch(error) {
             console.error(error.message);
 
