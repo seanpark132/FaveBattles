@@ -1,10 +1,10 @@
 import Navbar from "../components/Navbar";
-import HomeGameBox from "../components/HomeGameBox";
+import DisplayGameBox from "../components/DisplayGameBox";
 
 export default function Home(props) {
 
     const homeGameBoxes = props.allGameData.map(gameData =>
-        <HomeGameBox
+        <DisplayGameBox
             key={gameData.id}
             {...gameData}
         />

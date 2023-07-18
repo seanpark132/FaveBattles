@@ -132,15 +132,21 @@ export default function CreateVideo() {
 
     // final "create game" button submit - initialize game object on firestore database
     async function handleSubmit(event) {
-        event.preventDefault();        
+        event.preventDefault(); 
+
         if (choicesData.length < 4) {
             alert("The minimum game size is 4 choices. Make sure to have at least 4 choices.");
             return;
         };
 
+        if (selectedCategories.length === 0) {
+            alert("Please select at least 1 category");
+            return;
+        };
+
         let fullFormData = _.cloneDeep(formData);
         fullFormData.id = gameId;
-        fullFormData.authorId = auth.currentUser.uid;
+        fullFormData.creatorId = auth.currentUser.uid;
         fullFormData.choices = choicesData;
         fullFormData.categories = selectedCategories;
         fullFormData.mainCategory = selectedCategories[0].label;
@@ -202,7 +208,8 @@ export default function CreateVideo() {
                                 className="mb-4 p-2"
                                 value={formData.title}
                                 onChange={(e) => handleChange(e)}
-                                id="title"                                                       
+                                id="title"        
+                                name="title"                                               
                             />                                          
                             <label>Categories (First one will be the main one):</label>
                             <Select 
@@ -211,7 +218,8 @@ export default function CreateVideo() {
                                 className="text-black"                              
                                 value={selectedCategories}     
                                 onChange={setSelectedCategories}                          
-                                id="categories"                           
+                                id="categories"     
+                                name="categories"                      
                             />                       
                         </div>
                         <div className="p-6 md:w-1/2">
@@ -221,7 +229,8 @@ export default function CreateVideo() {
                                 className="text-base h-28 border-transparent rounded w-full p-2"
                                 value={formData.description}
                                 onChange={(e) => handleChange(e)}
-                                id="description"                                   
+                                id="description"     
+                                name="description"                              
                             />
                         </div>      
                     </div>                                     

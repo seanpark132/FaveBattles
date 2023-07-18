@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function HomeGameBox(props) { 
+export default function DisplayGameBox(props) { 
     return (
         <div className="home-box-container">                         
             <div className="h-48 w-full overflow-hidden flex">
@@ -20,6 +20,16 @@ export default function HomeGameBox(props) {
                 <Link to={`/stats/${props.id}`} target="_blank" className="home-box-btn bg-purple-900">
                     <i className="mr-2 fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>Rankings
                 </Link>
+                {props.type === "profile" && 
+                    <div>                        
+                        <Link to={`/edit/${props.id}`} target="_blank" className="home-box-btn bg-sky-600">
+                            <i className="mr-2 fa-solid fa-pen-to-square"></i>Edit
+                        </Link>
+                        <Link to={`/edit/${props.id}`} target="_blank" className="home-box-btn bg-red-500">
+                            <i class="mr-2 fa-solid fa-trash"></i>DELETE
+                        </Link>
+                    </div>
+                }
             </div>
         </div>
     );

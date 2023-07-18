@@ -12,8 +12,9 @@ import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
 import NoPage from './pages/NoPage';
 import {auth, db} from "./firebaseConfig";
-import {collection, getDocs} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
+import "./css/Profile.css"
 import "./css/SignUp.css"
 import './css/App.css';
 import "./css/Home.css";

@@ -108,6 +108,7 @@ export default function CreateImg() {
     // handle form data change (title, description)
     function handleChange(event) {       
         const {name, value} = event.target;
+  
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
@@ -124,16 +125,21 @@ export default function CreateImg() {
             alert("The minimum game size is 4 choices. Make sure to have at least 4 choices.");
             return;
         };
+
+        if (selectedCategories.length === 0) {
+            alert("Please select at least 1 category");
+            return;
+        };
                 
         let fullFormData = _.cloneDeep(formData);
         fullFormData.id = gameId;
-        fullFormData.authorId = auth.currentUser.uid;
+        fullFormData.creatorId = auth.currentUser.uid;
         fullFormData.choices = choicesData;
         fullFormData.categories = selectedCategories;
         fullFormData.mainCategory = selectedCategories[0].label;
         fullFormData.numStarts = 0;
         fullFormData.numCompletes = 0;
-        fullFormData.gameType = "image"
+        fullFormData.gameType = "image"  
         localStorage.removeItem('create-img-gameId');
         localStorage.removeItem('create-img-choicesData');
         await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
@@ -160,8 +166,8 @@ export default function CreateImg() {
                 type="file"    
                 className="w-fit file:bg-blue-800"                              
                 accept="image/png, image/jpeg, image/jpg, image/webp"
-                multiple={true}                                                     
-                onChange={event => {setInputtedImgs(event.target.files)}}
+                multiple={true}                                                    
+                onChange={event => {setInputtedImgs(event.target.files)}}           
                 id="imgUpload"
             />                         
             <button 
@@ -186,7 +192,8 @@ export default function CreateImg() {
                                 className="mb-4 p-2"
                                 value={formData.title}
                                 onChange={(e) => handleChange(e)}
-                                id="title"                                                       
+                                id="title"
+                                name="title"
                             />                                          
                             <label>Categories (First one will be the main one):</label>
                             <Select 
@@ -195,7 +202,8 @@ export default function CreateImg() {
                                 className="text-black"                              
                                 value={selectedCategories}     
                                 onChange={setSelectedCategories}                          
-                                id="categories"                           
+                                id="categories"       
+                                name="categories"                    
                             />                       
                         </div>
                         <div className="p-6 md:w-1/2">
@@ -206,7 +214,7 @@ export default function CreateImg() {
                                 value={formData.description}
                                 onChange={(e) => handleChange(e)}
                                 id="description"   
-                                
+                                name="description"                                
                             />
                         </div>
                     </div>
