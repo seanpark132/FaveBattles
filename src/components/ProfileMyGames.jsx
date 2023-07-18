@@ -36,8 +36,10 @@ export default function ProfileMyGames() {
     return (
         <section className="flex flex-col w-full py-8">
             <h1 className="mb-4">My Games</h1>
-            {isLoading ? <h1>Loading...</h1>
-            :(myGamesData.length === 0 ? <h2>You have not created any games yet.</h2>: myGameBoxes)}
+            <div className='flex flex-wrap'>
+                {isLoading ? <h1>Loading...</h1>
+                :(myGamesData.length === 0 ? <h2>You have not created any games yet.</h2>: myGameBoxes)}
+            </div>
         </section>
   );
 };

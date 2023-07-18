@@ -4,28 +4,14 @@ import { doc, setDoc} from "firebase/firestore";
 import { v4 } from "uuid";
 import { _ } from 'lodash';
 import { Link } from "react-router-dom";
-import Select from 'react-select';
+import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import Navbar from "../components/Navbar";
+import AddGameDetails from "../components/AddGameDetails";
 import CreateVideoChoiceBox from "../components/CreateVideoChoiceBox";
+import AddNewVideo from "../components/AddNewVideo";
 
-const FIRESTORE_COLLECTION_NAME = "all_games"
-const CATEGORY_OPTIONS = [
-    {value:"food", label:"Food"},
-    {value:"entertainment", label:"Entertainment"},
-    {value:"music", label:"Music"},
-    {value:"games", label:"Games"},
-    {value:"tv", label:"TV"},
-    {value:"movies", label:"Movies"},
-    {value:"anime", label:"Anime"},
-    {value:"books", label:"Books"},
-    {value:"sports", label:"Sports"},
-    {value:"kpop", label:"Kpop"},
-    {value:"other", label:"Other"} 
-];
 
 export default function CreateVideo() {
-    const [inputUrl, setInputUrl] = useState("");
-    const [inputTime, setInputTime] = useState("");   
     const [choicesData, setChoicesData] = useState(null);  
     const [formData, setFormData] = useState({});
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -47,89 +33,6 @@ export default function CreateVideo() {
     const gameId = storedGameId ? storedGameId : v4();
     localStorage.setItem('create-video-GameId', gameId);    
 
-    function convertInputTimeToSeconds(timeString) {
-        if (timeString.length === 0) {
-            return 0;
-        }
-        const splitTimeArray = timeString.split(":");
-        if (splitTimeArray.length === 3) {
-            const hours = parseInt(splitTimeArray[0]);
-            const minutes = parseInt(splitTimeArray[1]);
-            const seconds = parseInt(splitTimeArray[2]);
-            return (hours * 60 * 60 ) + (minutes * 60) + seconds;
-        }
-
-        if (splitTimeArray.length === 2) {
-            const minutes = parseInt(splitTimeArray[0]);
-            const seconds = parseInt(splitTimeArray[1]);
-            return (minutes * 60) + seconds;
-        }     
-        return parseInt(timeString);
-    };
-
-    async function handleAddVideo() {
-        const trimmedUrl = inputUrl.trim()
-        if (trimmedUrl.length < 43) {
-            alert("Please enter a valid Youtube URL of the form:\nhttps://www.youtube.com/watch?v=9bZkp7q19f0")
-            return;
-        };
-
-        const startTime = convertInputTimeToSeconds(inputTime); 
-        if (isNaN(startTime)) {
-            alert("Please enter a valid start time.")
-            return;
-        };
-
-        const youtubeId = trimmedUrl.slice(32, 43);        
-        const actualUrl = `https://www.youtube.com/watch?v=${youtubeId}`
-        const embedUrl = `https://www.youtube-nocookie.com/embed/${youtubeId}?start=${startTime}?origin=https://favebattles.netlify.app`;
-        const thumbnailUrl = `https://img.youtube.com/vi/${youtubeId}/0.jpg`;        
-        const choiceId = v4();
-        const res = await (await fetch(`https://noembed.com/embed?dataType=json&url=${actualUrl}`)).json();
-        const youtubeTitle = res.title;
-
-        setChoicesData(prev => 
-            prev ? 
-            [...prev, 
-                {   
-                    id: choiceId,
-                    thumbnailUrl: thumbnailUrl, 
-                    embedUrl: embedUrl,
-                    name: youtubeTitle,               
-                    numWins: 0,
-                    numGames: 0,
-                    numFirst: 0                
-                }
-            ]
-            :[
-                {   
-                    id: choiceId,
-                    thumbnailUrl: thumbnailUrl, 
-                    embedUrl: embedUrl,
-                    name: youtubeTitle,               
-                    numWins: 0,
-                    numGames: 0,
-                    numFirst: 0        
-                }
-            ]
-        );
-        alert("Video added!");
-        setInputUrl("")
-        setInputTime("")
-    };
-
-
-    // handle form data change (title, description)
-    function handleChange(event) {       
-        const {name, value} = event.target;
-        setFormData(prevFormData => {
-            return {
-                ...prevFormData,
-                [name]: value
-            };
-        });
-    };
-
     // final "create game" button submit - initialize game object on firestore database
     async function handleSubmit(event) {
         event.preventDefault(); 
@@ -144,17 +47,19 @@ export default function CreateVideo() {
             return;
         };
 
-        let fullFormData = _.cloneDeep(formData);
-        fullFormData.id = gameId;
-        fullFormData.creatorId = auth.currentUser.uid;
-        fullFormData.choices = choicesData;
-        fullFormData.categories = selectedCategories;
-        fullFormData.mainCategory = selectedCategories[0].label;
-        fullFormData.numStarts = 0;
-        fullFormData.numCompletes = 0;
-        fullFormData.gameType = "video-youtube"
         localStorage.removeItem('create-video-gameId');
         localStorage.removeItem('create-video-choicesData');
+        const fullFormData = {
+            ...formData,
+            id: gameId,
+            creatorId: auth.currentUser.uid,
+            choices: choicesData,
+            categories: selectedCategories,
+            mainCategory: selectedCategories[0]?.label,
+            numStarts: 0,
+            numCompletes: 0,
+            gameType: "video-youtube"
+        };
         await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
         alert("Game created!");        
 
@@ -173,68 +78,18 @@ export default function CreateVideo() {
         };
      },[choicesData]);
 
-    const addVideoSection = 
-        <section className="flex flex-col px-6 mb-6 max-w-4xl">              
-            <h2 className="mb-2">Add Youtube Videos by pasting their links below</h2>          
-            <label htmlFor="inputLink">Full Youtube Link:</label>
-            <input 
-                type="text"
-                className="my-2 p-2"
-                value={inputUrl}
-                onChange={(e) => setInputUrl(e.target.value)}
-                id="inputLink"               
-            />       
-            <label htmlFor="inputTime">Start time (optional): </label>
-            <input
-                type="text"
-                className="my-2 w-24 p-2"
-                value={inputTime}
-                onChange={(e) => setInputTime(e.target.value)}
-                id="inputTime"
-            />              
-            <button type="button" className="mt-2 p-2 border-transparent rounded bg-blue-800" onClick={handleAddVideo}>Add Video</button>         
-        </section>
-
     return (
         <div className="w-screen">
             <Navbar />
             <form onSubmit={(e) => handleSubmit(e)}>       
                 <fieldset>
-                    <div className="flex flex-col w-full md:flex-row">
-                        <div className="flex flex-col p-6 md:w-1/2">                            
-                            <label htmlFor="title">Game Title:</label>
-                            <input                                     
-                                type="text" 
-                                className="mb-4 p-2"
-                                value={formData.title}
-                                onChange={(e) => handleChange(e)}
-                                id="title"        
-                                name="title"                                               
-                            />                                          
-                            <label>Categories (First one will be the main one):</label>
-                            <Select 
-                                isMulti
-                                options={CATEGORY_OPTIONS}                                    
-                                className="text-black"                              
-                                value={selectedCategories}     
-                                onChange={setSelectedCategories}                          
-                                id="categories"     
-                                name="categories"                      
-                            />                       
-                        </div>
-                        <div className="p-6 md:w-1/2">
-                            <label htmlFor="description">Enter a description for your game:</label>
-                            <br/>
-                            <textarea 
-                                className="text-base h-28 border-transparent rounded w-full p-2"
-                                value={formData.description}
-                                onChange={(e) => handleChange(e)}
-                                id="description"     
-                                name="description"                              
-                            />
-                        </div>      
-                    </div>                                     
-                    {addVideoSection}                                      
+                    <AddGameDetails 
+                        formData={formData}
+                        setFormData={setFormData}
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                    />              
+                    <AddNewVideo setChoicesData={setChoicesData} />                                  
                 </fieldset>  
                 <hr />                    
                 <div className="flex flex-col items-center px-6 mt-8 w-full">                                             
