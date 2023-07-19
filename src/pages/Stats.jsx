@@ -78,7 +78,7 @@ export default function Stats(props) {
 
     const renderHeader = () => {
         return (
-            <div className="h-12 m-4 flex items-center relative">
+            <div className="m-2">
                 <span className="p-input-icon-left">
                     <i className="fa-solid fa-magnifying-glass"></i>
                     <InputText 
@@ -90,14 +90,14 @@ export default function Stats(props) {
                         placeholder="Search by Name"                    
                     />
                 </span>                  
-                <h2 className="absolute text-white text-2xl left-1/2 -translate-x-1/2">[{props.gameData.mainCategory}] {props.gameData.title}</h2>         
+                <h2 className="mt-4 text-white text-center text-lg lg:text-2xl">[{props.gameData.mainCategory}] {props.gameData.title}</h2>                  
             </div>
         );
     };
 
     const imageBody = (rowData) => {
         return (
-            <Image src={rowData.url} alt="choice-img" imageClassName="w-48 h-32 object-cover" preview/>
+            <Image src={rowData.url} alt="choice-img" imageClassName="h-32 object-cover" preview/>
         )
     };
 
@@ -118,18 +118,18 @@ export default function Stats(props) {
 
     const firstPercentBody = (rowData) => {
         return (
-            <div className="text-center mb-6">
+            <div className="flex flex-col items-center mb-4">
                 <p>{rowData.firstPercent}%</p>
-                <ProgressBar value={rowData.firstPercent} showValue={false}></ProgressBar> 
+                <ProgressBar className="max-w-xs w-full" value={rowData.firstPercent} showValue={false}></ProgressBar> 
             </div>        
         );
     };
 
     const winPercentBody = (rowData) => {
         return (
-            <div className="text-center mb-6">
+            <div className="flex flex-col items-center mb-4">
                 <p>{rowData.winPercent}%</p>
-                <ProgressBar value={rowData.winPercent} showValue={false}></ProgressBar> 
+                <ProgressBar className="max-w-xs w-full" value={rowData.winPercent} showValue={false}></ProgressBar> 
             </div>        
         );
     };
@@ -138,7 +138,7 @@ export default function Stats(props) {
         <div>
             <Navbar />       
             <DataTable     
-                tableStyle={{fontSize:"1.5rem"}}
+                tableStyle={{fontSize:"1rem"}}
                 value={choicesData} 
                 sortMode="multiple" 
                 filters={filters}             
@@ -147,14 +147,15 @@ export default function Stats(props) {
                 rows={10}
                 rowsPerPageOptions={[10,20,100]}              
                 stripedRows
+                showGridlines
                 header={renderHeader}
             >
-                <Column className="font-bold" field="rank" header="Rank" sortable />
-                <Column className="font-bold" field="name" header="Name" style={{width: "30rem"}} sortable />
-                {isTypeYoutube ? <Column field="embedUrl" header="Video" body={youtubeBody} style={{width:"25rem"}}/>
-                :<Column field="url" header="Image" body={imageBody} style={{width:"25rem"}}/> }
-                <Column field="firstPercent" header="Game Win %" body={firstPercentBody} style={{width: "24rem"}} sortable />
-                <Column field="winPercent" header="Round Win %" body={winPercentBody} style={{width: "24rem"}} sortable />            
+                <Column className="font-bold md:text-lg lg:text-2xl" field="rank" header="Rank" style={{width:"5%"}} />
+                <Column className="font-bold text-base md:text-lg lg:text-2xl" field="name" header="Name" style={{width:"30%"}} sortable />
+                {isTypeYoutube ? <Column className="font-bold md:text-lg lg:text-2xl" field="embedUrl" header="Video" body={youtubeBody} style={{width:"25%"}}/>
+                :<Column className="md:text-lg lg:text-2xl" field="url" header="Image" body={imageBody} style={{width:"25%"}}/> }
+                <Column className="md:text-lg lg:text-2xl" field="firstPercent" header="Game Win %" body={firstPercentBody} style={{width:"20%"}} sortable />
+                <Column className="md:text-lg lg:text-2xl" field="winPercent" header="Round Win %" body={winPercentBody} style={{width:"20%"}} sortable />            
             </DataTable>
         </div>   
     );

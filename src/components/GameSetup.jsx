@@ -2,16 +2,15 @@ import {useState} from 'react';
 import { _ } from 'lodash';
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebaseConfig"
+import { FIRESTORE_COLLECTION_NAME } from '../utils/global_consts';
 
-export default function FormBox(props) {
+export default function GameSetup(props) {
     const [visible, setVisible] = useState(true);
 
-    // when the form is submitted, visible goes from true to false => when this component is re-rendered, it's null
     if (!visible) { 
         return null;
     };
 
-    // remove two random choices from current array, return these two as left and right
     function getTwoChoicesFromCurrentChoices(array) {
         const index1 = Math.floor(Math.random() * array.length);
         let index2 = Math.floor(Math.random() * array.length);        
@@ -49,16 +48,8 @@ export default function FormBox(props) {
         return randomChoices;
     };
 
-    function handleGameSizeChange(e) {
-        const {name, value} = e.target;
-        props.setGameSize(value);
-    };
-    
     async function handleGameStart(e) {
         e.preventDefault();
-        setVisible(false);
-        props.setGameActive(true);   
-
         const copyCurrChoices = _.cloneDeep(props.currChoices);    
         const gameSizedChoices = props.gameSize === copyCurrChoices.length ? 
             copyCurrChoices: getRandomChoices(copyCurrChoices, props.gameSize);
@@ -67,7 +58,10 @@ export default function FormBox(props) {
         props.setLeftChoice(initialLeft);
         props.setRightChoice(initialRight);
 
-        const gameDocRef = doc(db, "all_games", props.gameData.id);
+        setVisible(false);
+        props.setGameActive(true);   
+
+        const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id);
         await updateDoc(gameDocRef, {
             numStarts: increment(1)
         });
@@ -87,25 +81,26 @@ export default function FormBox(props) {
 
     const totalNumChoices = props.gameData.choices.length;
     const choicesArray = generateChoicesArray(totalNumChoices);
-    const selectOptions = choicesArray.map(numChoices =>
+    const selectOptions = choicesArray.map((numChoices) =>
         <option key={numChoices} value={numChoices}>{numChoices} choices</option>
     );
 
     return (
-        <div className='formbox-container'>
+        <div className='m-6 w-full p-4 max-w-screen-md border-transparent rounded bg-violet-300 mt-16'>
             <h2 className='text-black m-3'>{`[${props.gameData.mainCategory}] ${props.gameData.title} (${props.gameData.choices.length} choices)`}</h2>
-            <form className="flex" onSubmit={handleGameStart}>
-                <select 
-                    value={props.gameSize}
-                    onChange={handleGameSizeChange}
-                    name='startingOptions'
-                    id='startingOptions'
-                    className='formbox-dropdown'
-                >                    
-                    {selectOptions} 
-                </select>
-                <br />
-                <button className='formbox-btn'>Start game with {props.gameSize} choices!</button>
+            <form onSubmit={handleGameStart}>
+                <div className='flex'>
+                    <select 
+                        value={props.gameSize}
+                        onChange={(e) => props.setGameSize(e.target.value)}
+                        name='startingOptions'
+                        id='startingOptions'
+                        className='mx-2 flex-1 text-black bg-white font-semibold p-2 border-transparent rounded text-center'
+                    >                    
+                        {selectOptions} 
+                    </select>             
+                    <button className='mx-2 flex-1 text-black bg-green-500 p-2 border-transparent rounded'>Start game with {props.gameSize} choices!</button>
+                </div>    
             </form>
         </div>
     );

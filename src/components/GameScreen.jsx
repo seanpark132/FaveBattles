@@ -2,34 +2,14 @@ import { useState } from "react";
 import { _ } from 'lodash';
 import { db } from "../firebaseConfig";
 import { doc, getDoc, setDoc}  from "firebase/firestore";
+import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts"
+import { getTwoChoicesFromCurrentChoices } from "../utils/helper_functions";
 import GameScreenImage from "./GameScreenImage"
 import GameScreenYoutube from "./GameScreenYoutube"
 
 export default function GameScreen(props) {
     const [roundNum, setRoundNum] = useState(1);   
-    const FIRESTORE_COLLECTION_NAME = "all_games"; 
-    
-    // remove 2 random choices from remaining choices, and set them as new left and right to be displayed
-    function getTwoChoicesFromCurrentChoices(array) {
-        const index1 = Math.floor(Math.random() * array.length);
-        let index2 = Math.floor(Math.random() * array.length);      
-        while (index2 === index1) {
-            index2 = Math.floor(Math.random() * array.length);
-        };
-        
-        let indexArray = [];
-        if (index1 > index2) {
-            indexArray = [index1, index2];
-        } else {
-            indexArray = [index2, index1];
-        };                   
-        const lChoice = array.splice(indexArray[0], 1);
-        const rChoice = array.splice(indexArray[1], 1);
-        
-        props.setCurrChoices(array);
-        return [lChoice[0], rChoice[0]];
-    };
-    
+   
     // counter function for choice stats (numGames, numWins, numFirst) when choice is clicked
     async function updateChoiceStats(winId, loseId, isFinalRound) {
         const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id);
@@ -64,7 +44,7 @@ export default function GameScreen(props) {
             props.setNextChoices(prev => [...prev, props.leftChoice]);
             props.setNextChoices(newChoices => {                
                 const copyNewChoices = _.cloneDeep(newChoices);                
-                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices);
+                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices, props.setCurrChoices);
                 props.setLeftChoice(newLeft);
                 props.setRightChoice(newRight);  
                 return [];
@@ -76,7 +56,7 @@ export default function GameScreen(props) {
             setRoundNum(prevRoundNum => prevRoundNum + 1);
             props.setNextChoices(prev => [...prev, props.leftChoice]);
             const copyCurrChoices = _.cloneDeep(props.currChoices);
-            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices);
+            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices, props.setCurrChoices);
             props.setLeftChoice(newLeft);
             props.setRightChoice(newRight);
         }; 
@@ -98,7 +78,7 @@ export default function GameScreen(props) {
             props.setNextChoices(prev => [...prev, props.rightChoice]);
             props.setNextChoices(newChoices => {                  
                 const copyNewChoices = _.cloneDeep(newChoices);              
-                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices);
+                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices, props.setCurrChoices);
                 props.setLeftChoice(newLeft);
                 props.setRightChoice(newRight);
                 return [];
@@ -111,7 +91,7 @@ export default function GameScreen(props) {
             setRoundNum(prevRoundNum => prevRoundNum + 1);      
             props.setNextChoices(prev => [...prev, props.rightChoice]);
             const copyCurrChoices = _.cloneDeep(props.currChoices);
-            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices);
+            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices, props.setCurrChoices);
             props.setLeftChoice(newLeft);
             props.setRightChoice(newRight);
         };          
@@ -120,13 +100,21 @@ export default function GameScreen(props) {
     };
       
     return (    
-        <div className="w-full">
-            <h1 className="m-4">{`[${props.gameData.mainCategory}] ${props.gameData.title} : TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2})`}</h1>              
+        <div className="w-full h-vh-nav">
+            <h3 className="m-4 md:text-2xl lg:text-3xl">{`TOP ${props.gameSize} (Round ${roundNum}/${props.gameSize/2}) : [${props.gameData.mainCategory}] ${props.gameData.title}`}</h3>  
             {props.gameData.gameType === "image" ? 
-            <GameScreenImage leftUrl={props.leftChoice.url} rightUrl={props.rightChoice.url} /> 
-            :<GameScreenYoutube leftEmbedUrl={props.leftChoice.embedUrl} rightEmbedUrl={props.rightChoice.embedUrl} />}
-            <button className="gameScreen-btn" onClick={handleLeft}>{props.leftChoice.name}</button>
-            <button className="gameScreen-btn" onClick={handleRight}>{props.rightChoice.name}</button>
+            <GameScreenImage 
+                leftChoice={props.leftChoice} 
+                rightChoice={props.rightChoice}
+                handleLeft={handleLeft}
+                handleRight={handleRight}
+            /> 
+            :<GameScreenYoutube 
+                leftChoice={props.leftChoice} 
+                rightChoice={props.rightChoice} 
+                handleLeft={handleLeft}
+                handleRight={handleRight}
+            />}  
         </div>
     );
 };
