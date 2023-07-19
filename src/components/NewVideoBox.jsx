@@ -1,8 +1,4 @@
-// box component for each video the user adds in Create-Video page
-
-import { _ } from 'lodash';
-
-export default function CreateVideoChoiceBox(props) { 
+export default function NewVideoBox(props) { 
 
     function handleNameChange(event) {
         props.setChoicesData(prev => {   
@@ -24,7 +20,7 @@ export default function CreateVideoChoiceBox(props) {
 
     // Component viable for screens below 768 px 
     const mdScreen =
-        <div className="create-video-choice-box-md">
+        <div className="create-new-video-box-md">
             <iframe                        
                 className='create-iframe-dimensions-md'
                 src={props.embedUrl}
@@ -51,7 +47,7 @@ export default function CreateVideoChoiceBox(props) {
     return (
         <>            
             {mdScreen}
-            <div className="create-video-choice-box">
+            <div className="create-new-video-box">
                 <iframe 
                     width="400" 
                     height="225" 
@@ -68,7 +64,7 @@ export default function CreateVideoChoiceBox(props) {
                         onChange={(e) => handleNameChange(e)} value={props.name}
                     />
                 </div>
-                <button type="button" className="absolute top-0 right-0 h-fit py-1 px-1.5 bg-red-500" onClick={() => deleteBtn(props.choiceId)}>
+                <button type="button" className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500" onClick={() => deleteBtn(props.choiceId)}>
                     <i className="fa-solid fa-xmark fa-lg text-white"></i>
                 </button>
             </div>  

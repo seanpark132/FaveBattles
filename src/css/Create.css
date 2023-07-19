@@ -28,21 +28,21 @@ input::file-selector-button:hover {
     color: rgb(172, 172, 172);  
 }
 
-.create-img-choice-container {
+.create-new-img-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;    
 }
 
-.create-video-choice-container {
+.create-new-video-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;    
 }
 
-.create-video-choice-box {
+.create-new-video-box {
     position: relative;
     display: none;
     margin-bottom: 2rem;     
@@ -52,7 +52,7 @@ input::file-selector-button:hover {
     width: 100%;
 }
 
-.create-video-choice-box-md {
+.create-new-video-box-md {
     display: block;  
     margin-bottom: 2rem;
     border: 2px solid rgb(163, 163, 163); 
@@ -68,23 +68,23 @@ input::file-selector-button:hover {
 }
 
 @media (min-width: 48rem) {
-    .create-img-choice-container {
+    .create-new-img-container {
         display: grid;
         grid-template-columns: 1fr 1fr;    
         grid-column-gap: 2rem;   
     }
 
-    .create-video-choice-box  {
+    .create-new-video-box {
         display: flex;
     }
 
-    .create-video-choice-box-md   {
+    .create-new-video-box-md {
         display: none;
     }
 }
 
 @media (min-width: 90rem) {
-    .create-video-choice-container {
+    .create-new-video-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 2rem;  

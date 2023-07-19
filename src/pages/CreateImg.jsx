@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../firebaseConfig";
-import { doc, setDoc} from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
-import { _ } from 'lodash';
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts"
 import Navbar from "../components/Navbar";
-import CreateImgChoiceBox from "../components/CreateImgChoiceBox";
+import NewImgBox from "../components/NewImgBox";
 import AddGameDetails from "../components/AddGameDetails";
 import AddNewImage from "../components/AddNewImage";
+import NotSignedIn from "../components/NotSignedIn";
 
 export default function CreateImg() {
     const [choicesData, setChoicesData] = useState(null);
@@ -16,13 +16,7 @@ export default function CreateImg() {
 
     if (!auth.currentUser) {
         return (
-            <div>
-                <Navbar/>
-                <div className="p-8 flex flex-col text-center justify-center">
-                    <h2>You are not signed in. To create games, you must be signed in.</h2> 
-                    <h1><Link to="/sign-in" className="text-blue-400 underline underline-offset-2">Sign In Here</Link></h1>
-                </div>
-            </div>
+            <NotSignedIn />
         );
     };
 
@@ -77,7 +71,7 @@ export default function CreateImg() {
     },[choicesData]); 
 
     return (
-        <div className="w-screen">
+        <div className="w-full">
             <Navbar />
             <form onSubmit={(e) => handleSubmit(e)}>
                 <fieldset>
@@ -91,15 +85,16 @@ export default function CreateImg() {
                 </fieldset>  
                 <hr />
                 <div className="flex flex-col w-full items-center px-6 mt-8">                                             
-                    <div className="create-img-choice-container">
+                    <div className="create-new-img-container">
                         {choicesData && choicesData.map(choiceData => {
                             return (
-                                <CreateImgChoiceBox 
+                                <NewImgBox
                                     key={choiceData.id} 
                                     choiceId={choiceData.id}                          
-                                    gameId={gameId}   
-                                    setChoicesData={setChoicesData}                           
-                                    {...choiceData}    
+                                    gameId={gameId} 
+                                    url={choiceData.url}
+                                    name={choiceData.name}                                    
+                                    setChoicesData={setChoicesData}
                                 />                             
                             );
                         })}

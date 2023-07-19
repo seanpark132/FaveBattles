@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../firebaseConfig"
 import { signOut } from "firebase/auth";
 
-export default function Navbar(props) {
+export default function Navbar({ type }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     async function signOutUser() {
@@ -18,7 +18,7 @@ export default function Navbar(props) {
     };
 
     return (
-        <nav className={props.type === "fixed" ? "fixed top-0 w-full": "sticky top-0"}>        
+        <nav className={type === "fixed" ? "fixed top-0 w-full": "sticky top-0"}>        
             <button className="ml-4 text-2xl" onClick={() => setIsMenuOpen(prev => !prev)}>
                 <i className="fa-solid fa-bars"></i>
             </button>            

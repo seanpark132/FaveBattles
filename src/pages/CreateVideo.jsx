@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { db, auth } from "../firebaseConfig";
 import { doc, setDoc} from "firebase/firestore";
 import { v4 } from "uuid";
-import { _ } from 'lodash';
-import { Link } from "react-router-dom";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import Navbar from "../components/Navbar";
 import AddGameDetails from "../components/AddGameDetails";
-import CreateVideoChoiceBox from "../components/CreateVideoChoiceBox";
+import NewVideoBox from "../components/NewVideoBox";
 import AddNewVideo from "../components/AddNewVideo";
+import NotSignedIn from "../components/NotSignedIn";
 
 
 export default function CreateVideo() {
@@ -18,13 +17,7 @@ export default function CreateVideo() {
 
     if (!auth.currentUser) {
         return (
-            <div>
-                <Navbar/>
-                <div className="p-8 flex flex-col text-center justify-center">
-                    <h2>You are not signed in. To create games, you must be signed in.</h2> 
-                    <h1><Link to="/sign-in" className="text-blue-400 underline underline-offset-2">Sign In Here</Link></h1>
-                </div>
-            </div>
+            <NotSignedIn />
         );
     };
 
@@ -79,7 +72,7 @@ export default function CreateVideo() {
      },[choicesData]);
 
     return (
-        <div className="w-screen">
+        <div className="w-full">
             <Navbar />
             <form onSubmit={(e) => handleSubmit(e)}>       
                 <fieldset>
@@ -92,17 +85,18 @@ export default function CreateVideo() {
                     <AddNewVideo setChoicesData={setChoicesData} />                                  
                 </fieldset>  
                 <hr />                    
-                <div className="flex flex-col items-center px-6 mt-8 w-full">                                             
-                    <div className="create-video-choice-container ">
+                <div className="flex flex-col w-full items-center px-6 mt-8">                                             
+                    <div className="create-new-video-container">
                         {choicesData && choicesData.map(choiceData => {
                             return (
-                                <CreateVideoChoiceBox
+                                <NewVideoBox
                                     key={choiceData.id} 
                                     choiceId={choiceData.id}                          
-                                    gameId={gameId}   
-                                    setChoicesData={setChoicesData}                                                           
-                                    {...choiceData}    
-                                />                             
+                                    gameId={gameId} 
+                                    embedUrl={choiceData.embedUrl}
+                                    name={choiceData.name}                                    
+                                    setChoicesData={setChoicesData}  
+                                />
                             );
                         })}
                     </div>

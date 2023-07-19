@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { v4 } from "uuid";
 
-export default function AddNewVideo() {
+export default function AddNewVideo(props) {
     const [inputUrl, setInputUrl] = useState("");
     const [inputTime, setInputTime] = useState("");   
 

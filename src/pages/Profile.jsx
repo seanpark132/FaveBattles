@@ -1,14 +1,18 @@
 import Navbar from "../components/Navbar";
 import { auth } from "../firebaseConfig";
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProfileMyGames from "../components/ProfileMyGames";
+import NotSignedIn from "../components/NotSignedIn";
 
 export default function Profile() {
     const [currentTab, setCurrentTab] = useState("my-account");
 
-    const navigate = useNavigate();
+    if (!auth.currentUser) {
+        return (
+            <NotSignedIn />
+        );
+    };
 
     const myAccountSection = 
         <section className="flex flex-col w-full py-8">
@@ -40,8 +44,3 @@ export default function Profile() {
         </div>                      
     );
 };
-
-// TOP BAR : email or username, signout button
-// ACCOUNT DETAILS : EMAIL, CHANGE PASS, DELETE ACCOUNT
-// My games: list of games created by auth.currentUser.id
-// Last played games ???

@@ -1,6 +1,30 @@
 import { Link } from "react-router-dom";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db, storage } from "../firebaseConfig";
+import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
+import { ref, deleteObject } from "firebase/storage";
 
 export default function DisplayGameBox(props) { 
+    async function deleteGame(gameId) {
+        try {
+            const gameDoc = doc(db, FIRESTORE_COLLECTION_NAME, gameId);     
+            await deleteDoc(gameDoc);
+
+            if (props.gameType === "image") {
+                await Promise.all(props.choices.map(async (choice) => {
+                    const imgRef = ref(storage, `all_games/${gameId}/${choice.id}`);
+                    await deleteObject(imgRef);
+                }));
+    
+            };
+
+            alert("Game Deleted.")
+        } catch(error) {
+            console.error(error.message);
+            alert("Error in deleting game.")
+        };
+    };
+
     return (
         <div className="home-box-container">                         
             <div className="h-48 w-full overflow-hidden flex">
@@ -22,12 +46,12 @@ export default function DisplayGameBox(props) {
                 </Link>
                 {props.type === "profile" && 
                     <div>                        
-                        <Link to={`/edit/${props.id}`} target="_blank" className="home-box-btn bg-sky-600">
+                        <Link to={`/edit-game/${props.id}`} target="_blank" className="home-box-btn bg-sky-600">
                             <i className="mr-2 fa-solid fa-pen-to-square"></i>Edit
                         </Link>
-                        <Link to={`/edit/${props.id}`} target="_blank" className="home-box-btn bg-red-500">
-                            <i class="mr-2 fa-solid fa-trash"></i>DELETE
-                        </Link>
+                        <button className="home-box-btn text-left bg-red-500" onClick={() => deleteGame(props.id)}>
+                            <i className="mr-2 fa-solid fa-trash"></i>DELETE
+                        </button>
                     </div>
                 }
             </div>
