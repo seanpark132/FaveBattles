@@ -28,8 +28,16 @@ export default function DisplayGameBox(props) {
     return (
         <div className="home-box-container">                         
             <div className="h-48 w-full overflow-hidden flex">
-                <img className="h-full w-1/2 object-cover" src={props.gameType === "video-youtube" ? props.choices[0].thumbnailUrl: props.choices[0].url} alt="left img"/>
-                <img className="h-full w-1/2 object-cover" src={props.gameType === "video-youtube" ? props.choices[1].thumbnailUrl: props.choices[1].url} alt="right img"/>
+                <img 
+                    className="h-full w-1/2 object-cover" 
+                    src={props.gameType === "video-youtube" ? props.choices[0].thumbnailUrl: props.choices[0].url} 
+                    alt="left img"
+                />
+                <img 
+                    className="h-full w-1/2 object-cover" 
+                    src={props.gameType === "video-youtube" ? props.choices[1].thumbnailUrl: props.choices[1].url} 
+                    alt="right img"
+                />
             </div>
             <div className="flex w-full mb-2 border-b-2 border-b-slate-200">
                 <p className="home-box-img-label">{props.choices[0].name}</p>

@@ -27,18 +27,7 @@ export default function App() {
   const [allGameData, setAllGameData] = useState([]);
   const [myGamesData, setMyGamesData] = useState([]);
   const [isDataFetched, setIsDataFetched] = useState(false);
-  // const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {   
-
-  //   });
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-  
   useEffect(() => {
     const getGameData = async () => {
       const gamesRef = collection(db, FIRESTORE_COLLECTION_NAME);
@@ -68,7 +57,6 @@ export default function App() {
 
     getGameData();   
   }, []);
-
   
   return(
     <>    
