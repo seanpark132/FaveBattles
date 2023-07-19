@@ -1,26 +1,19 @@
-export default function WinnerScreen(props) {
-    const imgWinner =  
-    <div className="winner-img-container">
-        <img className="h-full w-full object-contain" src={props.winner.url} alt="winnerImg"/>   
-    </div>
+export default function WinnerScreen(props) {     
 
-    const youtubeWinner =   
-        <div className="winner-video-container">        
+    return (
+        <div className="flex flex-col items-center p-6">
+            <h1 className="m-4">The winner is: {props.winner.name}</h1>          
+            {props.gameType === "image" ? <img className="winner-img object-contain" src={props.winner.url} alt="winnerImg"/>
+            :
             <iframe    
-                className="w-full h-full"
+                className="winner-video"
                 src={props.winner.embedUrl}
-                title="YouTube video player" 
-                frameBorder="0" 
+                title="YouTube video player"            
                 allow="accelerometer;"          
                 allowFullScreen                
             >                
-            </iframe> 
-        </div>
-
-    return (
-        <div className="flex flex-col items-center">
-            <h1 className="m-4">The winner is: {props.winner.name}</h1>          
-            {props.gameType === "image" ? imgWinner: youtubeWinner}                 
+            </iframe>
+            }                 
          </div>
     );
 };

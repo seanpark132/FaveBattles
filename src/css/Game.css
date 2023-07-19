@@ -17,14 +17,14 @@
 .text-black-outline {
     -webkit-text-stroke: 1px black;}
 
-.winner-img-container {
-    width: 44rem;
-    height: 44rem;
+.winner-img {
+    width: clamp(17rem, 60vw, 45rem);
+    height: clamp(17rem, 75vh, 45rem);
 }
 
-.winner-video-container {
-    width: 60rem;
-    height: 33.75rem;
+.winner-video {
+    width: clamp(17rem, 70vw, 60rem);
+    height: calc(clamp(17rem, 70vw, 60rem)*(9/16));
 }   
 
 @media (min-width: 48rem) {
