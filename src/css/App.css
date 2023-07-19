@@ -5,31 +5,13 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(255, 255, 255, 0.90);
+  background-color: #212121;
   -webkit-text-size-adjust: 100%;
 }
 
-a {  
-  color: rgba(255, 255, 255, 0.87);
-  text-decoration: inherit;
-}
-
-a:visited {
-  color: rgba(255, 255, 255, 0.87);
-}
-
-a:hover { 
-  color: rgb(172, 172, 172);  
-}
-
-body,
-h1,
-h2,
-h3,
-div,
-p {
-  margin: 0rem;    
+a:hover {
+  color: rgba(216, 216, 216, 0.67);
 }
 
 h1 {
@@ -47,13 +29,18 @@ h3 {
   font-weight: bold;
 }
 
+button {
+  font-weight: 600;
+}
+
 button:hover {
   color: rgb(172, 172, 172);  
 }
 
 input {   
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 600;  
+  border: transparent;
+  border-radius: 0.25rem;
 }
 
 label {
@@ -65,11 +52,13 @@ nav {
   align-items: center;
   z-index: 10000;  
   height: 2.75rem;
-  background-color: #3d3d3d;     
-  box-shadow: 0rem 0.125rem 0.125rem rgba(255, 255, 255, 0.432); 
-  position: sticky; top:0;
+  background-color: #444444;     
+  box-shadow: 0rem 0.125rem 0.25rem rgb(255, 255, 255, 0.25); 
 }
 
+textarea {
+  resize: none;
+}
 /* For primereact Image component, toolbar under navbar */
 .p-image-toolbar {
   margin-top: 2rem;

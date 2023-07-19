@@ -1,109 +1,29 @@
 import { useState, useEffect } from "react";
-import { storage, db } from "../firebaseConfig";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, setDoc} from "firebase/firestore";
+import { db, auth } from "../firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
-import { _ } from 'lodash';
-import Select from 'react-select';
+import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts"
 import Navbar from "../components/Navbar";
-import UploadedImg from "../components/UploadedImg";
-
-const CATEGORYOPTIONS= [
-    {value:"food", label:"Food"},
-    {value:"entertainment", label:"Entertainment"},
-    {value:"music", label:"Music"},
-    {value:"games", label:"Games"},
-    {value:"tv", label:"TV"},
-    {value:"movies", label:"Movies"},
-    {value:"anime", label:"Anime"},
-    {value:"books", label:"Books"},
-    {value:"sports", label:"Sports"},
-    {value:"kpop", label:"Kpop"},
-    {value:"other", label:"Other"} 
-];
+import NewImgBox from "../components/NewImgBox";
+import AddGameDetails from "../components/AddGameDetails";
+import AddNewImage from "../components/AddNewImage";
+import NotSignedIn from "../components/NotSignedIn";
 
 export default function CreateImg() {
-    const FIRESTORE_COLLECTION_NAME = "all_games"
-
-    const [inputtedImgs, setInputtedImgs] = useState([]);
     const [choicesData, setChoicesData] = useState(null);
     const [formData, setFormData] = useState({});
     const [selectedCategories, setSelectedCategories] = useState([]);
 
+    if (!auth.currentUser) {
+        return (
+            <NotSignedIn />
+        );
+    };
+
     // create a new id for the game, or if game creation was in progress, restore saved id from local storage
     const storedGameId = localStorage.getItem('create-img-gameId');
     const gameId = storedGameId ? storedGameId : v4();
-    localStorage.setItem('create-img-gameId', gameId);
-    
-    // handle upload image button, upload image(s) file to cloud, add new image data with URL to choicesData state
-    async function uploadImage(event) {        
-        if (inputtedImgs.length === 0 ) {
-            alert("Please add a file first");
-            return;
-        };
-                  
-        for (const img of inputtedImgs) {
-            const imgId = v4();                            
-            const storageRef = ref(storage, `all_games/${gameId}/${imgId}`);         
-            let uploaded = null;
-            try {
-                uploaded = await uploadBytes(storageRef, img);
-            } catch (error) {
-                alert("Image could not be uploaded");
-                return;
-            };        
-            
-            let imgURL = null;
-            try {
-                imgURL = await getDownloadURL(uploaded.ref);
-            } catch (error) {
-                alert("Image uploaded, but could not access download URL");
-                return;
-            };
-            
-            let charsToRemove = 4;
-            if (img.type === "image/webp") {
-                charsToRemove = 5;
-            }
-            const defaultName = (img.name.charAt(0).toUpperCase() + img.name.slice(1)).slice(0, img.name.length- charsToRemove);  
-            setChoicesData(prev => 
-                prev ? 
-                [...prev, 
-                    {   
-                        id: imgId,
-                        url:imgURL, 
-                        name:defaultName,                        
-                        numWins: 0,
-                        numGames: 0,
-                        numFirst: 0                
-                    }
-                ]
-                :[
-                    {   
-                        id: imgId,
-                        url:imgURL, 
-                        name:defaultName,                        
-                        numWins: 0,
-                        numGames: 0,
-                        numFirst: 0       
-                    }
-                ]
-            );
-        }                
-        alert("Image(s) uploaded");
-        setInputtedImgs(null);
-    };
-
-    // handle form data change (title, description)
-    function handleChange(event) {       
-        const {name, value} = event.target;
-        setFormData(prevFormData => {
-            return {
-                ...prevFormData,
-                [name]: value
-            };
-        });
-    };
+    localStorage.setItem('create-img-gameId', gameId); 
 
     // final "create game" button submit - initialize game object on firestore database
     async function handleSubmit(event) {
@@ -113,18 +33,27 @@ export default function CreateImg() {
             alert("The minimum game size is 4 choices. Make sure to have at least 4 choices.");
             return;
         };
-                
-        let fullFormData = _.cloneDeep(formData);
-        fullFormData.id = gameId;
-        fullFormData.choices = choicesData;
-        fullFormData.categories = selectedCategories;
-        fullFormData.mainCategory = selectedCategories[0].label;
-        fullFormData.numStarts = 0;
-        fullFormData.numCompletes = 0;
-        fullFormData.gameType = "image"
+
+        if (selectedCategories.length === 0) {
+            alert("Please select at least 1 category");
+            return;
+        };    
+
         localStorage.removeItem('create-img-gameId');
         localStorage.removeItem('create-img-choicesData');
-        await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
+  
+        const fullFormData = {
+            ...formData,
+            id: gameId,
+            creatorId: auth.currentUser.uid,
+            choices: choicesData,
+            categories: selectedCategories,
+            mainCategory: selectedCategories[0]?.label,
+            numStarts: 0,
+            numCompletes: 0,
+            gameType: "image",
+        };  
+        await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);        
         alert("Game created!");        
     };
 
@@ -141,77 +70,39 @@ export default function CreateImg() {
         };   
     },[choicesData]); 
 
-    const uploadBtnSection = 
-        <section className="m-0 grid">
-            <input                
-                type="file"     
-                className="mt-1"                       
-                accept="image/png, image/jpeg, image/jpg, image/webp"
-                multiple={true}                                                     
-                onChange={event => {setInputtedImgs(event.target.files)}}
-                name="imgUpload"
-            />                         
-            <button type="button" className="btn-upload" onClick={uploadImage}>Upload Images</button>
-            <p className="ml-2 mt-2"><em>Accepts .png, .jpg, .jpeg, .webp image types</em></p>
-        </section>;
-
     return (
-        <div>
+        <div className="w-full">
             <Navbar />
-            <form className="grid" onSubmit={handleSubmit}>
-                <fieldset className="flex bg-teal-700">
-                    <div className="m-4 w-1/3">
-                        {uploadBtnSection}
-                    </div>   
-                    <div className="grid m-3 w-1/4">                            
-                        <label>Game Title:</label>
-                        <input                                     
-                            type="text" 
-                            className="mb-4 p-1"
-                            value={formData.title}
-                            onChange={handleChange}
-                            name="title"                                    
-                        />                                          
-                        <label>Categories (First category will be the main one):</label>
-                        <Select 
-                            isMulti
-                            options={CATEGORYOPTIONS}                                    
-                            className="mb-4 text-black"                              
-                            value={selectedCategories}     
-                            onChange={setSelectedCategories}                          
-                            name="categories"                           
-                        />                       
-                    </div>
-                    <div className="ml-12 mt-3 w-1/3">
-                        <label>Enter a description for your game:</label>
-                        <br/>
-                        <textarea 
-                            className="text-base mt-2 h-24 w-full"
-                            value={formData.description}
-                            onChange={handleChange}
-                            name="description"   
-                        />
-                    </div>          
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <fieldset>
+                    <AddGameDetails 
+                        formData={formData}
+                        setFormData={setFormData}
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                    />
+                    <AddNewImage gameId={gameId} setChoicesData={setChoicesData} />
                 </fieldset>  
-                <div className="grid m-4 justify-items-center">                                             
-                    <div className="w-full flex flex-wrap">
+                <hr />
+                <div className="flex flex-col w-full items-center px-6 mt-8">                                             
+                    <div className="create-new-img-container">
                         {choicesData && choicesData.map(choiceData => {
                             return (
-                                <UploadedImg 
-                                key={choiceData.id} 
-                                choiceId={choiceData.id}                          
-                                gameId={gameId}   
-                                setChoicesData={setChoicesData}                           
-                                {...choiceData}    
+                                <NewImgBox
+                                    key={choiceData.id} 
+                                    choiceId={choiceData.id}                          
+                                    gameId={gameId} 
+                                    url={choiceData.url}
+                                    name={choiceData.name}                                    
+                                    setChoicesData={setChoicesData}
                                 />                             
                             );
                         })}
                     </div>  
                     <button
-                        className="btn-create-game"                       
+                        className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"                         
                         type="submit"
-                    >
-                        Create Game! ({choicesData ? choicesData.length: 0} choices)
+                    >Create Game! ({choicesData ? choicesData.length: 0} choices)
                     </button>
                 </div>
             </form>   
