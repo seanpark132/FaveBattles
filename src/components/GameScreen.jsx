@@ -9,6 +9,11 @@ import GameScreenYoutube from "./GameScreenYoutube"
 
 export default function GameScreen(props) {
     const [roundNum, setRoundNum] = useState(1);   
+    const [hideLeft, setHideLeft] = useState(false);
+    const [hideRight, setHideRight] = useState(false);
+    const [leftChosen, setLeftChosen] = useState(false);
+    const [rightChosen, setRightChosen] = useState(false);   
+    const [animationsInProgress, setAnimationsInProgress] = useState(false);
    
     // counter function for choice stats (numGames, numWins, numFirst) when choice is clicked
     async function updateChoiceStats(winId, loseId, isFinalRound) {
@@ -31,72 +36,109 @@ export default function GameScreen(props) {
     };
    
     function handleLeft() {  
-        let isFinalRound = false;
+        if (animationsInProgress) {
+            return;
+        };
+
         // final round  
         if (props.gameSize === 2) {
             props.setGameActive(false);
-            props.setWinner(props.leftChoice);
+            props.setWinner(props.leftChoice);  
             props.setGameCompleted(true);
-            isFinalRound = true; 
+            updateChoiceStats(props.rightChoice.id, props.leftChoice.id, true);
+            return; 
         
         // last round of a bracket (ex. round 4/4 or round 8/8)
-        } else if (props.currChoices.length === 0) {      
-            props.setNextChoices(prev => [...prev, props.leftChoice]);
-            props.setNextChoices(newChoices => {                
-                const copyNewChoices = _.cloneDeep(newChoices);                
-                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices, props.setCurrChoices);
+        } else if (props.currChoices.length === 0) {             
+            setTimeout(() => {    
+                setLeftChosen(true);               
+                props.setNextChoices(prev => [...prev, props.leftChoice]);
+                props.setNextChoices(newChoices => {                
+                    const copyNewChoices = _.cloneDeep(newChoices);                
+                    const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices, props.setCurrChoices);
+                    props.setLeftChoice(newLeft);
+                    props.setRightChoice(newRight);  
+                    return [];
+                });
+                props.setGameSize(prevGameSize => prevGameSize/2);              
+                setRoundNum(1);  
+           
+            }, 1500);
+        } else {        
+            setTimeout(() => {
+                setLeftChosen(true);
+                setRoundNum(prevRoundNum => prevRoundNum + 1);
+                props.setNextChoices(prev => [...prev, props.leftChoice]);
+                const copyCurrChoices = _.cloneDeep(props.currChoices);
+                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices, props.setCurrChoices);
                 props.setLeftChoice(newLeft);
-                props.setRightChoice(newRight);  
-                return [];
-            });
-            props.setGameSize(prevGameSize => prevGameSize/2);
-            setRoundNum(1);  
-
-        } else {
-            setRoundNum(prevRoundNum => prevRoundNum + 1);
-            props.setNextChoices(prev => [...prev, props.leftChoice]);
-            const copyCurrChoices = _.cloneDeep(props.currChoices);
-            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices, props.setCurrChoices);
-            props.setLeftChoice(newLeft);
-            props.setRightChoice(newRight);
+                props.setRightChoice(newRight);              
+            }, 1000);    
         }; 
 
-        updateChoiceStats(props.leftChoice.id, props.rightChoice.id, isFinalRound);                
+        setAnimationsInProgress(true);
+        setHideRight(true);     
+ 
+        setTimeout(() => {       
+            setLeftChosen(false);     
+            setHideRight(false);    
+            setAnimationsInProgress(false);   
+        }, 1500);
+
+        updateChoiceStats(props.leftChoice.id, props.rightChoice.id, false);                
     };
     
     function handleRight() {
-        let isFinalRound = false;
+        if (animationsInProgress) {
+            return;
+        };
+
         // final round
         if (props.gameSize === 2) {
             props.setGameActive(false);
             props.setWinner(props.rightChoice);  
-            props.setGameCompleted(true);        
-            isFinalRound = true;
-        
+            props.setGameCompleted(true);     
+            updateChoiceStats(props.rightChoice.id, props.leftChoice.id, true);
+            return;               
         // last round of a bracket (ex. round 4/4 or round 8/8)
-        } else if (props.currChoices.length === 0) {      
-            props.setNextChoices(prev => [...prev, props.rightChoice]);
-            props.setNextChoices(newChoices => {                  
-                const copyNewChoices = _.cloneDeep(newChoices);              
-                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices, props.setCurrChoices);
-                props.setLeftChoice(newLeft);
-                props.setRightChoice(newRight);
-                return [];
-            });
-            
-            props.setGameSize(prevGameSize => prevGameSize/2);
-            setRoundNum(1);            
+        } else if (props.currChoices.length === 0) {          
+            setTimeout(() => {    
+                setRightChosen(true);                 
+                props.setNextChoices(prev => [...prev, props.rightChoice]);
+                props.setNextChoices(newChoices => {                  
+                    const copyNewChoices = _.cloneDeep(newChoices);              
+                    const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyNewChoices, props.setCurrChoices);
+                    props.setLeftChoice(newLeft);
+                    props.setRightChoice(newRight);
+                    return [];
+                });      
 
+                props.setGameSize(prevGameSize => prevGameSize/2);
+                setRoundNum(1);   
+
+            }, 1000);
         } else {
-            setRoundNum(prevRoundNum => prevRoundNum + 1);      
-            props.setNextChoices(prev => [...prev, props.rightChoice]);
-            const copyCurrChoices = _.cloneDeep(props.currChoices);
-            const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices, props.setCurrChoices);
-            props.setLeftChoice(newLeft);
-            props.setRightChoice(newRight);
+            setHideLeft(true);
+            setTimeout(() => {   
+                setRightChosen(true);       
+                setRoundNum(prevRoundNum => prevRoundNum + 1);      
+                props.setNextChoices(prev => [...prev, props.rightChoice]);
+                const copyCurrChoices = _.cloneDeep(props.currChoices);
+                const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(copyCurrChoices, props.setCurrChoices);
+                props.setLeftChoice(newLeft);
+                props.setRightChoice(newRight);                 
+            }, 1000)     
         };          
 
-        updateChoiceStats(props.rightChoice.id, props.leftChoice.id, isFinalRound);
+        setAnimationsInProgress(true);
+        setHideLeft(true);
+        setTimeout(() => {      
+            setRightChosen(false);      
+            setHideLeft(false);
+            setAnimationsInProgress(false);   
+        }, 1500);
+
+        updateChoiceStats(props.rightChoice.id, props.leftChoice.id, false);
     };
       
     return (    
@@ -108,6 +150,11 @@ export default function GameScreen(props) {
                 rightChoice={props.rightChoice}
                 handleLeft={handleLeft}
                 handleRight={handleRight}
+                hideLeft={hideLeft}
+                hideRight={hideRight}   
+                leftChosen={leftChosen}
+                rightChosen={rightChosen}
+                animationsInProgress={animationsInProgress}
             /> 
             :<GameScreenYoutube 
                 leftChoice={props.leftChoice} 

@@ -20,8 +20,8 @@ export default function GameScreenYoutube({leftChoice, rightChoice, handleLeft, 
                 </iframe>           
             </div>       
             <div className="grid grid-cols-2 gap-1">
-                <button className="gameScreen-btn bg-sky-400 hover:bg-sky-600" onClick={handleLeft}>{leftChoice.name}</button>
-                <button className="gameScreen-btn bg-rose-500 hover:bg-rose-600" onClick={handleRight}>{rightChoice.name}</button>      
+                <button className="game-video-btn bg-sky-600 hover:bg-sky-400 hover:text-white" onClick={handleLeft}>{leftChoice.name}</button>
+                <button className="game-video-btn bg-rose-600 hover:bg-rose-500 hover:text-white" onClick={handleRight}>{rightChoice.name}</button>      
             </div>     
                                
         </div>
