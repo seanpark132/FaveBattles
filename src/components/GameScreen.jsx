@@ -161,6 +161,11 @@ export default function GameScreen(props) {
                 rightChoice={props.rightChoice} 
                 handleLeft={handleLeft}
                 handleRight={handleRight}
+                hideLeft={hideLeft}
+                hideRight={hideRight}   
+                leftChosen={leftChosen}
+                rightChosen={rightChosen}
+                animationsInProgress={animationsInProgress}
             />}  
         </div>
     );
