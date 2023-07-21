@@ -14,7 +14,6 @@ import EditGame from './pages/EditGame';
 import NoPage from './pages/NoPage';
 import { auth, db } from "./firebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { onAuthStateChanged } from 'firebase/auth';
 import "./css/Profile.css"
 import "./css/SignUp.css"
 import './css/App.css';

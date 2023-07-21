@@ -3,6 +3,7 @@ import { db, auth } from "../firebaseConfig";
 import { doc, setDoc} from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import AddGameDetails from "../components/AddGameDetails";
 import NewVideoBox from "../components/NewVideoBox";
@@ -14,6 +15,7 @@ export default function CreateVideo() {
     const [choicesData, setChoicesData] = useState(null);  
     const [formData, setFormData] = useState({});
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const navigate = useNavigate();
 
     if (!auth.currentUser) {
         return (
@@ -55,6 +57,7 @@ export default function CreateVideo() {
         };
         await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
         alert("Game created!");        
+        navigate("/")
 
     };
 

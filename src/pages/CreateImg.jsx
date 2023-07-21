@@ -8,11 +8,13 @@ import NewImgBox from "../components/NewImgBox";
 import AddGameDetails from "../components/AddGameDetails";
 import AddNewImage from "../components/AddNewImage";
 import NotSignedIn from "../components/NotSignedIn";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateImg() {
     const [choicesData, setChoicesData] = useState(null);
     const [formData, setFormData] = useState({});
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const navigate = useNavigate();
 
     if (!auth.currentUser) {
         return (
@@ -54,7 +56,8 @@ export default function CreateImg() {
             gameType: "image",
         };  
         await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);        
-        alert("Game created!");        
+        alert("Game created!");     
+        navigate("/")   
     };
 
     useEffect(() => {

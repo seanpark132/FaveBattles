@@ -150,7 +150,7 @@ export default function Stats(props) {
                 showGridlines
                 header={renderHeader}
             >
-                <Column className="font-bold md:text-lg lg:text-2xl" field="rank" header="Rank" style={{width:"5%"}} />
+                <Column className="font-bold md:text-lg lg:text-2xl" field="rank" header="Rank" style={{width:"5%"}} sortable/>
                 <Column className="font-bold text-base md:text-lg lg:text-2xl" field="name" header="Name" style={{width:"30%"}} sortable />
                 {isTypeYoutube ? <Column className="font-bold md:text-lg lg:text-2xl" field="embedUrl" header="Video" body={youtubeBody} style={{width:"25%"}}/>
                 :<Column className="md:text-lg lg:text-2xl" field="url" header="Image" body={imageBody} style={{width:"25%"}}/> }
