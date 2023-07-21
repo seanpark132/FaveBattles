@@ -1,58 +1,58 @@
 .home-box-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0.75rem;
-    border: 1px solid rgb(226 232 240);
-    width: 22.5%;
+	display: flex;
+	flex-direction: column;
+	margin: 0.75rem;
+	border: 1px solid rgb(226 232 240);
+	width: 22.5%;
 }
 
-.home-box-img-label {      
-    margin: 0.25rem 0.5rem;
-    text-align: center;
-    width: 50%;
-    max-height: 1.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: normal;       
+.home-box-img-label {
+	margin: 0.25rem 0.5rem;
+	text-align: center;
+	width: 50%;
+	max-height: 1.5rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: normal;
 }
 
 .home-box-desc {
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Number of lines to show before truncating */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: rgba(218, 218, 218, 0.856);
-    font-size: 0.875rem;
-    margin: 0.25rem 0.5rem;
-    word-wrap: break-word;  
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* Number of lines to show before truncating */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: rgba(218, 218, 218, 0.856);
+	font-size: 0.875rem;
+	margin: 0.25rem 0.5rem;
+	word-wrap: break-word;
 }
 
-.home-box-btn {    
-    border: transparent;
-    font-weight: 600;  
-    border-radius: 0.25rem;  
-    display: inline-block;
-    padding: 0.5rem 0rem 0.5rem 0.75rem;
-    margin: 0.75rem;   
-    width: 7rem; 
+.home-box-btn {
+	border: transparent;
+	font-weight: 600;
+	border-radius: 0.25rem;
+	display: inline-block;
+	padding: 0.5rem 0rem 0.5rem 0.75rem;
+	margin: 0.75rem;
+	width: 7rem;
 }
 
 @media (max-width: 48rem) {
-    .home-box-container {
-        width: clamp(18rem, 90%, 35rem);
-    }
+	.home-box-container {
+		width: clamp(18rem, 90%, 35rem);
+	}
 }
 
 @media (min-width: 48rem) and (max-width: 64rem) {
-    .home-box-container {
-        width: clamp(22rem, 45%, 30rem);
-    }
+	.home-box-container {
+		width: clamp(22rem, 45%, 30rem);
+	}
 }
 
 @media (min-width: 64rem) and (max-width: 90rem) {
-    .home-box-container {
-        width: clamp(19rem, 30%, 28rem);
-    }
+	.home-box-container {
+		width: clamp(19rem, 30%, 28rem);
+	}
 }
