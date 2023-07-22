@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateImg() {
 	const [choicesData, setChoicesData] = useState([]);
-	const [formData, setFormData] = useState({});
+	const [formData, setFormData] = useState({ title: "", descripton: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
 

@@ -12,7 +12,7 @@ import NotSignedIn from "../components/NotSignedIn";
 
 export default function CreateVideo() {
 	const [choicesData, setChoicesData] = useState(null);
-	const [formData, setFormData] = useState({});
+	const [formData, setFormData] = useState({ title: "", descripton: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
 
