@@ -1,34 +1,22 @@
-import { useState, useEffect } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { auth, db } from "../firebaseConfig";
+import { auth } from "../firebaseConfig";
 import DisplayGameBox from "./DisplayGameBox";
+import { useQuery } from "@tanstack/react-query";
+import { getMyGames } from "../api/getMyGames";
 
 export default function ProfileMyGames() {
-	const [myGamesData, setMyGamesData] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const myGamesQuery = useQuery({
+		queryKey: ["myGames"],
+		queryFn: () => {
+			return getMyGames(auth.currentUser?.uid);
+		},
+	});
 
-	useEffect(() => {
-		const getMyGames = async () => {
-			const gamesRef = collection(db, "all_games");
-			const q = query(
-				gamesRef,
-				where("creatorId", "==", auth.currentUser.uid)
-			);
+	if (myGamesQuery.isLoading) return <h1>Loading...</h1>;
+	if (myGamesQuery.isError) {
+		return <pre>{JSON.stringify(myGamesQuery.error)}</pre>;
+	}
 
-			let gamesArray = [];
-			const querySnapshot = await getDocs(q);
-			querySnapshot.forEach((doc) => {
-				gamesArray.push(doc.data());
-			});
-
-			setMyGamesData(gamesArray);
-			setIsLoading(false);
-		};
-
-		getMyGames();
-	}, []);
-
-	const myGameBoxes = myGamesData.map((gameData) => (
+	const myGameBoxes = myGamesQuery.data.map((gameData) => (
 		<DisplayGameBox key={gameData.id} type="profile" {...gameData} />
 	));
 
@@ -36,9 +24,7 @@ export default function ProfileMyGames() {
 		<section className="flex flex-col w-full py-8">
 			<h1 className="mb-4">My Games</h1>
 			<div className="flex flex-wrap">
-				{isLoading ? (
-					<h1>Loading...</h1>
-				) : myGamesData.length === 0 ? (
+				{myGamesQuery.data.length === 0 ? (
 					<h2>You have not created any games yet.</h2>
 				) : (
 					myGameBoxes

@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import DisplayGameBox from "../components/DisplayGameBox";
 
 export default function Home(props) {
-	const homeGameBoxes = props.allGameData.map((gameData) => (
+	const homeGameBoxes = props.allGamesData.map((gameData) => (
 		<DisplayGameBox key={gameData.id} {...gameData} />
 	));
 
