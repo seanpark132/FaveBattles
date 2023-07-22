@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 } from "uuid";
 
-export default function AddNewVideo(props) {
+export default function AddNewVideo({ setChoicesData }) {
 	const [inputUrl, setInputUrl] = useState("");
 	const [inputTime, setInputTime] = useState("");
 
@@ -42,7 +42,7 @@ export default function AddNewVideo(props) {
 
 		const youtubeId = trimmedUrl.slice(32, 43);
 		const actualUrl = `https://www.youtube.com/watch?v=${youtubeId}`;
-		const embedUrl = `https://www.youtube-nocookie.com/embed/${youtubeId}?start=${startTime}?origin=https://favebattles.netlify.app`;
+		const embedUrl = `https://www.youtube-nocookie.com/embed/${youtubeId}?start=${startTime}&origin=https://favebattles.netlify.app`;
 		const thumbnailUrl = `https://img.youtube.com/vi/${youtubeId}/0.jpg`;
 		const choiceId = v4();
 		const res = await (
@@ -52,7 +52,7 @@ export default function AddNewVideo(props) {
 		).json();
 		const youtubeTitle = res.title;
 
-		props.setChoicesData((prev) =>
+		setChoicesData((prev) =>
 			prev
 				? [
 						...prev,

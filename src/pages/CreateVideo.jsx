@@ -99,7 +99,6 @@ export default function CreateVideo() {
 									<NewVideoBox
 										key={choiceData.id}
 										choiceId={choiceData.id}
-										gameId={gameId}
 										embedUrl={choiceData.embedUrl}
 										name={choiceData.name}
 										setChoicesData={setChoicesData}

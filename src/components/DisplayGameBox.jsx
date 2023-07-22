@@ -4,7 +4,7 @@ import { db, storage } from "../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { ref, deleteObject } from "firebase/storage";
 
-export default function DisplayGameBox({ gameData }) {
+export default function DisplayGameBox({ type, gameData }) {
 	async function deleteGame(gameId) {
 		try {
 			const gameDoc = doc(db, FIRESTORE_COLLECTION_NAME, gameId);
@@ -74,7 +74,7 @@ export default function DisplayGameBox({ gameData }) {
 					<i className="mr-2 fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>
 					Rankings
 				</Link>
-				{gameData.type === "profile" && (
+				{type === "profile" && (
 					<div>
 						<Link
 							to={`/edit-game/${gameData.id}`}

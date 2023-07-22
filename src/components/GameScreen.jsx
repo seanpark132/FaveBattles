@@ -7,7 +7,22 @@ import { getTwoChoicesFromCurrentChoices } from "../utils/helper_functions";
 import GameScreenImage from "./GameScreenImage";
 import GameScreenYoutube from "./GameScreenYoutube";
 
-export default function GameScreen(props) {
+export default function GameScreen({
+	gameSize,
+	setGameSize,
+	setGameActive,
+	currChoices,
+	nextChoices,
+	setCurrChoices,
+	setNextChoices,
+	leftChoice,
+	rightChoice,
+	setLeftChoice,
+	setRightChoice,
+	setWinner,
+	setGameCompleted,
+	gameData,
+}) {
 	const [roundNum, setRoundNum] = useState(1);
 	const [hideLeft, setHideLeft] = useState(false);
 	const [hideRight, setHideRight] = useState(false);
@@ -17,11 +32,7 @@ export default function GameScreen(props) {
 
 	// counter function for choice stats (numGames, numWins, numFirst) when choice is clicked
 	async function updateChoiceStats(winId, loseId, isFinalRound) {
-		const gameDocRef = doc(
-			db,
-			FIRESTORE_COLLECTION_NAME,
-			props.gameData.id
-		);
+		const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, gameData.id);
 		const gameDocSnap = await getDoc(gameDocRef);
 		const gameDocData = gameDocSnap.data();
 
@@ -41,7 +52,7 @@ export default function GameScreen(props) {
 		}
 
 		await setDoc(
-			doc(db, FIRESTORE_COLLECTION_NAME, props.gameData.id),
+			doc(db, FIRESTORE_COLLECTION_NAME, gameData.id),
 			gameDocData
 		);
 	}
@@ -52,43 +63,43 @@ export default function GameScreen(props) {
 		}
 
 		// final round
-		if (props.gameSize === 2) {
-			props.setGameActive(false);
-			props.setWinner(props.leftChoice);
-			props.setGameCompleted(true);
-			updateChoiceStats(props.rightChoice.id, props.leftChoice.id, true);
+		if (gameSize === 2) {
+			setGameActive(false);
+			setWinner(leftChoice);
+			setGameCompleted(true);
+			updateChoiceStats(rightChoice.id, leftChoice.id, true);
 			return;
 
 			// last round of a bracket (ex. round 4/4 or round 8/8)
-		} else if (props.currChoices.length === 0) {
+		} else if (currChoices.length === 0) {
 			setTimeout(() => {
 				setLeftChosen(true);
-				props.setNextChoices((prev) => [...prev, props.leftChoice]);
-				props.setNextChoices((newChoices) => {
+				setNextChoices((prev) => [...prev, leftChoice]);
+				setNextChoices((newChoices) => {
 					const copyNewChoices = _.cloneDeep(newChoices);
 					const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 						copyNewChoices,
-						props.setCurrChoices
+						setCurrChoices
 					);
-					props.setLeftChoice(newLeft);
-					props.setRightChoice(newRight);
+					setLeftChoice(newLeft);
+					setRightChoice(newRight);
 					return [];
 				});
-				props.setGameSize((prevGameSize) => prevGameSize / 2);
+				setGameSize((prevGameSize) => prevGameSize / 2);
 				setRoundNum(1);
 			}, 1500);
 		} else {
 			setTimeout(() => {
 				setLeftChosen(true);
 				setRoundNum((prevRoundNum) => prevRoundNum + 1);
-				props.setNextChoices((prev) => [...prev, props.leftChoice]);
-				const copyCurrChoices = _.cloneDeep(props.currChoices);
+				setNextChoices((prev) => [...prev, leftChoice]);
+				const copyCurrChoices = _.cloneDeep(currChoices);
 				const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 					copyCurrChoices,
-					props.setCurrChoices
+					setCurrChoices
 				);
-				props.setLeftChoice(newLeft);
-				props.setRightChoice(newRight);
+				setLeftChoice(newLeft);
+				setRightChoice(newRight);
 			}, 1000);
 		}
 
@@ -101,7 +112,7 @@ export default function GameScreen(props) {
 			setAnimationsInProgress(false);
 		}, 1500);
 
-		updateChoiceStats(props.leftChoice.id, props.rightChoice.id, false);
+		updateChoiceStats(leftChoice.id, rightChoice.id, false);
 	}
 
 	function handleRight() {
@@ -110,29 +121,29 @@ export default function GameScreen(props) {
 		}
 
 		// final round
-		if (props.gameSize === 2) {
-			props.setGameActive(false);
-			props.setWinner(props.rightChoice);
-			props.setGameCompleted(true);
-			updateChoiceStats(props.rightChoice.id, props.leftChoice.id, true);
+		if (gameSize === 2) {
+			setGameActive(false);
+			setWinner(rightChoice);
+			setGameCompleted(true);
+			updateChoiceStats(rightChoice.id, leftChoice.id, true);
 			return;
 			// last round of a bracket (ex. round 4/4 or round 8/8)
-		} else if (props.currChoices.length === 0) {
+		} else if (currChoices.length === 0) {
 			setTimeout(() => {
 				setRightChosen(true);
-				props.setNextChoices((prev) => [...prev, props.rightChoice]);
-				props.setNextChoices((newChoices) => {
+				setNextChoices((prev) => [...prev, rightChoice]);
+				setNextChoices((newChoices) => {
 					const copyNewChoices = _.cloneDeep(newChoices);
 					const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 						copyNewChoices,
-						props.setCurrChoices
+						setCurrChoices
 					);
-					props.setLeftChoice(newLeft);
-					props.setRightChoice(newRight);
+					setLeftChoice(newLeft);
+					setRightChoice(newRight);
 					return [];
 				});
 
-				props.setGameSize((prevGameSize) => prevGameSize / 2);
+				setGameSize((prevGameSize) => prevGameSize / 2);
 				setRoundNum(1);
 			}, 1000);
 		} else {
@@ -140,14 +151,14 @@ export default function GameScreen(props) {
 			setTimeout(() => {
 				setRightChosen(true);
 				setRoundNum((prevRoundNum) => prevRoundNum + 1);
-				props.setNextChoices((prev) => [...prev, props.rightChoice]);
-				const copyCurrChoices = _.cloneDeep(props.currChoices);
+				setNextChoices((prev) => [...prev, rightChoice]);
+				const copyCurrChoices = _.cloneDeep(currChoices);
 				const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 					copyCurrChoices,
-					props.setCurrChoices
+					setCurrChoices
 				);
-				props.setLeftChoice(newLeft);
-				props.setRightChoice(newRight);
+				setLeftChoice(newLeft);
+				setRightChoice(newRight);
 			}, 1000);
 		}
 
@@ -159,20 +170,18 @@ export default function GameScreen(props) {
 			setAnimationsInProgress(false);
 		}, 1500);
 
-		updateChoiceStats(props.rightChoice.id, props.leftChoice.id, false);
+		updateChoiceStats(rightChoice.id, leftChoice.id, false);
 	}
 
 	return (
 		<div className="w-full h-vh-nav">
-			<h3 className="m-4 md:text-2xl lg:text-3xl">{`TOP ${
-				props.gameSize
-			} (Round ${roundNum}/${props.gameSize / 2}) : [${
-				props.gameData.mainCategory
-			}] ${props.gameData.title}`}</h3>
-			{props.gameData.gameType === "image" ? (
+			<h3 className="m-4 md:text-2xl lg:text-3xl">{`TOP ${gameSize} (Round ${roundNum}/${
+				gameSize / 2
+			}) : [${gameData.mainCategory}] ${gameData.title}`}</h3>
+			{gameData.gameType === "image" ? (
 				<GameScreenImage
-					leftChoice={props.leftChoice}
-					rightChoice={props.rightChoice}
+					leftChoice={leftChoice}
+					rightChoice={rightChoice}
 					handleLeft={handleLeft}
 					handleRight={handleRight}
 					hideLeft={hideLeft}
@@ -183,8 +192,8 @@ export default function GameScreen(props) {
 				/>
 			) : (
 				<GameScreenYoutube
-					leftChoice={props.leftChoice}
-					rightChoice={props.rightChoice}
+					leftChoice={leftChoice}
+					rightChoice={rightChoice}
 					handleLeft={handleLeft}
 					handleRight={handleRight}
 					hideLeft={hideLeft}

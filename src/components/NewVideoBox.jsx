@@ -1,11 +1,14 @@
-export default function NewVideoBox(props) {
+export default function NewVideoBox({
+	choiceId,
+	embedUrl,
+	name,
+	setChoicesData,
+}) {
 	function handleNameChange(event) {
-		props.setChoicesData((prev) => {
+		setChoicesData((prev) => {
 			let newArray = _.cloneDeep(prev);
-			const videoData = newArray.find((obj) => obj.id === props.choiceId);
-			const index = newArray.findIndex(
-				(obj) => obj.id === props.choiceId
-			);
+			const videoData = newArray.find((obj) => obj.id === choiceId);
+			const index = newArray.findIndex((obj) => obj.id === choiceId);
 			const newData = { ...videoData, name: event.target.value };
 			newArray[index] = newData;
 			return newArray;
@@ -13,7 +16,7 @@ export default function NewVideoBox(props) {
 	}
 
 	function deleteBtn(choiceId) {
-		props.setChoicesData((prev) => {
+		setChoicesData((prev) => {
 			return prev.filter((choiceData) => choiceData.id !== choiceId);
 		});
 		alert("Choice deleted");
@@ -24,7 +27,7 @@ export default function NewVideoBox(props) {
 		<div className="create-new-video-box-md">
 			<iframe
 				className="create-iframe-dimensions-md"
-				src={props.embedUrl}
+				src={embedUrl}
 				title="YouTube video player"
 				allow="accelerometer"
 				allowFullScreen
@@ -36,13 +39,13 @@ export default function NewVideoBox(props) {
 						type="text"
 						className="w-full text-lg p-2 rounded"
 						onChange={(e) => handleNameChange(e)}
-						value={props.name}
+						value={name}
 					/>
 				</div>
 				<button
 					type="button"
 					className="absolute top-0 right-0 h-fit py-1 px-1.5 bg-red-500"
-					onClick={() => deleteBtn(props.choiceId)}
+					onClick={() => deleteBtn(choiceId)}
 				>
 					<i className="fa-solid fa-xmark fa-lg text-white"></i>
 				</button>
@@ -57,7 +60,7 @@ export default function NewVideoBox(props) {
 				<iframe
 					width="400"
 					height="225"
-					src={props.embedUrl}
+					src={embedUrl}
 					title="YouTube video player"
 					allow="accelerometer;"
 					allowFullScreen
@@ -68,13 +71,13 @@ export default function NewVideoBox(props) {
 						type="text"
 						className="w-full text-lg p-2 rounded"
 						onChange={(e) => handleNameChange(e)}
-						value={props.name}
+						value={name}
 					/>
 				</div>
 				<button
 					type="button"
 					className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
-					onClick={() => deleteBtn(props.choiceId)}
+					onClick={() => deleteBtn(choiceId)}
 				>
 					<i className="fa-solid fa-xmark fa-lg text-white"></i>
 				</button>

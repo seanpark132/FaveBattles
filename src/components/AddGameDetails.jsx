@@ -1,11 +1,16 @@
 import { CATEGORY_OPTIONS } from "../utils/global_consts";
 import Select from "react-select";
 
-export default function AddGameDetails(props) {
+export default function AddGameDetails({
+	formData,
+	setFormData,
+	selectedCategories,
+	setSelectedCategories,
+}) {
 	function handleChange(event) {
 		const { name, value } = event.target;
 
-		props.setFormData((prev) => {
+		setFormData((prev) => {
 			return {
 				...prev,
 				[name]: value,
@@ -20,7 +25,7 @@ export default function AddGameDetails(props) {
 				<input
 					type="text"
 					className="mb-4 p-2"
-					value={props.formData.title}
+					value={formData.title}
 					onChange={(e) => handleChange(e)}
 					id="title"
 					name="title"
@@ -30,8 +35,8 @@ export default function AddGameDetails(props) {
 					isMulti
 					options={CATEGORY_OPTIONS}
 					className="text-black"
-					value={props.selectedCategories}
-					onChange={props.setSelectedCategories}
+					value={selectedCategories}
+					onChange={setSelectedCategories}
 					id="categories"
 					name="categories"
 				/>
@@ -43,7 +48,7 @@ export default function AddGameDetails(props) {
 				<br />
 				<textarea
 					className="text-base mt-2 h-28 border-transparent rounded w-full p-2 md:h-24"
-					value={props.formData.description}
+					value={formData.description}
 					onChange={(e) => handleChange(e)}
 					id="description"
 					name="description"

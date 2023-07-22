@@ -4,10 +4,10 @@ import GameSetup from "../components/GameSetup";
 import GameScreen from "../components/GameScreen";
 import WinnerScreen from "../components/WinnerScreen";
 
-export default function Game(props) {
+export default function Game({ gameData }) {
 	const [gameSize, setGameSize] = useState(4);
 	const [gameActive, setGameActive] = useState(false);
-	const [currChoices, setCurrChoices] = useState(props.gameData.choices);
+	const [currChoices, setCurrChoices] = useState(gameData.choices);
 	const [nextChoices, setNextChoices] = useState([]);
 	const [leftChoice, setLeftChoice] = useState({});
 	const [rightChoice, setRightChoice] = useState({});
@@ -27,7 +27,7 @@ export default function Game(props) {
 						setCurrChoices={setCurrChoices}
 						setLeftChoice={setLeftChoice}
 						setRightChoice={setRightChoice}
-						gameData={props.gameData}
+						gameData={gameData}
 					/>
 				)}
 				{gameActive && (
@@ -45,12 +45,12 @@ export default function Game(props) {
 						setRightChoice={setRightChoice}
 						setWinner={setWinner}
 						setGameCompleted={setGameCompleted}
-						gameData={props.gameData}
+						gameData={gameData}
 					/>
 				)}
 				{gameCompleted && (
 					<WinnerScreen
-						gameType={props.gameData.gameType}
+						gameType={gameData.gameType}
 						winner={winner}
 					/>
 				)}

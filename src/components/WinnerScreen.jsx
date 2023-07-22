@@ -1,17 +1,17 @@
-export default function WinnerScreen(props) {
+export default function WinnerScreen({ gameType, winner }) {
 	return (
 		<div className="flex flex-col items-center p-6">
-			<h1 className="m-4">The winner is: {props.winner.name}</h1>
-			{props.gameType === "image" ? (
+			<h1 className="m-4">The winner is: {winner.name}</h1>
+			{gameType === "image" ? (
 				<img
 					className="winner-img object-contain"
-					src={props.winner.url}
+					src={winner.url}
 					alt="winnerImg"
 				/>
 			) : (
 				<iframe
 					className="winner-video"
-					src={props.winner.embedUrl}
+					src={winner.embedUrl}
 					title="YouTube video player"
 					allow="accelerometer;"
 					allowFullScreen

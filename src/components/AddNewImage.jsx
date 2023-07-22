@@ -3,7 +3,7 @@ import { storage } from "../firebaseConfig";
 import { v4 } from "uuid";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-export default function AddNewImage(props) {
+export default function AddNewImage({ gameId, setChoicesData }) {
 	const [inputtedImgs, setInputtedImgs] = useState({});
 
 	async function uploadImage(addedImgs) {
@@ -17,10 +17,7 @@ export default function AddNewImage(props) {
 
 		imgsArray.forEach(async (img) => {
 			const imgId = v4();
-			const newImgRef = ref(
-				storage,
-				`all_games/${props.gameId}/${imgId}`
-			);
+			const newImgRef = ref(storage, `all_games/${gameId}/${imgId}`);
 
 			try {
 				const uploadedImg = await uploadBytes(newImgRef, img);
@@ -32,7 +29,7 @@ export default function AddNewImage(props) {
 				const defaultName = (
 					img.name.charAt(0).toUpperCase() + img.name.slice(1)
 				).slice(0, img.name.length - charsToRemove);
-				props.setChoicesData((prev) =>
+				setChoicesData((prev) =>
 					prev
 						? [
 								...prev,

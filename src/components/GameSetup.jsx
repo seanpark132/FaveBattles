@@ -4,7 +4,16 @@ import { db } from "../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { getTwoChoicesFromCurrentChoices } from "../utils/helper_functions";
 
-export default function GameSetup(props) {
+export default function GameSetup({
+	gameSize,
+	setGameActive,
+	setGameSize,
+	currChoices,
+	setCurrChoices,
+	setLeftChoice,
+	setRightChoice,
+	gameData,
+}) {
 	// at the start of the game, when the user selects the game size "n", randomly get n choices from pool
 	function getRandomChoices(array, gameSize) {
 		let randomChoices = [];
@@ -24,26 +33,22 @@ export default function GameSetup(props) {
 
 	async function handleGameStart(e) {
 		e.preventDefault();
-		const copyCurrChoices = _.cloneDeep(props.currChoices);
+		const copyCurrChoices = _.cloneDeep(currChoices);
 		const gameSizedChoices =
-			props.gameSize === copyCurrChoices.length
+			gameSize === copyCurrChoices.length
 				? copyCurrChoices
-				: getRandomChoices(copyCurrChoices, props.gameSize);
+				: getRandomChoices(copyCurrChoices, gameSize);
 
 		const [initialLeft, initialRight] = getTwoChoicesFromCurrentChoices(
 			gameSizedChoices,
-			props.setCurrChoices
+			setCurrChoices
 		);
-		props.setLeftChoice(initialLeft);
-		props.setRightChoice(initialRight);
+		setLeftChoice(initialLeft);
+		setRightChoice(initialRight);
 
-		props.setGameActive(true);
+		setGameActive(true);
 
-		const gameDocRef = doc(
-			db,
-			FIRESTORE_COLLECTION_NAME,
-			props.gameData.id
-		);
+		const gameDocRef = doc(db, FIRESTORE_COLLECTION_NAME, gameData.id);
 		await updateDoc(gameDocRef, {
 			numStarts: increment(1),
 		});
@@ -61,7 +66,7 @@ export default function GameSetup(props) {
 		return result;
 	}
 
-	const totalNumChoices = props.gameData.choices.length;
+	const totalNumChoices = gameData.choices.length;
 	const choicesArray = generateChoicesArray(totalNumChoices);
 	const selectOptions = choicesArray.map((numChoices) => (
 		<option key={numChoices} value={numChoices}>
@@ -71,12 +76,12 @@ export default function GameSetup(props) {
 
 	return (
 		<div className="m-6 w-full p-4 max-w-screen-md border-transparent rounded bg-violet-300 mt-16">
-			<h2 className="text-black m-3">{`[${props.gameData.mainCategory}] ${props.gameData.title} (${props.gameData.choices.length} choices)`}</h2>
+			<h2 className="text-black m-3">{`[${gameData.mainCategory}] ${gameData.title} (${gameData.choices.length} choices)`}</h2>
 			<form onSubmit={handleGameStart}>
 				<div className="flex">
 					<select
-						value={props.gameSize}
-						onChange={(e) => props.setGameSize(e.target.value)}
+						value={gameSize}
+						onChange={(e) => setGameSize(e.target.value)}
 						name="startingOptions"
 						id="startingOptions"
 						className="mx-2 flex-1 text-black bg-white font-semibold p-2 border-transparent rounded text-center"
@@ -84,7 +89,7 @@ export default function GameSetup(props) {
 						{selectOptions}
 					</select>
 					<button className="mx-2 flex-1 text-black bg-green-500 p-2 border-transparent rounded">
-						Start game with {props.gameSize} choices!
+						Start game with {gameSize} choices!
 					</button>
 				</div>
 			</form>
