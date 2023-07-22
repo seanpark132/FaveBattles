@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
-import { db } from "../firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
@@ -10,78 +8,25 @@ import { Image } from "primereact/image";
 import { ProgressBar } from "primereact/progressbar";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/arya-purple/theme.css";
+import { useQuery } from "@tanstack/react-query";
+import { getRankingsData } from "../api/getRankingsData";
 
-const YOUTUBE_GAMETYPE = "video-youtube";
-const FIRESTORE_COLLECTION_NAME = "all_games";
-
-export default function Stats(props) {
-	const [choicesData, setChoicesData] = useState([]);
-	const [isTypeYoutube, setIsTypeYoutube] = useState(false);
+export default function Rankings({ gameData }) {
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	});
 
-	function addFirstAndWinPercentsToChoices(choicesArray, gameNumCompletes) {
-		choicesArray.forEach((choice) => {
-			if (choice.numGames !== 0) {
-				const firstPercent = parseFloat(
-					((100 * choice.numFirst) / gameNumCompletes).toFixed(1)
-				);
-				const winPercent = parseFloat(
-					((100 * choice.numWins) / choice.numGames).toFixed(1)
-				);
+	const rankingsQuery = useQuery({
+		queryKey: ["rankings"],
+		queryFn: () => getRankingsData(gameData.id),
+	});
 
-				choice.firstPercent = firstPercent;
-				choice.winPercent = winPercent;
-			} else {
-				choice.firstPercent = 0;
-				choice.winPercent = 0;
-			}
-		});
+	if (rankingsQuery.isLoading) {
+		return <h1>Loading...</h1>;
 	}
-
-	function sortByFirstPercentThenWinPercent(choicesArray) {
-		choicesArray.sort((a, b) => {
-			if (b.firstPercent === a.firstPercent) {
-				return b.winPercent - a.winPercent;
-			}
-
-			return b.firstPercent - a.firstPercent;
-		});
+	if (rankingsQuery.isError) {
+		return <h1>An error has occurred. Please try refreshing the page.</h1>;
 	}
-
-	useEffect(() => {
-		if (props.gameData.gameType === YOUTUBE_GAMETYPE) {
-			setIsTypeYoutube(true);
-		}
-
-		const gameDocRef = doc(
-			db,
-			FIRESTORE_COLLECTION_NAME,
-			props.gameData.id
-		);
-
-		getDoc(gameDocRef).then((res) => {
-			const liveGameData = res.data();
-			let gameNumCompletes = liveGameData.numCompletes;
-			if (gameNumCompletes === 0) {
-				gameNumCompletes = 1;
-			}
-
-			let choicesArray = liveGameData.choices;
-
-			addFirstAndWinPercentsToChoices(choicesArray, gameNumCompletes);
-			sortByFirstPercentThenWinPercent(choicesArray);
-
-			let rank = 1;
-			choicesArray.forEach((choice) => {
-				choice.rank = rank;
-				rank += 1;
-			});
-
-			setChoicesData(choicesArray);
-		});
-	}, []);
 
 	const renderHeader = () => {
 		return (
@@ -101,7 +46,7 @@ export default function Stats(props) {
 					/>
 				</span>
 				<h2 className="mt-4 text-white text-center text-lg lg:text-2xl">
-					[{props.gameData.mainCategory}] {props.gameData.title}
+					[{gameData.mainCategory}] {gameData.title}
 				</h2>
 			</div>
 		);
@@ -163,7 +108,7 @@ export default function Stats(props) {
 			<Navbar />
 			<DataTable
 				tableStyle={{ fontSize: "1rem" }}
-				value={choicesData}
+				value={rankingsQuery.data}
 				sortMode="multiple"
 				filters={filters}
 				globalFilterFields={["name"]}
@@ -188,7 +133,7 @@ export default function Stats(props) {
 					style={{ width: "30%" }}
 					sortable
 				/>
-				{isTypeYoutube ? (
+				{gameData.gameType === "video-youtube" ? (
 					<Column
 						className="font-bold md:text-lg lg:text-2xl"
 						field="embedUrl"

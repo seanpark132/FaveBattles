@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
-import Stats from "./pages/Stats";
+import Rankings from "./pages/Rankings";
 import Create from "./pages/Create";
 import CreateImg from "./pages/CreateImg";
 import CreateVideo from "./pages/CreateVideo";
@@ -84,7 +84,10 @@ export default function App() {
 							key={gameData.id}
 							path={`/stats/${gameData.id}`}
 							element={
-								<Stats key={gameData.id} gameData={gameData} />
+								<Rankings
+									key={gameData.id}
+									gameData={gameData}
+								/>
 							}
 						/>
 					))}
