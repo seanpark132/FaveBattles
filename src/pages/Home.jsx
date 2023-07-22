@@ -1,16 +1,14 @@
 import Navbar from "../components/Navbar";
 import DisplayGameBox from "../components/DisplayGameBox";
 
-export default function Home(props) {
-	const homeGameBoxes = props.allGamesData.map((gameData) => (
-		<DisplayGameBox key={gameData.id} {...gameData} />
-	));
-
+export default function Home({ allGamesData }) {
 	return (
 		<>
 			<Navbar />
 			<div className="my-4 flex flex-wrap justify-center">
-				{homeGameBoxes}
+				{allGamesData.map((gameData) => (
+					<DisplayGameBox key={gameData.id} gameData={gameData} />
+				))}
 			</div>
 		</>
 	);

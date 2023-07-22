@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ProfileMyGames from "../components/ProfileMyGames";
 import NotSignedIn from "../components/NotSignedIn";
 
-export default function Profile() {
+export default function Profile({ myGamesData }) {
 	const [currentTab, setCurrentTab] = useState("my-account");
 
 	if (!auth.currentUser) {
@@ -25,7 +25,10 @@ export default function Profile() {
 				placeholder={auth.currentUser.email}
 				readOnly
 			/>
-			<Link className="mt-4 text-xl text-blue-400" to="/reset-password">
+			<Link
+				className="mt-4 text-xl text-blue-400 w-fit"
+				to="/reset-password"
+			>
 				Reset Password Here
 			</Link>
 		</section>
@@ -58,7 +61,9 @@ export default function Profile() {
 					</button>
 				</div>
 				{currentTab === "my-account" && myAccountSection}
-				{currentTab === "my-games" && <ProfileMyGames />}
+				{currentTab === "my-games" && (
+					<ProfileMyGames myGamesData={myGamesData} />
+				)}
 			</div>
 		</div>
 	);

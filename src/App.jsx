@@ -19,32 +19,17 @@ import "./css/Home.css";
 import "./css/Game.css";
 import "./css/Create.css";
 import { useQuery } from "@tanstack/react-query";
-import { getMyGames } from "./api/getMyGames";
-import { getAllGames } from "./api/getAllGames";
+import { getGameData } from "./api/getGameData";
 
 export default function App() {
-	const allGamesQuery = useQuery({
-		queryKey: ["allGames"],
-		queryFn: () => {
-			return getAllGames();
-		},
+	const gameDataQuery = useQuery({
+		queryKey: ["gameData"],
+		queryFn: () => getGameData(auth.currentUser?.uid),
 	});
 
-	const myGamesQuery = useQuery({
-		queryKey: ["myGames"],
-		queryFn: () => {
-			return getMyGames(auth.currentUser?.uid);
-		},
-	});
-
-	if (myGamesQuery.isLoading) return <h1>Loading...</h1>;
-	if (myGamesQuery.isError) {
-		return <pre>{JSON.stringify(myGamesQuery.error)}</pre>;
-	}
-
-	if (allGamesQuery.isLoading) return <h1>Loading...</h1>;
-	if (allGamesQuery.isError) {
-		return <pre>{JSON.stringify(allGamesQuery.error)}</pre>;
+	if (gameDataQuery.isLoading) return <h1>Loading...</h1>;
+	if (gameDataQuery.isError) {
+		return <h1>An error occurred. Please try refreshing the page.</h1>;
 	}
 
 	return (
@@ -53,7 +38,11 @@ export default function App() {
 				<Routes>
 					<Route
 						index
-						element={<Home allGamesData={allGamesQuery.data} />}
+						element={
+							<Home
+								allGamesData={gameDataQuery.data.allGamesData}
+							/>
+						}
 					/>
 					<Route path="/create" element={<Create />} />
 					<Route path="/create-img" element={<CreateImg />} />
@@ -61,26 +50,42 @@ export default function App() {
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/reset-password" element={<ResetPassword />} />
-					<Route path="/profile" element={<Profile />} />
-					{myGamesQuery.data.map((game) => (
+					<Route
+						path="/profile"
+						element={
+							<Profile
+								myGamesData={gameDataQuery.data.myGamesData}
+							/>
+						}
+					/>
+					{gameDataQuery.data.myGamesData.map((gameData) => (
 						<Route
-							key={game.id}
-							path={`/edit-game/${game.id}`}
-							element={<EditGame key={game.id} gameData={game} />}
+							key={gameData.id}
+							path={`/edit-game/${gameData.id}`}
+							element={
+								<EditGame
+									key={gameData.id}
+									gameData={gameData}
+								/>
+							}
 						/>
 					))}
-					{allGamesQuery.data.map((game) => (
+					{gameDataQuery.data.allGamesData.map((gameData) => (
 						<Route
-							key={game.id}
-							path={`/game/${game.id}`}
-							element={<Game key={game.id} gameData={game} />}
+							key={gameData.id}
+							path={`/game/${gameData.id}`}
+							element={
+								<Game key={gameData.id} gameData={gameData} />
+							}
 						/>
 					))}
-					{allGamesQuery.data.map((game) => (
+					{gameDataQuery.data.allGamesData.map((gameData) => (
 						<Route
-							key={game.id}
-							path={`/stats/${game.id}`}
-							element={<Stats key={game.id} gameData={game} />}
+							key={gameData.id}
+							path={`/stats/${gameData.id}`}
+							element={
+								<Stats key={gameData.id} gameData={gameData} />
+							}
 						/>
 					))}
 					<Route path="*" element={<NoPage />} />
