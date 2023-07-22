@@ -1,36 +1,10 @@
-import { useState } from "react";
 import { _ } from "lodash";
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
+import { getTwoChoicesFromCurrentChoices } from "../utils/helper_functions";
 
 export default function GameSetup(props) {
-	const [visible, setVisible] = useState(true);
-
-	if (!visible) {
-		return null;
-	}
-
-	function getTwoChoicesFromCurrentChoices(array) {
-		const index1 = Math.floor(Math.random() * array.length);
-		let index2 = Math.floor(Math.random() * array.length);
-		while (index2 === index1) {
-			index2 = Math.floor(Math.random() * array.length);
-		}
-
-		let indexArray = [];
-		if (index1 > index2) {
-			indexArray = [index1, index2];
-		} else {
-			indexArray = [index2, index1];
-		}
-		const lChoice = array.splice(indexArray[0], 1);
-		const rChoice = array.splice(indexArray[1], 1);
-
-		props.setCurrChoices(array);
-		return [lChoice[0], rChoice[0]];
-	}
-
 	// at the start of the game, when the user selects the game size "n", randomly get n choices from pool
 	function getRandomChoices(array, gameSize) {
 		let randomChoices = [];
@@ -56,12 +30,13 @@ export default function GameSetup(props) {
 				? copyCurrChoices
 				: getRandomChoices(copyCurrChoices, props.gameSize);
 
-		const [initialLeft, initialRight] =
-			getTwoChoicesFromCurrentChoices(gameSizedChoices);
+		const [initialLeft, initialRight] = getTwoChoicesFromCurrentChoices(
+			gameSizedChoices,
+			props.setCurrChoices
+		);
 		props.setLeftChoice(initialLeft);
 		props.setRightChoice(initialRight);
 
-		setVisible(false);
 		props.setGameActive(true);
 
 		const gameDocRef = doc(

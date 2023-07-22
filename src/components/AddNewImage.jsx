@@ -56,6 +56,7 @@ export default function AddNewImage(props) {
 								},
 						  ]
 				);
+				alert("Image(s) uploaded");
 			} catch (error) {
 				alert(
 					"An error has occurred in uploading image(s). Please try again."
@@ -63,8 +64,6 @@ export default function AddNewImage(props) {
 				return;
 			}
 		});
-
-		alert("Image(s) uploaded");
 	}
 
 	return (

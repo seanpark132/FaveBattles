@@ -18,16 +18,18 @@ export default function Game(props) {
 		<div>
 			<Navbar />
 			<div className="flex justify-center text-center">
-				<GameSetup
-					gameSize={gameSize}
-					setGameActive={setGameActive}
-					setGameSize={setGameSize}
-					currChoices={currChoices}
-					setCurrChoices={setCurrChoices}
-					setLeftChoice={setLeftChoice}
-					setRightChoice={setRightChoice}
-					gameData={props.gameData}
-				/>
+				{!gameActive && !gameCompleted && (
+					<GameSetup
+						gameSize={gameSize}
+						setGameActive={setGameActive}
+						setGameSize={setGameSize}
+						currChoices={currChoices}
+						setCurrChoices={setCurrChoices}
+						setLeftChoice={setLeftChoice}
+						setRightChoice={setRightChoice}
+						gameData={props.gameData}
+					/>
+				)}
 				{gameActive && (
 					<GameScreen
 						gameSize={gameSize}

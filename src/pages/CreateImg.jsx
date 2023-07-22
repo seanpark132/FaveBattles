@@ -11,7 +11,7 @@ import NotSignedIn from "../components/NotSignedIn";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateImg() {
-	const [choicesData, setChoicesData] = useState(null);
+	const [choicesData, setChoicesData] = useState([]);
 	const [formData, setFormData] = useState({});
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
@@ -115,8 +115,7 @@ export default function CreateImg() {
 						className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"
 						type="submit"
 					>
-						Create Game! ({choicesData ? choicesData.length : 0}{" "}
-						choices)
+						Create Game! ({choicesData.length} choices)
 					</button>
 				</div>
 			</form>
