@@ -2,20 +2,38 @@ import { useState } from "react";
 import { storage } from "../../firebaseConfig";
 import { v4 } from "uuid";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Compressor from "compressorjs";
 
 export default function AddNewImage({ gameId, setChoicesData }) {
-	const [inputtedImgs, setInputtedImgs] = useState({});
+	const [inputtedImgs, setInputtedImgs] = useState([]);
+
+	async function handleInputtedImgs(images) {
+		if (!images) {
+			return;
+		}
+
+		const imgsArray = Object.values(images);
+		imgsArray.forEach((img) => {
+			new Compressor(img, {
+				quality: 0.8,
+				maxWidth: 960,
+				maxHeight: 960,
+				convertSize: 1500000,
+				success(result) {
+					setInputtedImgs((prev) => [...prev, result]);
+				},
+			});
+		});
+	}
 
 	async function uploadImage(addedImgs) {
-		const imgsArray = Object.values(addedImgs);
-
-		if (imgsArray.length === 0) {
+		if (addedImgs.length === 0) {
 			alert("Please add a file first");
 			return;
 		}
 
 		try {
-			const uploadPromises = imgsArray.map(async (img) => {
+			const uploadPromises = addedImgs.map(async (img) => {
 				const imgId = v4();
 				const newImgRef = ref(storage, `all_games/${gameId}/${imgId}`);
 
@@ -40,6 +58,7 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 			});
 
 			const uploadedImagesData = await Promise.all(uploadPromises);
+			setInputtedImgs([]);
 			setChoicesData((prev) =>
 				prev
 					? [...prev, ...uploadedImagesData]
@@ -63,7 +82,8 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 				accept="image/png, image/jpeg, image/jpg, image/webp"
 				multiple={true}
 				onChange={(e) => {
-					setInputtedImgs(e.target.files);
+					handleInputtedImgs(e.target.files);
+					// setInputtedImgs(e.target.files);
 				}}
 				id="imgUpload"
 			/>
