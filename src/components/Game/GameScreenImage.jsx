@@ -10,7 +10,7 @@ export default function GameScreenImage({
 	animationsInProgress,
 }) {
 	return (
-		<div className="game-choices-height px-6 flex relative">
+		<div className="game-choices-height flex relative">
 			<button
 				className={`game-choice-btn justify-end ${
 					hideLeft && "fade-out"
