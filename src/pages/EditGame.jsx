@@ -4,11 +4,11 @@ import { doc, setDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import Navbar from "../components/Navbar";
-import NewImgBox from "../components/NewImgBox";
-import NewVideoBox from "../components/NewVideoBox";
-import AddGameDetails from "../components/AddGameDetails";
-import AddNewImage from "../components/AddNewImage";
-import AddNewVideo from "../components/AddNewVideo";
+import NewImgBox from "../components/Create/NewImgBox";
+import NewVideoBox from "../components/Create/NewVideoBox";
+import AddGameDetails from "../components/Create/AddGameDetails";
+import AddNewImage from "../components/Create/AddNewImage";
+import AddNewVideo from "../components/Create/AddNewVideo";
 
 export default function EditGame({ gameData }) {
 	const [choicesData, setChoicesData] = useState(gameData.choices);

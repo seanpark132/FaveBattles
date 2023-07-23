@@ -5,9 +5,9 @@ import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import AddGameDetails from "../components/AddGameDetails";
-import NewVideoBox from "../components/NewVideoBox";
-import AddNewVideo from "../components/AddNewVideo";
+import AddGameDetails from "../components/Create/AddGameDetails";
+import NewVideoBox from "../components/Create/NewVideoBox";
+import AddNewVideo from "../components/Create/AddNewVideo";
 import NotSignedIn from "../components/NotSignedIn";
 
 export default function CreateVideo() {

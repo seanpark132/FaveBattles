@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import { auth } from "../firebaseConfig";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ProfileMyGames from "../components/ProfileMyGames";
+import ProfileMyGames from "../components/Profile/ProfileMyGames";
 import NotSignedIn from "../components/NotSignedIn";
 
 export default function Profile({ myGamesData }) {

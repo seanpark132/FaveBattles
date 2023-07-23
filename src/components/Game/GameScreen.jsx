@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { _ } from "lodash";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
-import { getTwoChoicesFromCurrentChoices } from "../utils/helper_functions";
+import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";
+import { getTwoChoicesFromCurrentChoices } from "../../utils/helper_functions";
 import GameScreenImage from "./GameScreenImage";
 import GameScreenYoutube from "./GameScreenYoutube";
 
