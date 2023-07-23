@@ -13,13 +13,12 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 			alert("Please add a file first");
 			return;
 		}
-		console.log(imgsArray);
 
-		imgsArray.forEach(async (img) => {
-			const imgId = v4();
-			const newImgRef = ref(storage, `all_games/${gameId}/${imgId}`);
+		try {
+			const uploadPromises = imgsArray.map(async (img) => {
+				const imgId = v4();
+				const newImgRef = ref(storage, `all_games/${gameId}/${imgId}`);
 
-			try {
 				const uploadedImg = await uploadBytes(newImgRef, img);
 				const imgUrl = await getDownloadURL(uploadedImg.ref);
 				let charsToRemove = 4;
@@ -29,38 +28,30 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 				const defaultName = (
 					img.name.charAt(0).toUpperCase() + img.name.slice(1)
 				).slice(0, img.name.length - charsToRemove);
-				setChoicesData((prev) =>
-					prev
-						? [
-								...prev,
-								{
-									id: imgId,
-									url: imgUrl,
-									name: defaultName,
-									numWins: 0,
-									numGames: 0,
-									numFirst: 0,
-								},
-						  ]
-						: [
-								{
-									id: imgId,
-									url: imgUrl,
-									name: defaultName,
-									numWins: 0,
-									numGames: 0,
-									numFirst: 0,
-								},
-						  ]
-				);
-			} catch (error) {
-				alert(
-					"An error has occurred in uploading image(s). Please try again."
-				);
-				return;
-			}
-		});
-		alert("Image(s) uploaded");
+
+				return {
+					id: imgId,
+					url: imgUrl,
+					name: defaultName,
+					numWins: 0,
+					numGames: 0,
+					numFirst: 0,
+				};
+			});
+
+			const uploadedImagesData = await Promise.all(uploadPromises);
+			setChoicesData((prev) =>
+				prev
+					? [...prev, ...uploadedImagesData]
+					: [...uploadedImagesData]
+			);
+			alert("Image(s) uploaded");
+		} catch (error) {
+			console.error("Error occurred during image uploaded:", error);
+			alert(
+				"An error has occurred in uploading image(s). Please try again."
+			);
+		}
 	}
 
 	return (
