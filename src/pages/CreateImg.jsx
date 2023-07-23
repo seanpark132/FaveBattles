@@ -4,9 +4,9 @@ import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import Navbar from "../components/Navbar";
-import NewImgBox from "../components/NewImgBox";
-import AddGameDetails from "../components/AddGameDetails";
-import AddNewImage from "../components/AddNewImage";
+import NewImgBox from "../components/Create/NewImgBox";
+import AddGameDetails from "../components/Create/AddGameDetails";
+import AddNewImage from "../components/Create/AddNewImage";
 import NotSignedIn from "../components/NotSignedIn";
 import { useNavigate } from "react-router-dom";
 

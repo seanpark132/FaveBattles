@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { _ } from "lodash";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
-import { getTwoChoicesFromCurrentChoices } from "../utils/helper_functions";
+import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";
+import { getTwoChoicesFromCurrentChoices } from "../../utils/helper_functions";
 import GameScreenImage from "./GameScreenImage";
 import GameScreenYoutube from "./GameScreenYoutube";
 
@@ -67,7 +67,7 @@ export default function GameScreen({
 			setGameActive(false);
 			setWinner(leftChoice);
 			setGameCompleted(true);
-			updateChoiceStats(rightChoice.id, leftChoice.id, true);
+			updateChoiceStats(leftChoice.id, rightChoice.id, true);
 			return;
 
 			// last round of a bracket (ex. round 4/4 or round 8/8)

@@ -1,4 +1,4 @@
-import { storage } from "../firebaseConfig";
+import { storage } from "../../firebaseConfig";
 import { ref, deleteObject } from "firebase/storage";
 import { _ } from "lodash";
 import { Image } from "primereact/image";

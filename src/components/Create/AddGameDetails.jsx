@@ -1,4 +1,4 @@
-import { CATEGORY_OPTIONS } from "../utils/global_consts";
+import { CATEGORY_OPTIONS } from "../../utils/global_consts";
 import Select from "react-select";
 
 export default function AddGameDetails({

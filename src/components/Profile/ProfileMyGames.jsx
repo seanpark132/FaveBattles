@@ -1,4 +1,4 @@
-import DisplayGameBox from "./DisplayGameBox";
+import DisplayGameBox from "../DisplayGameBox";
 
 export default function ProfileMyGames({ myGamesData }) {
 	return (
