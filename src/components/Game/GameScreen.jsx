@@ -67,7 +67,7 @@ export default function GameScreen({
 			setGameActive(false);
 			setWinner(leftChoice);
 			setGameCompleted(true);
-			updateChoiceStats(rightChoice.id, leftChoice.id, true);
+			updateChoiceStats(leftChoice.id, rightChoice.id, true);
 			return;
 
 			// last round of a bracket (ex. round 4/4 or round 8/8)
