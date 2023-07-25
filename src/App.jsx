@@ -16,7 +16,7 @@ import "./css/SignUp.css";
 import "./css/App.css";
 import "./css/Home.css";
 import "./css/Game.css";
-import "./css/Create.css";
+import "./css/Create_Edit.css";
 import { useQuery } from "@tanstack/react-query";
 import { getAllGameData } from "./api/getAllGameData";
 

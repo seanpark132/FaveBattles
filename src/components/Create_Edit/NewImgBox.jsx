@@ -1,7 +1,6 @@
-import { storage } from "../../firebaseConfig";
-import { ref, deleteObject } from "firebase/storage";
 import { _ } from "lodash";
 import { Image } from "primereact/image";
+import { deleteStoredImage } from "../../api/deleteStoredImage";
 
 export default function NewImgBox({
 	choiceId,
@@ -34,21 +33,7 @@ export default function NewImgBox({
 		}
 
 		try {
-			const imgRef = ref(storage, `all_games/${gameId}/${choiceId}`);
-			const imgRef_384w = ref(
-				storage,
-				`all_games/${gameId}/${choiceId}_384w`
-			);
-			const imgRef_683w = ref(
-				storage,
-				`all_games/${gameId}/${choiceId}_683w`
-			);
-			await Promise.all([
-				await deleteObject(imgRef),
-				await deleteObject(imgRef_384w),
-				await deleteObject(imgRef_683w),
-			]);
-
+			await deleteStoredImage(gameId, choiceId);
 			alert("Choice deleted");
 			setChoicesData((prev) => {
 				return prev.filter((choiceData) => choiceData.id !== choiceId);

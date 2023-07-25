@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db, storage } from "../firebaseConfig";
+import { db } from "../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
-import { ref, deleteObject } from "firebase/storage";
+
+import { deleteStoredImage } from "../api/deleteStoredImage";
 
 export default function DisplayGameBox({ type, gameData }) {
 	async function deleteGame(gameId) {
@@ -12,23 +13,7 @@ export default function DisplayGameBox({ type, gameData }) {
 
 			if (gameData.gameType === "image") {
 				gameData.choices.forEach(async (choice) => {
-					const imgRef = ref(
-						storage,
-						`all_games/${gameId}/${choice.id}`
-					);
-					const imgRef_384w = ref(
-						storage,
-						`all_games/${gameData.id}/${choice.id}_384w`
-					);
-					const imgRef_683w = ref(
-						storage,
-						`all_games/${gameData.id}/${choice.id}_683w`
-					);
-					await Promise.all([
-						await deleteObject(imgRef),
-						await deleteObject(imgRef_384w),
-						await deleteObject(imgRef_683w),
-					]);
+					await deleteStoredImage(gameId, choice.id);
 				});
 			}
 
