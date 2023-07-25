@@ -2,10 +2,16 @@ import { Link } from "react-router-dom";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
-
 import { deleteStoredImage } from "../api/deleteStoredImage";
+import { useMemo } from "react";
+import { getFirstAndSecondHighestFirstChoices } from "../utils/helper_functions";
 
 export default function DisplayGameBox({ type, gameData }) {
+	const { firstHighest, secondHighest } = useMemo(
+		() => getFirstAndSecondHighestFirstChoices(gameData.choices),
+		[gameData]
+	);
+
 	async function deleteGame(gameId) {
 		try {
 			const gameDoc = doc(db, FIRESTORE_COLLECTION_NAME, gameId);
@@ -31,8 +37,8 @@ export default function DisplayGameBox({ type, gameData }) {
 					className="h-full w-1/2 object-cover"
 					src={
 						gameData.gameType === "video-youtube"
-							? gameData.choices[0].thumbnailUrl
-							: gameData.choices[0].url_384w
+							? firstHighest.thumbnailUrl
+							: firstHighest.url_384w
 					}
 					alt="left img"
 				/>
@@ -40,15 +46,15 @@ export default function DisplayGameBox({ type, gameData }) {
 					className="h-full w-1/2 object-cover"
 					src={
 						gameData.gameType === "video-youtube"
-							? gameData.choices[1].thumbnailUrl
-							: gameData.choices[1].url_384w
+							? secondHighest.thumbnailUrl
+							: secondHighest.url_384w
 					}
 					alt="right img"
 				/>
 			</div>
 			<div className="flex w-full mb-2 border-b-2 border-b-slate-200">
-				<p className="home-box-img-label">{gameData.choices[0].name}</p>
-				<p className="home-box-img-label">{gameData.choices[1].name}</p>
+				<p className="home-box-img-label">{firstHighest.name}</p>
+				<p className="home-box-img-label">{secondHighest.name}</p>
 			</div>
 			<h3 className="my-1 mx-2 max-h-16 overflow-hidden">
 				[{gameData.mainCategory}] {gameData.title} (

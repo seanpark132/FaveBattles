@@ -17,3 +17,12 @@ export function getTwoChoicesFromCurrentChoices(array, setCurrChoices) {
 	setCurrChoices(array);
 	return [lChoice[0], rChoice[0]];
 }
+
+export function getFirstAndSecondHighestFirstChoices(choicesArray) {
+	choicesArray.sort((a, b) => b.numFirst - a.numFirst);
+
+	const firstHighest = choicesArray[0];
+	const secondHighest = choicesArray[1];
+
+	return { firstHighest, secondHighest };
+}
