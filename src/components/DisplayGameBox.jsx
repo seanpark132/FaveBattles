@@ -32,7 +32,7 @@ export default function DisplayGameBox({ type, gameData }) {
 					src={
 						gameData.gameType === "video-youtube"
 							? gameData.choices[0].thumbnailUrl
-							: gameData.choices[0].url
+							: gameData.choices[0].url_384w
 					}
 					alt="left img"
 				/>
@@ -41,7 +41,7 @@ export default function DisplayGameBox({ type, gameData }) {
 					src={
 						gameData.gameType === "video-youtube"
 							? gameData.choices[1].thumbnailUrl
-							: gameData.choices[1].url
+							: gameData.choices[1].url_384w
 					}
 					alt="right img"
 				/>

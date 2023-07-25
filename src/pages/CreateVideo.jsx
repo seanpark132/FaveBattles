@@ -4,7 +4,6 @@ import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { useNavigate } from "react-router-dom";
-
 import AddGameDetails from "../components/Create_Edit/AddGameDetails";
 import NewVideoBox from "../components/Create_Edit/NewVideoBox";
 import AddNewVideo from "../components/Create_Edit/AddNewVideo";
