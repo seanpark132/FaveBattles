@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { db, auth, storage } from "../firebaseConfig";
+import { db, storage } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
@@ -10,18 +10,35 @@ import NewVideoBox from "../components/Create/NewVideoBox";
 import AddGameDetails from "../components/Create/AddGameDetails";
 import AddNewImage from "../components/Create/AddNewImage";
 import AddNewVideo from "../components/Create/AddNewVideo";
+import { useQuery } from "@tanstack/react-query";
+import { getGameData } from "../api/getGameData";
+import { useUser } from "../context/AuthContext";
 
-export default function EditGame({ gameData }) {
-	const [choicesData, setChoicesData] = useState(gameData.choices);
+export default function EditGame({ gameId }) {
+	const [choicesData, setChoicesData] = useState([]);
 	const [formData, setFormData] = useState({
-		title: gameData.title,
-		description: gameData.description,
+		title: "",
+		description: "",
 	});
-	const [selectedCategories, setSelectedCategories] = useState(
-		gameData.categories
-	);
+	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [choiceIdsToRemove, setChoiceIdsToRemove] = useState([]);
 	const navigate = useNavigate();
+	const user = useUser();
+
+	if (!user) {
+		return <NotSignedIn />;
+	}
+
+	const gameDataQuery = useQuery({
+		queryKey: ["gameData"],
+		queryFn: () => getGameData(gameId),
+	});
+
+	if (gameDataQuery.isLoading) return <h1>Loading...</h1>;
+	if (gameDataQuery.isError) {
+		return <h1>An error occurred. Please try refreshing the page.</h1>;
+	}
+	const gameData = gameDataQuery.data;
 
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
@@ -63,7 +80,7 @@ export default function EditGame({ gameData }) {
 			const fullFormData = {
 				...formData,
 				id: gameData.id,
-				creatorId: auth.currentUser.uid,
+				creatorId: user.uid,
 				choices: choicesData,
 				categories: selectedCategories,
 				mainCategory: selectedCategories[0]?.label,

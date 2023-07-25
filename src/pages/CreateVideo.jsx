@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "../firebaseConfig";
+import { db } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
@@ -9,14 +9,16 @@ import AddGameDetails from "../components/Create/AddGameDetails";
 import NewVideoBox from "../components/Create/NewVideoBox";
 import AddNewVideo from "../components/Create/AddNewVideo";
 import NotSignedIn from "../components/NotSignedIn";
+import { useUser } from "../context/AuthContext";
 
 export default function CreateVideo() {
 	const [choicesData, setChoicesData] = useState(null);
 	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
+	const user = useUser();
 
-	if (!auth.currentUser) {
+	if (!user) {
 		return <NotSignedIn />;
 	}
 
@@ -46,7 +48,7 @@ export default function CreateVideo() {
 		const fullFormData = {
 			...formData,
 			id: gameId,
-			creatorId: auth.currentUser.uid,
+			creatorId: user.uid,
 			choices: choicesData,
 			categories: selectedCategories,
 			mainCategory: selectedCategories[0]?.label,
