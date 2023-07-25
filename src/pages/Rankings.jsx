@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
@@ -19,6 +18,7 @@ export default function Rankings({ gameData }) {
 	const rankingsQuery = useQuery({
 		queryKey: ["rankings"],
 		queryFn: () => getRankingsData(gameData.id),
+		cacheTime: 0,
 	});
 
 	if (rankingsQuery.isLoading) {
