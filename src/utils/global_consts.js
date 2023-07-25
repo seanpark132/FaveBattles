@@ -13,3 +13,5 @@ export const CATEGORY_OPTIONS = [
 ];
 
 export const FIRESTORE_COLLECTION_NAME = "all_games";
+
+export const BUCKET_NAME = "favebattles.appspot.com";

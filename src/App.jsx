@@ -11,36 +11,39 @@ import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import EditGame from "./pages/EditGame";
 import NoPage from "./pages/NoPage";
-import { auth } from "./firebaseConfig";
+import Navbar from "./components/Navbar";
 import "./css/Profile.css";
 import "./css/SignUp.css";
 import "./css/App.css";
 import "./css/Home.css";
 import "./css/Game.css";
-import "./css/Create.css";
+import "./css/Create_Edit.css";
 import { useQuery } from "@tanstack/react-query";
-import { getGameData } from "./api/getGameData";
+import { getAllGameData } from "./api/getAllGameData";
 
 export default function App() {
-	const gameDataQuery = useQuery({
-		queryKey: ["gameData"],
-		queryFn: () => getGameData(auth.currentUser?.uid),
+	const allGameDataQuery = useQuery({
+		queryKey: ["allGameData"],
+		queryFn: () => getAllGameData(),
 	});
 
-	if (gameDataQuery.isLoading) return <h1>Loading...</h1>;
-	if (gameDataQuery.isError) {
+	if (allGameDataQuery.isLoading) return <h1>Loading...</h1>;
+	if (allGameDataQuery.isError) {
 		return <h1>An error occurred. Please try refreshing the page.</h1>;
 	}
 
 	return (
 		<>
 			<BrowserRouter>
+				<Navbar />
 				<Routes>
 					<Route
 						index
 						element={
 							<Home
-								allGamesData={gameDataQuery.data.allGamesData}
+								allGamesData={
+									allGameDataQuery.data.allGamesData
+								}
 							/>
 						}
 					/>
@@ -50,27 +53,15 @@ export default function App() {
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/reset-password" element={<ResetPassword />} />
-					<Route
-						path="/profile"
-						element={
-							<Profile
-								myGamesData={gameDataQuery.data.myGamesData}
-							/>
-						}
-					/>
-					{gameDataQuery.data.myGamesData.map((gameData) => (
+					<Route path="/profile" element={<Profile />} />
+					{allGameDataQuery.data.allGameIds.map((id) => (
 						<Route
-							key={gameData.id}
-							path={`/edit-game/${gameData.id}`}
-							element={
-								<EditGame
-									key={gameData.id}
-									gameData={gameData}
-								/>
-							}
+							key={id}
+							path={`/edit-game/${id}`}
+							element={<EditGame key={id} gameId={id} />}
 						/>
 					))}
-					{gameDataQuery.data.allGamesData.map((gameData) => (
+					{allGameDataQuery.data.allGamesData.map((gameData) => (
 						<Route
 							key={gameData.id}
 							path={`/game/${gameData.id}`}
@@ -79,7 +70,7 @@ export default function App() {
 							}
 						/>
 					))}
-					{gameDataQuery.data.allGamesData.map((gameData) => (
+					{allGameDataQuery.data.allGamesData.map((gameData) => (
 						<Route
 							key={gameData.id}
 							path={`/stats/${gameData.id}`}

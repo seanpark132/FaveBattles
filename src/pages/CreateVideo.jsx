@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "../firebaseConfig";
+import { db } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import AddGameDetails from "../components/Create/AddGameDetails";
-import NewVideoBox from "../components/Create/NewVideoBox";
-import AddNewVideo from "../components/Create/AddNewVideo";
+import AddGameDetails from "../components/Create_Edit/AddGameDetails";
+import NewVideoBox from "../components/Create_Edit/NewVideoBox";
+import AddNewVideo from "../components/Create_Edit/AddNewVideo";
 import NotSignedIn from "../components/NotSignedIn";
+import { useUser } from "../context/AuthContext";
 
 export default function CreateVideo() {
 	const [choicesData, setChoicesData] = useState(null);
-	const [formData, setFormData] = useState({ title: "", descripton: "" });
+	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
+	const user = useUser();
 
-	if (!auth.currentUser) {
+	if (!user) {
 		return <NotSignedIn />;
 	}
 
@@ -46,12 +47,13 @@ export default function CreateVideo() {
 		const fullFormData = {
 			...formData,
 			id: gameId,
-			creatorId: auth.currentUser.uid,
+			creatorId: user.uid,
 			choices: choicesData,
 			categories: selectedCategories,
 			mainCategory: selectedCategories[0]?.label,
 			numStarts: 0,
 			numCompletes: 0,
+			createdOn: Date.now(),
 			gameType: "video-youtube",
 		};
 		await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
@@ -79,7 +81,6 @@ export default function CreateVideo() {
 
 	return (
 		<div className="w-full">
-			<Navbar />
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<fieldset>
 					<AddGameDetails

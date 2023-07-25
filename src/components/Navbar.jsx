@@ -2,9 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/AuthContext";
 
-export default function Navbar({ type }) {
+export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const user = useUser();
+	const navigate = useNavigate();
 
 	async function signOutUser() {
 		try {
@@ -18,16 +22,14 @@ export default function Navbar({ type }) {
 	}
 
 	return (
-		<nav
-			className={type === "fixed" ? "fixed top-0 w-full" : "sticky top-0"}
-		>
+		<nav className="sticky top-0">
 			<button
 				className="ml-4 text-2xl"
 				onClick={() => setIsMenuOpen((prev) => !prev)}
 			>
 				<i className="fa-solid fa-bars"></i>
 			</button>
-			<div className={`nav-menu ${isMenuOpen ? "open" : ""}`}>
+			<div className={`nav-menu ${isMenuOpen && "open"}`}>
 				<ul>
 					<li className="my-2">
 						<Link to="/create" className="text-lg">
@@ -36,7 +38,7 @@ export default function Navbar({ type }) {
 						</Link>
 					</li>
 					<li className="my-2">
-						{auth.currentUser ? (
+						{user ? (
 							<Link to="/profile" className="text-lg">
 								<i className="mr-3 fa-solid fa-user"></i>My
 								Profile
@@ -49,7 +51,7 @@ export default function Navbar({ type }) {
 						)}
 					</li>
 					<li className="my-2">
-						{auth.currentUser && (
+						{user && (
 							<button
 								className="text-lg text-red-500"
 								onClick={signOutUser}

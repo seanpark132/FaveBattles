@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "../firebaseConfig";
+import { db } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
-import Navbar from "../components/Navbar";
-import NewImgBox from "../components/Create/NewImgBox";
-import AddGameDetails from "../components/Create/AddGameDetails";
-import AddNewImage from "../components/Create/AddNewImage";
+import NewImgBox from "../components/Create_Edit/NewImgBox";
+import AddGameDetails from "../components/Create_Edit/AddGameDetails";
+import AddNewImage from "../components/Create_Edit/AddNewImage";
 import NotSignedIn from "../components/NotSignedIn";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/AuthContext";
 
 export default function CreateImg() {
-	const [choicesData, setChoicesData] = useState([]);
-	const [formData, setFormData] = useState({ title: "", descripton: "" });
+	const [choicesData, setChoicesData] = useState(null);
+	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
+	const user = useUser();
 
-	if (!auth.currentUser) {
+	if (!user) {
 		return <NotSignedIn />;
 	}
 
@@ -47,12 +48,13 @@ export default function CreateImg() {
 		const fullFormData = {
 			...formData,
 			id: gameId,
-			creatorId: auth.currentUser.uid,
+			creatorId: user.uid,
 			choices: choicesData,
 			categories: selectedCategories,
 			mainCategory: selectedCategories[0]?.label,
 			numStarts: 0,
 			numCompletes: 0,
+			createdOn: Date.now(),
 			gameType: "image",
 		};
 		await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
@@ -80,7 +82,6 @@ export default function CreateImg() {
 
 	return (
 		<div className="w-full">
-			<Navbar />
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<fieldset>
 					<AddGameDetails
@@ -115,7 +116,8 @@ export default function CreateImg() {
 						className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"
 						type="submit"
 					>
-						Create Game! ({choicesData.length} choices)
+						Create Game! ({choicesData ? choicesData.length : 0}{" "}
+						choices)
 					</button>
 				</div>
 			</form>

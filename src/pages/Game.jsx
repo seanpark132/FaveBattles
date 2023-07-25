@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar";
+
 import GameSetup from "../components/Game/GameSetup";
 import GameScreen from "../components/Game/GameScreen";
 import WinnerScreen from "../components/Game/WinnerScreen";
@@ -16,7 +16,6 @@ export default function Game({ gameData }) {
 
 	return (
 		<div>
-			<Navbar />
 			<div className="flex justify-center text-center">
 				{!gameActive && !gameCompleted && (
 					<GameSetup

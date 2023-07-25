@@ -2,7 +2,6 @@ import { auth } from "../firebaseConfig";
 import { signInWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
 
 export default function Login() {
 	const [email, setEmail] = useState("");
@@ -42,8 +41,7 @@ export default function Login() {
 	}
 
 	return (
-		<div className="h-screen flex flex-col justify-center items-center">
-			<Navbar type="fixed" />
+		<div className="h-vh-nav flex flex-col justify-center items-center">
 			<div>
 				<div className="mb-6 px-4 sign-up-title-width">
 					<p className="mb-4 text-3xl font-bold md:text-4xl">
