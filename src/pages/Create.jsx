@@ -1,12 +1,10 @@
 // Landing page for create game function, 2 options: images (upload images), youtube videos (youtube URL)
 
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 export default function Create() {
 	return (
 		<div>
-			<Navbar />
 			<section className="flex justify-center items-center h-vh-nav">
 				<Link className="create-landing-btn" to="/create-img">
 					<h1 className="mb-4 px-4 text-2xl md:text-3xl xl:text-4xl">

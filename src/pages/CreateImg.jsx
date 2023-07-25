@@ -3,7 +3,6 @@ import { db } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
-import Navbar from "../components/Navbar";
 import NewImgBox from "../components/Create_Edit/NewImgBox";
 import AddGameDetails from "../components/Create_Edit/AddGameDetails";
 import AddNewImage from "../components/Create_Edit/AddNewImage";
@@ -83,7 +82,6 @@ export default function CreateImg() {
 
 	return (
 		<div className="w-full">
-			<Navbar />
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<fieldset>
 					<AddGameDetails

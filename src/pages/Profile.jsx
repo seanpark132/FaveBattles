@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import { useState } from "react";
 import ProfileMyGames from "../components/Profile/ProfileMyGames";
 import NotSignedIn from "../components/NotSignedIn";
@@ -15,7 +14,6 @@ export default function Profile() {
 
 	return (
 		<div className="w-screen">
-			<Navbar />
 			<div className="p-6 w-full">
 				<div className="flex border-b mb-6">
 					<button

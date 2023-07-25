@@ -5,7 +5,7 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 
-export default function Navbar({ type }) {
+export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const user = useUser();
 	const navigate = useNavigate();
@@ -22,9 +22,7 @@ export default function Navbar({ type }) {
 	}
 
 	return (
-		<nav
-			className={type === "fixed" ? "fixed top-0 w-full" : "sticky top-0"}
-		>
+		<nav className="sticky top-0">
 			<button
 				className="ml-4 text-2xl"
 				onClick={() => setIsMenuOpen((prev) => !prev)}

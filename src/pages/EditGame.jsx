@@ -1,4 +1,5 @@
-import Navbar from "../components/Navbar";
+// Wrapper component for Edit page, handle data fetching on this component to pass down to "Edit" component, where data is used as initial state
+
 import Edit from "../components/Create_Edit/Edit";
 import { useQuery } from "@tanstack/react-query";
 import { getGameData } from "../api/getGameData";
@@ -23,7 +24,6 @@ export default function EditGame({ gameId }) {
 
 	return (
 		<div className="w-full">
-			<Navbar />
 			<Edit gameData={gameDataQuery.data} />
 		</div>
 	);

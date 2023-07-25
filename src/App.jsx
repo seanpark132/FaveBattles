@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import EditGame from "./pages/EditGame";
 import NoPage from "./pages/NoPage";
+import Navbar from "./components/Navbar";
 import "./css/Profile.css";
 import "./css/SignUp.css";
 import "./css/App.css";
@@ -34,6 +35,7 @@ export default function App() {
 	return (
 		<>
 			<BrowserRouter>
+				<Navbar />
 				<Routes>
 					<Route
 						index

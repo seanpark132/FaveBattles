@@ -105,7 +105,6 @@ export default function Rankings({ gameData }) {
 
 	return (
 		<div>
-			<Navbar />
 			<DataTable
 				tableStyle={{ fontSize: "1rem" }}
 				value={rankingsQuery.data}
