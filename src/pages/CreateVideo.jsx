@@ -12,7 +12,7 @@ import NotSignedIn from "../components/NotSignedIn";
 
 export default function CreateVideo() {
 	const [choicesData, setChoicesData] = useState(null);
-	const [formData, setFormData] = useState({ title: "", descripton: "" });
+	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
 
@@ -52,6 +52,7 @@ export default function CreateVideo() {
 			mainCategory: selectedCategories[0]?.label,
 			numStarts: 0,
 			numCompletes: 0,
+			createdOn: Date.now(),
 			gameType: "video-youtube",
 		};
 		await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);

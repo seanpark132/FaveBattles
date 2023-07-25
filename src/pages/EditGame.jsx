@@ -3,6 +3,7 @@ import { db, auth, storage } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import NewImgBox from "../components/Create/NewImgBox";
 import NewVideoBox from "../components/Create/NewVideoBox";
@@ -19,7 +20,8 @@ export default function EditGame({ gameData }) {
 	const [selectedCategories, setSelectedCategories] = useState(
 		gameData.categories
 	);
-	const [imgIdsToRemove, setImgIdsToRemove] = useState([]);
+	const [choiceIdsToRemove, setChoiceIdsToRemove] = useState([]);
+	const navigate = useNavigate();
 
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
@@ -38,27 +40,44 @@ export default function EditGame({ gameData }) {
 		}
 
 		try {
-			imgIdsToRemove.forEach(async (imgId) => {
-				const imgRef = ref(storage, `all_games/${gameId}/${imgId}`);
-				await deleteObject(imgRef);
+			choiceIdsToRemove.forEach(async (choiceId) => {
+				const imgRef = ref(
+					storage,
+					`all_games/${gameData.id}/${choiceId}`
+				);
+				const imgRef_384w = ref(
+					storage,
+					`all_games/${gameData.id}/${choiceId}_384w`
+				);
+				const imgRef_683w = ref(
+					storage,
+					`all_games/${gameData.id}/${choiceId}_683w`
+				);
+				await Promise.all([
+					await deleteObject(imgRef),
+					await deleteObject(imgRef_384w),
+					await deleteObject(imgRef_683w),
+				]);
 			});
 
 			const fullFormData = {
 				...formData,
-				id: gameData.gameId,
+				id: gameData.id,
 				creatorId: auth.currentUser.uid,
 				choices: choicesData,
 				categories: selectedCategories,
 				mainCategory: selectedCategories[0]?.label,
 				numStarts: 0,
 				numCompletes: 0,
+				createdOn: Date.now(),
 				gameType: gameData.gameType,
 			};
 			await setDoc(
-				doc(db, FIRESTORE_COLLECTION_NAME, gameData.gameId),
+				doc(db, FIRESTORE_COLLECTION_NAME, gameData.id),
 				fullFormData
 			);
 			alert("Game Updated!");
+			navigate("/profile");
 		} catch (error) {
 			console.error(error.message);
 			alert(
@@ -80,7 +99,7 @@ export default function EditGame({ gameData }) {
 					/>
 					{gameData.gameType === "image" ? (
 						<AddNewImage
-							gameId={gameData.gameId}
+							gameId={gameData.id}
 							setChoicesData={setChoicesData}
 						/>
 					) : (
@@ -102,18 +121,20 @@ export default function EditGame({ gameData }) {
 									<NewImgBox
 										key={choiceData.id}
 										choiceId={choiceData.id}
-										gameId={gameData.gameId}
+										gameId={gameData.id}
 										url={choiceData.url}
 										name={choiceData.name}
 										setChoicesData={setChoicesData}
-										setImgIdsToRemove={setImgIdsToRemove}
+										setChoiceIdsToRemove={
+											setChoiceIdsToRemove
+										}
 										page="edit"
 									/>
 								) : (
 									<NewVideoBox
 										key={choiceData.id}
 										choiceId={choiceData.id}
-										gameId={gameData.gameId}
+										gameId={gameData.id}
 										embedUrl={choiceData.embedUrl}
 										name={choiceData.name}
 										setChoicesData={setChoicesData}

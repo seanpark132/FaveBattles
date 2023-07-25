@@ -3,6 +3,7 @@ import { storage } from "../../firebaseConfig";
 import { v4 } from "uuid";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Compressor from "compressorjs";
+import { BUCKET_NAME } from "../../utils/global_consts";
 
 export default function AddNewImage({ gameId, setChoicesData }) {
 	const [inputtedImgs, setInputtedImgs] = useState([]);
@@ -13,43 +14,55 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 		}
 
 		const imgsArray = Object.values(images);
+
 		imgsArray.forEach((img) => {
 			new Compressor(img, {
 				quality: 0.8,
+				mimeType: "image/webp",
 				maxWidth: 960,
 				maxHeight: 960,
-				convertSize: 1500000,
 				success(result) {
 					setInputtedImgs((prev) => [...prev, result]);
+				},
+				error(error) {
+					console.error(
+						"An error occurred in adding your files.",
+						error
+					);
+					alert(
+						"An error occurred in adding your files. Please try again."
+					);
 				},
 			});
 		});
 	}
 
-	async function uploadImage(addedImgs) {
-		if (addedImgs.length === 0) {
+	async function uploadImage(inputImages) {
+		if (inputImages.length === 0) {
 			alert("Please add a file first");
 			return;
 		}
 
 		try {
-			const uploadPromises = addedImgs.map(async (img) => {
-				const imgId = v4();
-				const newImgRef = ref(storage, `all_games/${gameId}/${imgId}`);
+			const uploadPromises = inputImages.map(async (img) => {
+				const id = v4();
+				const imagePath = `all_games/${gameId}/${id}`;
+				const newImgRef = ref(storage, imagePath);
+				await uploadBytes(newImgRef, img);
+				const imgUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${imagePath}`;
+				const url_384w = `${imgUrl}_384w`;
+				const url_683w = `${imgUrl}_683w`;
+				const charsToRemove = 5;
 
-				const uploadedImg = await uploadBytes(newImgRef, img);
-				const imgUrl = await getDownloadURL(uploadedImg.ref);
-				let charsToRemove = 4;
-				if (img.type === "image/webp") {
-					charsToRemove = 5;
-				}
 				const defaultName = (
 					img.name.charAt(0).toUpperCase() + img.name.slice(1)
 				).slice(0, img.name.length - charsToRemove);
 
 				return {
-					id: imgId,
+					id: id,
 					url: imgUrl,
+					url_384w: url_384w,
+					url_683w: url_683w,
 					name: defaultName,
 					numWins: 0,
 					numGames: 0,
@@ -66,7 +79,7 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 			);
 			alert("Image(s) uploaded");
 		} catch (error) {
-			console.error("Error occurred during image uploaded:", error);
+			console.error("Error occurred during image uploading:", error);
 			alert(
 				"An error has occurred in uploading image(s). Please try again."
 			);
@@ -83,7 +96,6 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 				multiple={true}
 				onChange={(e) => {
 					handleInputtedImgs(e.target.files);
-					// setInputtedImgs(e.target.files);
 				}}
 				id="imgUpload"
 			/>

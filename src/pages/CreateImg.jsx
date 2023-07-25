@@ -11,8 +11,8 @@ import NotSignedIn from "../components/NotSignedIn";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateImg() {
-	const [choicesData, setChoicesData] = useState([]);
-	const [formData, setFormData] = useState({ title: "", descripton: "" });
+	const [choicesData, setChoicesData] = useState(null);
+	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
 
@@ -53,6 +53,7 @@ export default function CreateImg() {
 			mainCategory: selectedCategories[0]?.label,
 			numStarts: 0,
 			numCompletes: 0,
+			createdOn: Date.now(),
 			gameType: "image",
 		};
 		await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
@@ -115,7 +116,8 @@ export default function CreateImg() {
 						className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"
 						type="submit"
 					>
-						Create Game! ({choicesData.length} choices)
+						Create Game! ({choicesData ? choicesData.length : 0}{" "}
+						choices)
 					</button>
 				</div>
 			</form>

@@ -11,15 +11,25 @@ export default function DisplayGameBox({ type, gameData }) {
 			await deleteDoc(gameDoc);
 
 			if (gameData.gameType === "image") {
-				await Promise.all(
-					gameData.choices.map(async (choice) => {
-						const imgRef = ref(
-							storage,
-							`all_games/${gameId}/${choice.id}`
-						);
-						await deleteObject(imgRef);
-					})
-				);
+				gameData.choices.forEach(async (choice) => {
+					const imgRef = ref(
+						storage,
+						`all_games/${gameId}/${choice.id}`
+					);
+					const imgRef_384w = ref(
+						storage,
+						`all_games/${gameData.id}/${choice.id}_384w`
+					);
+					const imgRef_683w = ref(
+						storage,
+						`all_games/${gameData.id}/${choice.id}_683w`
+					);
+					await Promise.all([
+						await deleteObject(imgRef),
+						await deleteObject(imgRef_384w),
+						await deleteObject(imgRef_683w),
+					]);
+				});
 			}
 
 			alert("Game Deleted.");
