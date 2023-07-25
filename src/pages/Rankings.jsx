@@ -22,10 +22,14 @@ export default function Rankings({ gameData }) {
 	});
 
 	if (rankingsQuery.isLoading) {
-		return <h1>Loading...</h1>;
+		return <h1 className="m-6">Loading...</h1>;
 	}
 	if (rankingsQuery.isError) {
-		return <h1>An error has occurred. Please try refreshing the page.</h1>;
+		return (
+			<h1 className="m-6">
+				An error has occurred. Please try refreshing the page.
+			</h1>
+		);
 	}
 
 	const renderHeader = () => {
