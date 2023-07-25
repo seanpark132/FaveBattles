@@ -18,7 +18,7 @@ export default function ProfileMyGames() {
 		return <h1>An error has occurred. Please try refreshing the page.</h1>;
 	}
 	return (
-		<section className="flex flex-col w-full">
+		<section className="flex flex-col">
 			<h1 className="mb-4">My Games</h1>
 			<div className="flex flex-wrap">
 				{myGamesQuery.data.length === 0 ? (

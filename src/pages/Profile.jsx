@@ -13,33 +13,31 @@ export default function Profile() {
 	}
 
 	return (
-		<div className="w-screen">
-			<div className="p-6 w-full">
-				<div className="flex border-b mb-6">
-					<button
-						className={
-							currentTab === "my-account"
-								? "profile-tab text-purple-300 bg-purple-950"
-								: "profile-tab"
-						}
-						onClick={() => setCurrentTab("my-account")}
-					>
-						My Account
-					</button>
-					<button
-						className={
-							currentTab === "my-games"
-								? "profile-tab text-purple-300 bg-purple-950"
-								: "profile-tab"
-						}
-						onClick={() => setCurrentTab("my-games")}
-					>
-						My Games
-					</button>
-				</div>
-				{currentTab === "my-account" && <ProfileMyAccount />}
-				{currentTab === "my-games" && <ProfileMyGames />}
+		<div className="p-6 w-full">
+			<div className="flex border-b mb-6">
+				<button
+					className={
+						currentTab === "my-account"
+							? "profile-tab text-purple-300 bg-purple-950"
+							: "profile-tab"
+					}
+					onClick={() => setCurrentTab("my-account")}
+				>
+					My Account
+				</button>
+				<button
+					className={
+						currentTab === "my-games"
+							? "profile-tab text-purple-300 bg-purple-950"
+							: "profile-tab"
+					}
+					onClick={() => setCurrentTab("my-games")}
+				>
+					My Games
+				</button>
 			</div>
+			{currentTab === "my-account" && <ProfileMyAccount />}
+			{currentTab === "my-games" && <ProfileMyGames />}
 		</div>
 	);
 }
