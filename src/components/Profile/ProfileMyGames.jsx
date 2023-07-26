@@ -12,10 +12,14 @@ export default function ProfileMyGames() {
 	});
 
 	if (myGamesQuery.isLoading) {
-		return <h1>Loading...</h1>;
+		return <h1 className="m-6">Loading...</h1>;
 	}
 	if (myGamesQuery.isError) {
-		return <h1>An error has occurred. Please try refreshing the page.</h1>;
+		return (
+			<h1 className="m-6">
+				An error has occurred. Please try refreshing the page.
+			</h1>
+		);
 	}
 	return (
 		<section className="flex flex-col">

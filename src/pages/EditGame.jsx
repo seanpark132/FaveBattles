@@ -17,9 +17,13 @@ export default function EditGame({ gameId }) {
 		queryFn: () => getGameData(gameId),
 	});
 
-	if (gameDataQuery.isLoading) return <h1>Loading...</h1>;
+	if (gameDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
 	if (gameDataQuery.isError) {
-		return <h1>An error occurred. Please try refreshing the page.</h1>;
+		return (
+			<h1 className="m-6">
+				An error occurred. Please try refreshing the page.
+			</h1>
+		);
 	}
 
 	return (
