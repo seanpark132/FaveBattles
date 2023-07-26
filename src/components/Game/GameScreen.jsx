@@ -87,7 +87,7 @@ export default function GameScreen({
 				});
 				setGameSize((prevGameSize) => prevGameSize / 2);
 				setRoundNum(1);
-			}, 1500);
+			}, 1000);
 		} else {
 			setTimeout(() => {
 				setLeftChosen(true);
@@ -110,7 +110,7 @@ export default function GameScreen({
 			setLeftChosen(false);
 			setHideRight(false);
 			setAnimationsInProgress(false);
-		}, 1500);
+		}, 1600);
 
 		updateChoiceStats(leftChoice.id, rightChoice.id, false);
 	}
@@ -168,7 +168,7 @@ export default function GameScreen({
 			setRightChosen(false);
 			setHideLeft(false);
 			setAnimationsInProgress(false);
-		}, 1500);
+		}, 1600);
 
 		updateChoiceStats(rightChoice.id, leftChoice.id, false);
 	}

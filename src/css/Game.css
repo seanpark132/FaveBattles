@@ -40,7 +40,7 @@
 	top: 1.5rem;
 	text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
 		-1px 1px 0 #000, 1px 1px 0 #000;
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	line-height: 1;
 	font-weight: 700;
 }
@@ -61,15 +61,13 @@
 	}
 
 	.game-choice-label {
-		font-size: 2rem;
-		line-height: 1;
+		font-size: 1.75rem;
 	}
 }
 
 @media (min-width: 64rem) {
 	.game-choice-label {
-		font-size: 2.5rem;
-		line-height: 1;
+		font-size: 2.25rem;
 	}
 }
 
