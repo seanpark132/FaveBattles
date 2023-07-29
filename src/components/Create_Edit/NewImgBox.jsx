@@ -44,7 +44,7 @@ export default function NewImgBox({
 	}
 
 	return (
-		<div className="flex relative mb-8 border rounded bg-neutral-600 w-full h-32">
+		<div className="flex relative mb-8 border rounded bg-slate-800 w-full h-32">
 			<Image
 				src={url}
 				alt="choice-img"
