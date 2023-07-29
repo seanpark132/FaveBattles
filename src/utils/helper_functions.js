@@ -27,11 +27,7 @@ export function getFirstAndSecondHighestFirstChoices(choicesArray) {
 	return { firstHighest, secondHighest };
 }
 
-export function sortGameDataByProperty(
-	allGamesData,
-	sortByProperty,
-	sortOrder
-) {
+export function sortGameDataByProperty(gamesData, sortByProperty, sortOrder) {
 	let property = "";
 	switch (sortByProperty) {
 		case "Popularity":
@@ -42,22 +38,30 @@ export function sortGameDataByProperty(
 			break;
 	}
 
-	const sortedData = allGamesData.sort((a, b) => {
-		if (sortOrder === "descending") {
-			return b[property] - a[property];
+	const sortedData = gamesData.toSorted((a, b) => {
+		if (sortOrder === "ascending") {
+			return a[property] - b[property];
 		}
-		return a[property] - b[property];
+		return b[property] - a[property];
 	});
 
 	return sortedData;
 }
 
-export function filterGameDataByCategory(gamesData, filterByCategory) {
+export function filterGameDataByCategory(gameData, filterByCategory) {
 	if (filterByCategory === "No Filter") {
-		return gamesData;
+		return gameData;
 	}
-	const filteredData = gamesData.filter(
-		(gameData) => gameData.mainCategory === filterByCategory
+	const filteredData = gameData.filter(
+		(game) => game.mainCategory === filterByCategory
 	);
+	return filteredData;
+}
+
+export function filterGameDataByTitle(gameData, searchInput) {
+	const filteredData = gameData.filter((game) => {
+		const lowerCaseTitle = game.title.toLowerCase();
+		return lowerCaseTitle.includes(searchInput);
+	});
 	return filteredData;
 }

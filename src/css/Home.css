@@ -39,6 +39,19 @@
 	width: 7rem;
 }
 
+.home-search-btn {
+	background-color: #535353;
+	border: transparent;
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	user-select: none;
+	padding: 0 0.75rem;
+}
+
+.home-search-btn:hover {
+	background-color: #3a3a44;
+}
+
 @media (max-width: 48rem) {
 	.home-box-container {
 		width: clamp(18rem, 90%, 35rem);
