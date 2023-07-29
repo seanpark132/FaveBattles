@@ -26,3 +26,38 @@ export function getFirstAndSecondHighestFirstChoices(choicesArray) {
 
 	return { firstHighest, secondHighest };
 }
+
+export function sortGameDataByProperty(
+	allGamesData,
+	sortByProperty,
+	sortOrder
+) {
+	let property = "";
+	switch (sortByProperty) {
+		case "Popularity":
+			property = "numStarts";
+			break;
+		case "Latest":
+			property = "createdOn";
+			break;
+	}
+
+	const sortedData = allGamesData.sort((a, b) => {
+		if (sortOrder === "descending") {
+			return b[property] - a[property];
+		}
+		return a[property] - b[property];
+	});
+
+	return sortedData;
+}
+
+export function filterGameDataByCategory(gamesData, filterByCategory) {
+	if (filterByCategory === "No Filter") {
+		return gamesData;
+	}
+	const filteredData = gamesData.filter(
+		(gameData) => gameData.mainCategory === filterByCategory
+	);
+	return filteredData;
+}
