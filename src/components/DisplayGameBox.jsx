@@ -32,7 +32,7 @@ export default function DisplayGameBox({ type, gameData }) {
 
 	return (
 		<div className="home-box-container">
-			<div className="h-48 w-full overflow-hidden flex">
+			<div className="h-48 w-full overflow-hidden flex select-none">
 				<img
 					className="h-full w-1/2 object-cover"
 					src={
@@ -64,13 +64,13 @@ export default function DisplayGameBox({ type, gameData }) {
 			<div className="mt-auto">
 				<Link
 					to={`/game/${gameData.id}`}
-					className="home-box-btn bg-green-600"
+					className="home-box-btn bg-green-700 hover:bg-green-500"
 				>
 					<i className="mr-2 fa-solid fa-play fa-xs"></i>Play!
 				</Link>
 				<Link
 					to={`/stats/${gameData.id}`}
-					className="home-box-btn bg-purple-900"
+					className="home-box-btn bg-purple-900 hover:bg-purple-700"
 				>
 					<i className="mr-2 fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>
 					Rankings

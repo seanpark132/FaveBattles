@@ -15,7 +15,7 @@ body {
 }
 
 a:hover {
-	color: rgba(255, 255, 255, 0.82);
+	color: rgba(240, 240, 240, 0.82);
 }
 
 h1 {
@@ -45,6 +45,7 @@ input {
 	font-weight: 600;
 	border: transparent;
 	border-radius: 0.25rem;
+	background-color: #535353;
 }
 
 label {

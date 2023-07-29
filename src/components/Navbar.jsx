@@ -27,7 +27,7 @@ export default function Navbar() {
 				className="ml-4 text-2xl"
 				onClick={() => setIsMenuOpen((prev) => !prev)}
 			>
-				<i className="fa-solid fa-bars"></i>
+				<i className="fa-solid fa-bars select-none"></i>
 			</button>
 			<div className={`nav-menu ${isMenuOpen && "open"}`}>
 				<ul>
@@ -63,7 +63,10 @@ export default function Navbar() {
 					</li>
 				</ul>
 			</div>
-			<Link to="/" className="absolute -translate-x-1/2 left-1/2">
+			<Link
+				to="/"
+				className="absolute -translate-x-1/2 left-1/2 select-none"
+			>
 				<img className="max-h-7" src="/logo.png" />
 			</Link>
 		</nav>

@@ -26,3 +26,42 @@ export function getFirstAndSecondHighestFirstChoices(choicesArray) {
 
 	return { firstHighest, secondHighest };
 }
+
+export function sortGameDataByProperty(gamesData, sortByProperty, sortOrder) {
+	let property = "";
+	switch (sortByProperty) {
+		case "Popularity":
+			property = "numStarts";
+			break;
+		case "Latest":
+			property = "createdOn";
+			break;
+	}
+
+	const sortedData = gamesData.toSorted((a, b) => {
+		if (sortOrder === "ascending") {
+			return a[property] - b[property];
+		}
+		return b[property] - a[property];
+	});
+
+	return sortedData;
+}
+
+export function filterGameDataByCategory(gameData, filterByCategory) {
+	if (filterByCategory === "No Filter") {
+		return gameData;
+	}
+	const filteredData = gameData.filter(
+		(game) => game.mainCategory === filterByCategory
+	);
+	return filteredData;
+}
+
+export function filterGameDataByTitle(gameData, searchInput) {
+	const filteredData = gameData.filter((game) => {
+		const lowerCaseTitle = game.title.toLowerCase();
+		return lowerCaseTitle.includes(searchInput);
+	});
+	return filteredData;
+}
