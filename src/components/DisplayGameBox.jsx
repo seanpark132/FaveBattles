@@ -5,12 +5,14 @@ import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { deleteStoredImage } from "../api/deleteStoredImage";
 import { useMemo } from "react";
 import { getFirstAndSecondHighestFirstChoices } from "../utils/helper_functions";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function DisplayGameBox({ type, gameData }) {
 	const { firstHighest, secondHighest } = useMemo(
 		() => getFirstAndSecondHighestFirstChoices(gameData.choices),
 		[gameData]
 	);
+	const queryClient = useQueryClient();
 
 	async function deleteGame(gameId) {
 		try {
@@ -22,7 +24,8 @@ export default function DisplayGameBox({ type, gameData }) {
 					await deleteStoredImage(gameId, choice.id);
 				});
 			}
-
+			queryClient.invalidateQueries(["myGames"]);
+			queryClient.invalidateQueries(["allGamesData"]);
 			alert("Game Deleted.");
 		} catch (error) {
 			console.error(error.message);

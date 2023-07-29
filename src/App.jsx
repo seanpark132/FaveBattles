@@ -21,13 +21,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllGameData } from "./api/getAllGameData";
 
 export default function App() {
-	const allGameDataQuery = useQuery({
-		queryKey: ["allGameData"],
+	const allGamesDataQuery = useQuery({
+		queryKey: ["allGamesData"],
 		queryFn: () => getAllGameData(),
 	});
 
-	if (allGameDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
-	if (allGameDataQuery.isError) {
+	if (allGamesDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
+	if (allGamesDataQuery.isError) {
 		return (
 			<h1 className="m-6">
 				An error occurred. Please try refreshing the page.
@@ -42,7 +42,7 @@ export default function App() {
 					index
 					element={
 						<Home
-							allGamesData={allGameDataQuery.data.allGamesData}
+							allGamesData={allGamesDataQuery.data.allGamesData}
 						/>
 					}
 				/>
@@ -53,21 +53,21 @@ export default function App() {
 				<Route path="/sign-in" element={<SignIn />} />
 				<Route path="/reset-password" element={<ResetPassword />} />
 				<Route path="/profile" element={<Profile />} />
-				{allGameDataQuery.data.allGameIds.map((id) => (
+				{allGamesDataQuery.data.allGameIds.map((id) => (
 					<Route
 						key={id}
 						path={`/edit-game/${id}`}
 						element={<EditGame key={id} gameId={id} />}
 					/>
 				))}
-				{allGameDataQuery.data.allGamesData.map((gameData) => (
+				{allGamesDataQuery.data.allGamesData.map((gameData) => (
 					<Route
 						key={gameData.id}
 						path={`/game/${gameData.id}`}
 						element={<Game key={gameData.id} gameData={gameData} />}
 					/>
 				))}
-				{allGameDataQuery.data.allGamesData.map((gameData) => (
+				{allGamesDataQuery.data.allGamesData.map((gameData) => (
 					<Route
 						key={gameData.id}
 						path={`/stats/${gameData.id}`}

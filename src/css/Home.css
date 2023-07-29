@@ -39,6 +39,13 @@
 	width: 7rem;
 }
 
+.home-search-input {
+	padding: 0.5rem;
+	border-start-end-radius: 0;
+	border-end-end-radius: 0;
+	width: clamp(15rem, 40vw, 33.75rem);
+}
+
 .home-search-btn {
 	background-color: #535353;
 	border: transparent;

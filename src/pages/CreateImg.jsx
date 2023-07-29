@@ -9,6 +9,7 @@ import AddNewImage from "../components/Create_Edit/AddNewImage";
 import NotSignedIn from "../components/NotSignedIn";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function CreateImg() {
 	const [choicesData, setChoicesData] = useState(null);
@@ -16,6 +17,7 @@ export default function CreateImg() {
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
 	const user = useUser();
+	const queryClient = useQueryClient();
 
 	if (!user) {
 		return <NotSignedIn />;
@@ -29,7 +31,6 @@ export default function CreateImg() {
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
 		event.preventDefault();
-
 		if (choicesData.length < 4) {
 			alert(
 				"The minimum game size is 4 choices. Make sure to have at least 4 choices."
@@ -58,6 +59,7 @@ export default function CreateImg() {
 			gameType: "image",
 		};
 		await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
+		queryClient.invalidateQueries(["allGamesData"]);
 		alert("Game created!");
 		navigate("/");
 	}

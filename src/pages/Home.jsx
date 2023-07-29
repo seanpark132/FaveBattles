@@ -107,7 +107,7 @@ export default function Home({ allGamesData }) {
 					<div className="flex">
 						<input
 							type="text"
-							className="p-2 rounded-e-none"
+							className="home-search-input"
 							value={searchInput}
 							onChange={(e) => setSearchInput(e.target.value)}
 							onKeyDown={(e) => handleSearch(e)}
