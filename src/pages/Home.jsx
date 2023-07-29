@@ -116,7 +116,7 @@ export default function Home({ allGamesData }) {
 							onClick={handleSearchButton}
 							className="home-search-btn"
 						>
-							<i class="fa-solid fa-magnifying-glass"></i>
+							<i className="fa-solid fa-magnifying-glass"></i>
 						</button>
 					</div>
 				</div>

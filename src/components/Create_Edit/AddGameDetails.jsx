@@ -47,7 +47,7 @@ export default function AddGameDetails({
 				</label>
 				<br />
 				<textarea
-					className="text-base mt-2 h-28 bg-input-gray border-transparent rounded w-full p-2 md:h-24"
+					className="text-base mt-2 h-28 bg-input-gray border-transparent rounded w-full p-2 md:h-26"
 					value={formData.description}
 					onChange={(e) => handleChange(e)}
 					id="description"
