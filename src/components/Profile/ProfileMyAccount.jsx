@@ -4,7 +4,7 @@ import { useUser } from "../../context/AuthContext";
 export default function ProfileMyAccount() {
 	const user = useUser();
 	return (
-		<section className="flex flex-col w-full">
+		<section className="px-6 flex flex-col w-full">
 			<h1 className="mb-4">My Account</h1>
 			<label className="text-xl" htmlFor="email">
 				Email Address:

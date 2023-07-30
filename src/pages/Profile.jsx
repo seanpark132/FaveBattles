@@ -13,8 +13,8 @@ export default function Profile() {
 	}
 
 	return (
-		<div className="p-6 w-full">
-			<div className="flex border-b mb-6">
+		<div className="w-full">
+			<div className="mt-6 mx-6 flex">
 				<button
 					className={
 						currentTab === "my-account"
@@ -36,6 +36,8 @@ export default function Profile() {
 					My Games
 				</button>
 			</div>
+			<hr className="mb-6" />
+
 			{currentTab === "my-account" && <ProfileMyAccount />}
 			{currentTab === "my-games" && <ProfileMyGames />}
 		</div>
