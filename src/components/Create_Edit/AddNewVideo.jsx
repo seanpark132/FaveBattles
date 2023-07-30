@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { v4 } from "uuid";
 
 export default function AddNewVideo({ setChoicesData }) {
@@ -28,7 +29,7 @@ export default function AddNewVideo({ setChoicesData }) {
 	async function handleAddVideo() {
 		const trimmedUrl = inputUrl.trim();
 		if (trimmedUrl.length < 43) {
-			alert(
+			toast(
 				"Please enter a valid Youtube URL of the form:\nhttps://www.youtube.com/watch?v=9bZkp7q19f0"
 			);
 			return;
@@ -36,7 +37,7 @@ export default function AddNewVideo({ setChoicesData }) {
 
 		const startTime = convertInputTimeToSeconds(inputTime);
 		if (isNaN(startTime)) {
-			alert("Please enter a valid start time.");
+			toast("Please enter a valid start time.");
 			return;
 		}
 
@@ -78,7 +79,7 @@ export default function AddNewVideo({ setChoicesData }) {
 						},
 				  ]
 		);
-		alert("Video added!");
+		toast("Video added!");
 		setInputUrl("");
 		setInputTime("");
 	}

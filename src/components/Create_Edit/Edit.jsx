@@ -10,6 +10,7 @@ import AddNewImage from "./AddNewImage";
 import AddNewVideo from "./AddNewVideo";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
 import { useUser } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function Edit({ gameData }) {
 	const [choicesData, setChoicesData] = useState(gameData.choices);
@@ -28,14 +29,14 @@ export default function Edit({ gameData }) {
 		event.preventDefault();
 
 		if (choicesData.length < 4) {
-			alert(
+			toast(
 				"The minimum game size is 4 choices. Make sure to have at least 4 choices."
 			);
 			return;
 		}
 
 		if (selectedCategories.length === 0) {
-			alert("Please select at least 1 category");
+			toast("Please select at least 1 category");
 			return;
 		}
 
@@ -60,11 +61,11 @@ export default function Edit({ gameData }) {
 				doc(db, FIRESTORE_COLLECTION_NAME, gameData.id),
 				fullFormData
 			);
-			alert("Game Updated!");
+			toast("Game Updated!");
 			navigate("/profile");
 		} catch (error) {
 			console.error(error.message);
-			alert(
+			toast(
 				"An error has occured while updating your game. Please try again."
 			);
 		}
