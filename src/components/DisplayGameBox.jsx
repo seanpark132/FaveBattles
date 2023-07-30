@@ -34,10 +34,10 @@ export default function DisplayGameBox({ type, gameData }) {
 	}
 
 	return (
-		<div className="home-box-container">
+		<div className="home-box">
 			<div className="h-48 w-full overflow-hidden flex select-none">
 				<img
-					className="h-full w-1/2 object-cover"
+					className="h-full w-1/2 object-cover rounded-tl-lg"
 					src={
 						gameData.gameType === "video-youtube"
 							? firstHighest.thumbnailUrl
@@ -46,7 +46,7 @@ export default function DisplayGameBox({ type, gameData }) {
 					alt="left img"
 				/>
 				<img
-					className="h-full w-1/2 object-cover"
+					className="h-full w-1/2 object-cover rounded-tr-lg"
 					src={
 						gameData.gameType === "video-youtube"
 							? secondHighest.thumbnailUrl

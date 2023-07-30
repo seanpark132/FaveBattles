@@ -76,7 +76,7 @@ export default function Home({ allGamesData }) {
 
 	return (
 		<main>
-			<div className="flex px-6 pb-4 flex-wrap">
+			<div className="flex px-6 flex-wrap">
 				<div className="mr-6 pt-4">
 					<p className="pl-1 font-semibold mb-1">Sort by:</p>
 					<Dropdown
@@ -121,7 +121,7 @@ export default function Home({ allGamesData }) {
 					</div>
 				</div>
 			</div>
-			<div className="mb-6 flex flex-wrap justify-center">
+			<div className="home-box-container">
 				{displayData.map((gameData) => (
 					<DisplayGameBox key={gameData.id} gameData={gameData} />
 				))}
