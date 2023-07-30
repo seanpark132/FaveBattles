@@ -23,8 +23,8 @@ export default function ProfileMyGames() {
 	}
 	return (
 		<section className="flex flex-col">
-			<h1 className="mb-4">My Games</h1>
-			<div className="flex flex-wrap">
+			<h1 className="px-6">My Games</h1>
+			<div className="home-box-container">
 				{myGamesQuery.data.length === 0 ? (
 					<h2>You have not created any games yet.</h2>
 				) : (

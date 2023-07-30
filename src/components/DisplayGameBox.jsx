@@ -5,12 +5,14 @@ import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { deleteStoredImage } from "../api/deleteStoredImage";
 import { useMemo } from "react";
 import { getFirstAndSecondHighestFirstChoices } from "../utils/helper_functions";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function DisplayGameBox({ type, gameData }) {
 	const { firstHighest, secondHighest } = useMemo(
 		() => getFirstAndSecondHighestFirstChoices(gameData.choices),
 		[gameData]
 	);
+	const queryClient = useQueryClient();
 
 	async function deleteGame(gameId) {
 		try {
@@ -22,7 +24,8 @@ export default function DisplayGameBox({ type, gameData }) {
 					await deleteStoredImage(gameId, choice.id);
 				});
 			}
-
+			queryClient.invalidateQueries(["myGames"]);
+			queryClient.invalidateQueries(["allGamesData"]);
 			alert("Game Deleted.");
 		} catch (error) {
 			console.error(error.message);
@@ -31,10 +34,10 @@ export default function DisplayGameBox({ type, gameData }) {
 	}
 
 	return (
-		<div className="home-box-container">
+		<div className="home-box">
 			<div className="h-48 w-full overflow-hidden flex select-none">
 				<img
-					className="h-full w-1/2 object-cover"
+					className="h-full w-1/2 object-cover rounded-tl-lg"
 					src={
 						gameData.gameType === "video-youtube"
 							? firstHighest.thumbnailUrl
@@ -43,7 +46,7 @@ export default function DisplayGameBox({ type, gameData }) {
 					alt="left img"
 				/>
 				<img
-					className="h-full w-1/2 object-cover"
+					className="h-full w-1/2 object-cover rounded-tr-lg"
 					src={
 						gameData.gameType === "video-youtube"
 							? secondHighest.thumbnailUrl
