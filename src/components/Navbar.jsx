@@ -4,6 +4,7 @@ import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function Navbar() {
 	async function signOutUser() {
 		try {
 			await signOut(auth);
-			alert("Successfully signed out.");
+			toast("Successfully signed out.");
 			setIsMenuOpen(false);
 			navigate("/");
 		} catch (err) {

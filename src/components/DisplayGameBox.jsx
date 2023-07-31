@@ -6,6 +6,7 @@ import { deleteStoredImage } from "../api/deleteStoredImage";
 import { useMemo } from "react";
 import { getFirstAndSecondHighestFirstChoices } from "../utils/helper_functions";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export default function DisplayGameBox({ type, gameData }) {
 	const { firstHighest, secondHighest } = useMemo(
@@ -26,10 +27,10 @@ export default function DisplayGameBox({ type, gameData }) {
 			}
 			queryClient.invalidateQueries(["myGames"]);
 			queryClient.invalidateQueries(["allGamesData"]);
-			alert("Game Deleted.");
+			toast("Game Deleted.");
 		} catch (error) {
 			console.error(error.message);
-			alert("Error in deleting game.");
+			toast("Error occurred in deleting game. Please try again.");
 		}
 	}
 

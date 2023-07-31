@@ -2,6 +2,7 @@ import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
 	const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ export default function SignUp() {
 		try {
 			await createUserWithEmailAndPassword(auth, email, password);
 			setErrorMessage("");
-			alert(`Account successfully registered with ${email}.`);
+			toast(`Account successfully registered with ${email}.`);
 			navigate("/");
 		} catch (error) {
 			console.error(error.message);

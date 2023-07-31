@@ -1,6 +1,7 @@
 import { _ } from "lodash";
 import { Image } from "primereact/image";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
+import { toast } from "react-toastify";
 
 export default function NewImgBox({
 	choiceId,
@@ -34,12 +35,12 @@ export default function NewImgBox({
 
 		try {
 			await deleteStoredImage(gameId, choiceId);
-			alert("Choice deleted");
+			toast("Choice deleted");
 			setChoicesData((prev) => {
 				return prev.filter((choiceData) => choiceData.id !== choiceId);
 			});
 		} catch (error) {
-			alert("An error has occurred");
+			toast("An error has occurred");
 		}
 	}
 

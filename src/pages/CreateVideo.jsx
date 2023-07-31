@@ -9,6 +9,7 @@ import NewVideoBox from "../components/Create_Edit/NewVideoBox";
 import AddNewVideo from "../components/Create_Edit/AddNewVideo";
 import NotSignedIn from "../components/NotSignedIn";
 import { useUser } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function CreateVideo() {
 	const [choicesData, setChoicesData] = useState(null);
@@ -31,14 +32,14 @@ export default function CreateVideo() {
 		event.preventDefault();
 
 		if (choicesData.length < 4) {
-			alert(
+			toast(
 				"The minimum game size is 4 choices. Make sure to have at least 4 choices."
 			);
 			return;
 		}
 
 		if (selectedCategories.length === 0) {
-			alert("Please select at least 1 category");
+			toast("Please select at least 1 category");
 			return;
 		}
 
@@ -57,8 +58,8 @@ export default function CreateVideo() {
 			gameType: "video-youtube",
 		};
 		await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
-		alert("Game created!");
-		navigate("/");
+		toast("Game created!");
+		navigate(`/game/${gameId}`);
 	}
 
 	useEffect(() => {

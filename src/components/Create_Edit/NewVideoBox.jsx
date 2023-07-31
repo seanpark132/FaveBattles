@@ -1,4 +1,5 @@
 import { _ } from "lodash";
+import { toast } from "react-toastify";
 
 export default function NewVideoBox({
 	choiceId,
@@ -21,7 +22,7 @@ export default function NewVideoBox({
 		setChoicesData((prev) => {
 			return prev.filter((choiceData) => choiceData.id !== choiceId);
 		});
-		alert("Choice deleted");
+		toast("Choice deleted");
 	}
 
 	// Component viable for screens below 768 px

@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Compressor from "compressorjs";
 import { BUCKET_NAME } from "../../utils/global_consts";
+import { toast } from "react-toastify";
 
 export default function AddNewImage({ gameId, setChoicesData }) {
 	const [inputtedImgs, setInputtedImgs] = useState([]);
@@ -29,7 +30,7 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 						"An error occurred in adding your files.",
 						error
 					);
-					alert(
+					toast(
 						"An error occurred in adding your files. Please try again."
 					);
 				},
@@ -39,7 +40,7 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 
 	async function uploadImage(inputImages) {
 		if (inputImages.length === 0) {
-			alert("Please add a file first");
+			toast("Please add a file first");
 			return;
 		}
 
@@ -77,10 +78,10 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 					? [...prev, ...uploadedImagesData]
 					: [...uploadedImagesData]
 			);
-			alert("Image(s) uploaded");
+			toast("Image(s) uploaded");
 		} catch (error) {
 			console.error("Error occurred during image uploading:", error);
-			alert(
+			toast(
 				"An error has occurred in uploading image(s). Please try again."
 			);
 		}

@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import EditGame from "./pages/EditGame";
 import NoPage from "./pages/NoPage";
+import "react-toastify/dist/ReactToastify.css";
 import "./css/Profile.css";
 import "./css/SignUp.css";
 import "./css/App.css";
@@ -19,6 +20,7 @@ import "./css/Game.css";
 import "./css/Create_Edit.css";
 import { useQuery } from "@tanstack/react-query";
 import { getAllGameData } from "./api/getAllGameData";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
 	const allGamesDataQuery = useQuery({
@@ -37,6 +39,7 @@ export default function App() {
 
 	return (
 		<>
+			<ToastContainer theme="dark" style={{ zIndex: 10001 }} />
 			<Routes>
 				<Route
 					index

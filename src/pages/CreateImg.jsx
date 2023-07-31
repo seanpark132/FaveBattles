@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, waitForPendingWrites } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import NewImgBox from "../components/Create_Edit/NewImgBox";
@@ -10,6 +10,7 @@ import NotSignedIn from "../components/NotSignedIn";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export default function CreateImg() {
 	const [choicesData, setChoicesData] = useState(null);
@@ -32,14 +33,14 @@ export default function CreateImg() {
 	async function handleSubmit(event) {
 		event.preventDefault();
 		if (choicesData.length < 4) {
-			alert(
+			toast(
 				"The minimum game size is 4 choices. Make sure to have at least 4 choices."
 			);
 			return;
 		}
 
 		if (selectedCategories.length === 0) {
-			alert("Please select at least 1 category");
+			toast("Please select at least 1 category");
 			return;
 		}
 
@@ -59,9 +60,10 @@ export default function CreateImg() {
 			gameType: "image",
 		};
 		await setDoc(doc(db, FIRESTORE_COLLECTION_NAME, gameId), fullFormData);
-		queryClient.invalidateQueries(["allGamesData"]);
-		alert("Game created!");
-		navigate("/");
+		await queryClient.invalidateQueries(["allGamesData"]);
+
+		toast("Created game!");
+		navigate(`/game/${gameId}`);
 	}
 
 	useEffect(() => {

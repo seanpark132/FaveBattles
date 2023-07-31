@@ -1,6 +1,7 @@
 import { auth } from "../firebaseConfig";
 import { AuthErrorCodes, sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ResetPassword() {
 	const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ export default function ResetPassword() {
 			await sendPasswordResetEmail(auth, email);
 			setErrorMessage("");
 			setEmail("");
-			alert(
+			toast(
 				`An email with instructions to reset your password has been sent to ${email}.`
 			);
 		} catch (error) {
