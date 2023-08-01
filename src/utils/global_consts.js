@@ -6,9 +6,11 @@ export const CATEGORY_OPTIONS = [
 	{ value: "tv", label: "TV" },
 	{ value: "movies", label: "Movies" },
 	{ value: "anime", label: "Anime" },
+	{ value: "ai art", label: "AI Art" },
 	{ value: "books", label: "Books" },
 	{ value: "sports", label: "Sports" },
 	{ value: "kpop", label: "Kpop" },
+	{ value: "scenarios", label: "Scenarios" },
 	{ value: "other", label: "Other" },
 ];
 
