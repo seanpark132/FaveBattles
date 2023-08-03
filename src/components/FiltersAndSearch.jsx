@@ -72,7 +72,7 @@ export default function FiltersAndSearch({
 					onChange={(e) => handleSort(e)}
 					options={["Popularity", "Latest"]}
 					placeholder="Sort By"
-					className="w-32"
+					className="w-40 pl-2 rounded-lg"
 				/>
 			</div>
 			<div className="mr-6 pt-4">
@@ -85,7 +85,7 @@ export default function FiltersAndSearch({
 						...CATEGORY_OPTIONS.map((option) => option.label),
 					]}
 					placeholder="Category"
-					className="w-40"
+					className="w-40 pl-2 rounded-lg"
 				/>
 			</div>
 			<div className="flex flex-col pt-4">

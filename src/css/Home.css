@@ -18,6 +18,7 @@
 	display: -webkit-box;
 	-webkit-line-clamp: 1; /* Number of lines to show before truncating */
 	-webkit-box-orient: vertical;
+	font-weight: 500;
 	margin: 0.25rem 0.5rem;
 	text-align: center;
 	width: 50%;
@@ -53,7 +54,7 @@
 	border-radius: 0.5rem;
 	border-start-end-radius: 0;
 	border-end-end-radius: 0;
-	width: clamp(15rem, 50vw, 33.75rem);
+	width: clamp(15rem, 75vw, 31.75rem);
 }
 
 .home-search-btn {

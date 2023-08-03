@@ -52,7 +52,7 @@ export default function Login() {
 						Don't have an account?{" "}
 						<Link
 							to="/sign-up"
-							className="underline underline-offset-2"
+							className="underline underline-offset-2 font-semibold"
 						>
 							Sign Up.
 						</Link>
@@ -72,11 +72,14 @@ export default function Login() {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 						{errorMessage && (
-							<p className="text-red-500 mb-2 sign-up-form-width">
+							<p className="text-red-500 mb-2 font-medium sign-up-form-width">
 								{errorMessage}
 							</p>
 						)}
-						<Link className="text-blue-400" to="/reset-password">
+						<Link
+							className="text-blue-400 w-fit font-medium"
+							to="/reset-password"
+						>
 							Reset Password
 						</Link>
 						<button

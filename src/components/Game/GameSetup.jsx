@@ -75,8 +75,8 @@ export default function GameSetup({
 	));
 
 	return (
-		<div className="m-6 w-full p-4 max-w-screen-md border-transparent rounded bg-violet-300 mt-16">
-			<h2 className="text-black m-3">{`[${gameData.mainCategory}] ${gameData.title} (${gameData.choices.length} choices)`}</h2>
+		<section className="m-6 w-full p-4 max-w-screen-md border-transparent rounded bg-violet-700 mt-16">
+			<h2 className="my-6">{`[${gameData.mainCategory}] ${gameData.title} (${gameData.choices.length} choices)`}</h2>
 			<form onSubmit={handleGameStart}>
 				<div className="flex">
 					<select
@@ -84,15 +84,15 @@ export default function GameSetup({
 						onChange={(e) => setGameSize(e.target.value)}
 						name="startingOptions"
 						id="startingOptions"
-						className="mx-2 flex-1 text-black bg-white font-semibold p-2 border-transparent rounded text-center"
+						className="mx-2 flex-1 font-semibold p-2 text-lg border-transparent rounded text-center"
 					>
 						{selectOptions}
 					</select>
-					<button className="mx-2 flex-1 text-black bg-green-500 p-2 border-transparent rounded">
-						Start game with {gameSize} choices!
+					<button className="mx-2 flex-1 bg-green-600 p-2 text-lg border-transparent rounded">
+						Start game!
 					</button>
 				</div>
 			</form>
-		</div>
+		</section>
 	);
 }

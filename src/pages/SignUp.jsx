@@ -76,7 +76,7 @@ export default function SignUp() {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 						{errorMessage && (
-							<p className="text-red-500 sign-up-form-width">
+							<p className="text-red-500 font-medium sign-up-form-width">
 								{errorMessage}
 							</p>
 						)}

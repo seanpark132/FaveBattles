@@ -5,17 +5,13 @@
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
-	color: rgba(255, 255, 255, 0.9);
+	color: rgba(240, 240, 240, 0.9);
 	background-color: #212121;
 	-webkit-text-size-adjust: 100%;
 }
 
 body {
 	height: 100%;
-}
-
-a:hover {
-	color: rgba(240, 240, 240, 0.82);
 }
 
 h1 {
@@ -37,8 +33,9 @@ button {
 	font-weight: 600;
 }
 
+a:hover,
 button:hover {
-	color: rgb(172, 172, 172);
+	color: rgb(200, 200, 200);
 }
 
 input {
