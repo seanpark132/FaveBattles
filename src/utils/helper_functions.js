@@ -61,7 +61,7 @@ export function filterGameDataByCategory(gameData, filterByCategory) {
 export function filterGameDataByTitle(gameData, searchInput) {
 	const filteredData = gameData.filter((game) => {
 		const lowerCaseTitle = game.title.toLowerCase();
-		return lowerCaseTitle.includes(searchInput);
+		return lowerCaseTitle.includes(searchInput.toLowerCase());
 	});
 	return filteredData;
 }
