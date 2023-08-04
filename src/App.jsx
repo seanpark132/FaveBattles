@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
 import Rankings from "./pages/Rankings";
@@ -40,6 +41,7 @@ export default function App() {
 	return (
 		<>
 			<ToastContainer theme="dark" style={{ zIndex: 10001 }} />
+			<Navbar />
 			<Routes>
 				<Route
 					index
