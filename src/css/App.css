@@ -67,17 +67,32 @@ textarea {
 }
 
 .nav-menu {
-	display: none;
+	opacity: 0;
+	visibility: hidden;
 	position: absolute;
 	background-color: #616161;
 	top: 2.75rem;
-	padding: 0.5rem 1.5rem 0.5rem 1rem;
+	padding: 0.5rem 1rem 0.5rem 1rem;
 	border-right: transparent;
-	border-bottom-right-radius: 2rem;
+	border-bottom-right-radius: 1rem;
 }
 
-.nav-menu.open {
-	display: block;
+.nav-theme-menu {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	background-color: #616161;
+	top: 2.75rem;
+	right: 0;
+	padding: 0.5rem 1rem 0.5rem 1rem;
+	border-left: transparent;
+	border-bottom-left-radius: 1rem;
+}
+
+.open {
+	opacity: 1;
+	visibility: visible;
+	transition: 400ms;
 }
 
 .flex-flow-column {
