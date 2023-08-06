@@ -174,8 +174,8 @@ export default function GameScreen({
 	}
 
 	return (
-		<div className="w-full h-vh-nav">
-			<h3 className="m-4 md:text-2xl lg:text-3xl">{`TOP ${gameSize} (Round ${roundNum}/${
+		<div className="w-full h-vh-nav flex flex-col">
+			<h3 className="m-4 line-clamp-2 flex-shrink-0 md:text-2xl lg:text-3xl">{`TOP ${gameSize} (Round ${roundNum}/${
 				gameSize / 2
 			}) : [${gameData.mainCategory}] ${gameData.title}`}</h3>
 			{gameData.gameType === "image" ? (

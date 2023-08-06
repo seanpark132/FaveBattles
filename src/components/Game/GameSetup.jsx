@@ -3,6 +3,7 @@ import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";
 import { getTwoChoicesFromCurrentChoices } from "../../utils/helper_functions";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function GameSetup({
 	gameSize,
@@ -14,6 +15,8 @@ export default function GameSetup({
 	setRightChoice,
 	gameData,
 }) {
+	const { theme, setTheme } = useTheme();
+
 	// at the start of the game, when the user selects the game size "n", randomly get n choices from pool
 	function getRandomChoices(array, gameSize) {
 		let randomChoices = [];
@@ -75,8 +78,12 @@ export default function GameSetup({
 	));
 
 	return (
-		<div className="m-6 w-full p-4 max-w-screen-md border-transparent rounded bg-violet-300 mt-16">
-			<h2 className="text-black m-3">{`[${gameData.mainCategory}] ${gameData.title} (${gameData.choices.length} choices)`}</h2>
+		<section
+			className={`m-6 w-full p-4 max-w-screen-md border-transparent rounded mt-16 ${
+				theme === "dark" ? "bg-violet-700" : "bg-violet-400"
+			}`}
+		>
+			<h2 className="my-6">{`[${gameData.mainCategory}] ${gameData.title} (${gameData.choices.length} choices)`}</h2>
 			<form onSubmit={handleGameStart}>
 				<div className="flex">
 					<select
@@ -84,15 +91,19 @@ export default function GameSetup({
 						onChange={(e) => setGameSize(e.target.value)}
 						name="startingOptions"
 						id="startingOptions"
-						className="mx-2 flex-1 text-black bg-white font-semibold p-2 border-transparent rounded text-center"
+						className="mx-2 flex-1 font-semibold p-2 text-lg border-transparent rounded text-center"
 					>
 						{selectOptions}
 					</select>
-					<button className="mx-2 flex-1 text-black bg-green-500 p-2 border-transparent rounded">
-						Start game with {gameSize} choices!
+					<button
+						className={`mx-2 flex-1 p-2 text-lg border-transparent rounded ${
+							theme === "dark" ? "bg-green-600" : "bg-green-400"
+						}`}
+					>
+						Start game!
 					</button>
 				</div>
 			</form>
-		</div>
+		</section>
 	);
 }

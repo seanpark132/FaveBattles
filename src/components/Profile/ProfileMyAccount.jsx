@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function ProfileMyAccount() {
 	const user = useUser();
+	const { theme, setTheme } = useTheme();
+
 	return (
 		<section className="px-6 flex flex-col w-full">
 			<h1 className="mb-4">My Account</h1>
@@ -10,8 +13,11 @@ export default function ProfileMyAccount() {
 				Email Address:
 			</label>
 			<input
-				className="mt-2 py-2 px-4 max-w-md"
+				className={`mt-2 py-2 px-4 max-w-md ${
+					theme === "dark" && "dark"
+				}`}
 				type="text"
+				name="email"
 				id="email"
 				placeholder={user.email}
 				readOnly

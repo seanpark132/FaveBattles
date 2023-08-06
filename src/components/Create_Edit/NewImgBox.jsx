@@ -2,6 +2,7 @@ import { _ } from "lodash";
 import { Image } from "primereact/image";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
 import { toast } from "react-toastify";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function NewImgBox({
 	choiceId,
@@ -12,6 +13,8 @@ export default function NewImgBox({
 	setChoiceIdsToRemove,
 	page,
 }) {
+	const { theme, setTheme } = useTheme();
+
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
 			let newArray = _.cloneDeep(prev);
@@ -45,7 +48,11 @@ export default function NewImgBox({
 	}
 
 	return (
-		<div className="flex relative mb-8 border rounded bg-slate-800 w-full h-32">
+		<div
+			className={`flex relative mb-8 border rounded w-full h-32 ${
+				theme === "dark" ? "bg-slate-800" : "bg-sky-200"
+			}`}
+		>
 			<Image
 				src={url}
 				alt="choice-img"
@@ -53,11 +60,17 @@ export default function NewImgBox({
 				preview
 			/>
 			<div className="p-4 w-3/5">
-				<h3 className="mb-4">Name:</h3>
+				<label className="text-lg md:text-xl" htmlFor="choiceName">
+					Name:
+				</label>
 				<input
 					type="text"
-					className="w-full p-2 text-sm rounded border-2 md:text-lg"
+					className={`w-full mt-2 p-2 text-sm rounded border-2 md:text-lg ${
+						theme === "dark" && "dark"
+					}`}
 					onChange={(e) => handleNameChange(e)}
+					name="choiceName"
+					id="choiceName"
 					value={name}
 				/>
 			</div>

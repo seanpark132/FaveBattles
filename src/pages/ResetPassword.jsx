@@ -2,10 +2,12 @@ import { auth } from "../firebaseConfig";
 import { AuthErrorCodes, sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 export default function ResetPassword() {
 	const [email, setEmail] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
+	const { theme, setTheme } = useTheme();
 
 	async function resetPassword(e) {
 		e.preventDefault();
@@ -44,18 +46,26 @@ export default function ResetPassword() {
 				</div>
 				<form className="flex justify-center">
 					<div className="flex flex-col border rounded-3xl p-8 w-fit m-2">
-						<label className="mb-2">Email Address:</label>
+						<label className="mb-2" htmlFor="email">
+							Email Address:
+						</label>
 						<input
-							className="sign-up-input"
+							className={`sign-up-input ${
+								theme === "dark" && "dark"
+							}`}
 							onChange={(e) => setEmail(e.target.value)}
+							id="email"
+							name="email"
 						/>
 						{errorMessage && (
-							<p className="text-red-500 sign-up-form-width">
+							<p className="text-red-500 font-medium sign-up-form-width">
 								{errorMessage}
 							</p>
 						)}
 						<button
-							className="sign-up-button"
+							className={`sign-up-button ${
+								theme === "dark" && "dark"
+							}`}
 							onClick={(e) => resetPassword(e)}
 						>
 							Reset Password

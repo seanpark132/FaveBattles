@@ -1,3 +1,5 @@
+import { useTheme } from "../../context/ThemeContext";
+
 export default function GameScreenYoutube({
 	leftChoice,
 	rightChoice,
@@ -9,8 +11,10 @@ export default function GameScreenYoutube({
 	rightChosen,
 	animationsInProgress,
 }) {
+	const { theme, setTheme } = useTheme();
+
 	return (
-		<div className="game-choices-height flex w-full">
+		<div className="flex-1 flex w-full pb-4">
 			<section
 				className={`w-1/2 flex flex-col mb-6 h-full justify-end ${
 					hideLeft && "fade-out"
@@ -26,8 +30,9 @@ export default function GameScreenYoutube({
 					allowFullScreen
 				></iframe>
 				<button
-					className="game-video-btn bg-sky-600 hover:bg-sky-400 hover:text-white"
+					className="game-video-btn left"
 					onClick={handleLeft}
+					id={theme}
 				>
 					{leftChoice.name}
 				</button>
@@ -47,8 +52,9 @@ export default function GameScreenYoutube({
 					allowFullScreen
 				></iframe>
 				<button
-					className="game-video-btn bg-rose-600 hover:bg-rose-500 hover:text-white"
+					className="game-video-btn right"
 					onClick={handleRight}
+					id={theme}
 				>
 					{rightChoice.name}
 				</button>

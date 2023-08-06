@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import { getFirstAndSecondHighestFirstChoices } from "../utils/helper_functions";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 export default function DisplayGameBox({ type, gameData }) {
 	const { firstHighest, secondHighest } = useMemo(
@@ -14,6 +15,7 @@ export default function DisplayGameBox({ type, gameData }) {
 		[gameData]
 	);
 	const queryClient = useQueryClient();
+	const { theme, setTheme } = useTheme();
 
 	async function deleteGame(gameId) {
 		try {
@@ -36,7 +38,7 @@ export default function DisplayGameBox({ type, gameData }) {
 
 	return (
 		<div className="home-box">
-			<div className="h-48 w-full overflow-hidden flex select-none">
+			<div className={`h-48 w-full overflow-hidden flex select-none`}>
 				<img
 					className="h-full w-1/2 object-cover rounded-tl-lg"
 					src={
@@ -64,17 +66,23 @@ export default function DisplayGameBox({ type, gameData }) {
 				[{gameData.mainCategory}] {gameData.title} (
 				{gameData.choices.length} choices)
 			</h3>
-			<p className="home-box-desc">{gameData.description}</p>
+			<p id={theme} className="home-box-desc">
+				{gameData.description}
+			</p>
 			<div className="mt-auto">
 				<Link
 					to={`/game/${gameData.id}`}
-					className="home-box-btn bg-green-700 hover:bg-green-500"
+					className={`home-box-btn ${
+						theme === "light" ? "bg-green-300" : "bg-green-600"
+					} hover:bg-green-500`}
 				>
 					<i className="mr-2 fa-solid fa-play fa-xs"></i>Play!
 				</Link>
 				<Link
 					to={`/stats/${gameData.id}`}
-					className="home-box-btn bg-purple-900 hover:bg-purple-700"
+					className={`home-box-btn ${
+						theme === "light" ? "bg-purple-300" : "bg-purple-600"
+					} hover:bg-purple-500`}
 				>
 					<i className="mr-2 fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>
 					Rankings
@@ -83,13 +91,17 @@ export default function DisplayGameBox({ type, gameData }) {
 					<div>
 						<Link
 							to={`/edit-game/${gameData.id}`}
-							className="home-box-btn bg-sky-600"
+							className={`home-box-btn ${
+								theme === "light" ? "bg-sky-300" : "bg-sky-600"
+							} hover:bg-sky-500`}
 						>
 							<i className="mr-2 fa-solid fa-pen-to-square"></i>
 							Edit
 						</Link>
 						<button
-							className="home-box-btn text-left bg-red-500"
+							className={`home-box-btn text-left ${
+								theme === "light" ? "bg-red-300" : "bg-red-600"
+							} hover:bg-red-500`}
 							onClick={() => deleteGame(gameData.id)}
 						>
 							<i className="mr-2 fa-solid fa-trash"></i>DELETE

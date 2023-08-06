@@ -92,13 +92,12 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 			<h2 className="mb-4">Choose images to add</h2>
 			<input
 				type="file"
-				className="w-fit bg-transparent file:bg-blue-800"
+				className="create-file-btn"
 				accept="image/png, image/jpeg, image/jpg, image/webp"
 				multiple={true}
 				onChange={(e) => {
 					handleInputtedImgs(e.target.files);
 				}}
-				id="imgUpload"
 			/>
 			<button
 				type="button"

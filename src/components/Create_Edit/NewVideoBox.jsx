@@ -1,5 +1,6 @@
 import { _ } from "lodash";
 import { toast } from "react-toastify";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function NewVideoBox({
 	choiceId,
@@ -7,6 +8,8 @@ export default function NewVideoBox({
 	name,
 	setChoicesData,
 }) {
+	const { theme, setTheme } = useTheme();
+
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
 			let newArray = _.cloneDeep(prev);
@@ -25,9 +28,9 @@ export default function NewVideoBox({
 		toast("Choice deleted");
 	}
 
-	// Component viable for screens below 768 px
+	// Component visible for screens below 768 px
 	const mdScreen = (
-		<div className="create-new-video-box-md">
+		<div id={theme} className="create-new-video-box-md">
 			<iframe
 				className="create-iframe-dimensions-md"
 				src={embedUrl}
@@ -36,13 +39,19 @@ export default function NewVideoBox({
 				allowFullScreen
 			/>
 			<div className="relative">
-				<div className="py-2 px-4 w-11/12">
-					<h3 className="my-4">Title:</h3>
+				<div className="pt-6 px-4 w-11/12">
+					<label className="text-lg md:text-xl" htmlFor="choiceName">
+						Title:
+					</label>
 					<input
 						type="text"
-						className="w-full text-lg p-2 rounded"
+						className={`w-full mt-2 text-lg p-2 rounded ${
+							theme === "dark" && "dark"
+						}`}
 						onChange={(e) => handleNameChange(e)}
 						value={name}
+						id="choiceName"
+						name="choiceName"
 					/>
 				</div>
 				<button
@@ -59,7 +68,7 @@ export default function NewVideoBox({
 	return (
 		<>
 			{mdScreen}
-			<div className="create-new-video-box">
+			<div id={theme} className="create-new-video-box">
 				<iframe
 					width="400"
 					height="225"
@@ -68,13 +77,19 @@ export default function NewVideoBox({
 					allow="accelerometer;"
 					allowFullScreen
 				/>
-				<div className="mx-4 mt-2 w-3/5 xxl:w-1/2">
-					<h3 className="mt-4 mb-4">Title:</h3>
+				<div className="mx-4 mt-6 w-3/5 xxl:w-1/2">
+					<label className="text-lg md:text-xl" htmlFor="choiceName">
+						Title:
+					</label>
 					<input
 						type="text"
-						className="w-full text-lg p-2 rounded"
+						className={`w-full mt-2 text-lg p-2 rounded ${
+							theme === "dark" && "dark"
+						}`}
 						onChange={(e) => handleNameChange(e)}
 						value={name}
+						id="choiceName"
+						name="choiceName"
 					/>
 				</div>
 				<button

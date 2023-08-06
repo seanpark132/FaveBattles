@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
+import PrimeReact from "primereact/api";
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isThemeOpen, setIsThemeOpen] = useState(false);
 	const user = useUser();
+	const { theme, setTheme } = useTheme();
 	const navigate = useNavigate();
+	const menuRef = useRef();
+	const themeRef = useRef();
 
 	async function signOutUser() {
 		try {
@@ -22,54 +28,150 @@ export default function Navbar() {
 		}
 	}
 
+	useEffect(() => {
+		let menuHandler = (e) => {
+			if (!menuRef.current.contains(e.target)) {
+				setIsMenuOpen(false);
+			}
+		};
+
+		let themeHandler = (e) => {
+			if (!themeRef.current.contains(e.target)) {
+				setIsThemeOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", menuHandler);
+		document.addEventListener("mousedown", themeHandler);
+
+		return () => {
+			document.removeEventListener("mousedown", menuHandler);
+			document.removeEventListener("mousedown", themeHandler);
+		};
+	}, []);
+
 	return (
-		<nav className="sticky top-0">
-			<button
-				className="ml-4 text-2xl"
-				onClick={() => setIsMenuOpen((prev) => !prev)}
-			>
-				<i className="fa-solid fa-bars select-none"></i>
-			</button>
-			<div className={`nav-menu ${isMenuOpen && "open"}`}>
-				<ul>
-					<li className="my-2">
-						<Link to="/create" className="text-lg">
-							<i className="mr-4 fa-solid fa-plus fa-xs"></i>
-							Create a new game
-						</Link>
-					</li>
-					<li className="my-2">
-						{user ? (
-							<Link to="/profile" className="text-lg">
-								<i className="mr-3 fa-solid fa-user"></i>My
-								Profile
-							</Link>
-						) : (
-							<Link to="/sign-in" className="text-lg">
-								<i className="mr-3 fa-solid fa-right-from-bracket"></i>
-								Sign In
-							</Link>
-						)}
-					</li>
-					<li className="my-2">
-						{user && (
-							<button
-								className="text-lg text-red-500"
-								onClick={signOutUser}
+		<nav
+			id={theme}
+			className="sticky top-0 flex justify-between items-center"
+		>
+			<div ref={menuRef}>
+				<button
+					className="ml-4 text-2xl"
+					onClick={() => setIsMenuOpen((prev) => !prev)}
+				>
+					<i className="fa-solid fa-bars select-none"></i>
+				</button>
+				<div id={theme} className={`nav-menu ${isMenuOpen && "open"}`}>
+					<ul>
+						<li className="mt-2">
+							<Link
+								to="/create"
+								className="md:text-lg"
+								onClick={() => setIsMenuOpen(false)}
 							>
-								<i className="mr-3 -scale-x-100 fa-solid fa-right-from-bracket"></i>
-								Sign Out
-							</button>
-						)}
-					</li>
-				</ul>
+								<i className="mr-4 fa-solid fa-plus fa-xs"></i>
+								Create a new game
+							</Link>
+						</li>
+						<li className="my-2">
+							{user ? (
+								<Link
+									to="/profile"
+									className="md:text-lg"
+									onClick={() => setIsMenuOpen(false)}
+								>
+									<i className="mr-3 fa-solid fa-user"></i>My
+									Profile
+								</Link>
+							) : (
+								<Link
+									to="/sign-in"
+									className="md:text-lg"
+									onClick={() => setIsMenuOpen(false)}
+								>
+									<i className="mr-3 fa-solid fa-right-from-bracket"></i>
+									Sign In
+								</Link>
+							)}
+						</li>
+						<li className="my-2">
+							{user && (
+								<button
+									className="md:text-lg text-red-500"
+									onClick={signOutUser}
+								>
+									<i className="mr-3 -scale-x-100 fa-solid fa-right-from-bracket"></i>
+									Sign Out
+								</button>
+							)}
+						</li>
+					</ul>
+				</div>
 			</div>
 			<Link
 				to="/"
 				className="absolute -translate-x-1/2 left-1/2 select-none"
 			>
-				<img className="max-h-7" src="/logo.png" />
+				<img className="h-5 md:h-7" src="/logo.png" />
 			</Link>
+			<div ref={themeRef}>
+				<button
+					className="mr-4"
+					onClick={() => setIsThemeOpen((prev) => !prev)}
+				>
+					{theme === "light" ? (
+						<i className="fa-solid fa-sun text-yellow-400 text-xl" />
+					) : (
+						<i className="fa-solid fa-moon text-sky-400 text-2xl" />
+					)}
+				</button>
+				<div
+					id={theme}
+					className={`nav-theme-menu ${isThemeOpen && "open"}`}
+				>
+					<ul>
+						<li className="mt-2">
+							<button
+								className="flex"
+								onClick={() => {
+									setTheme("dark");
+									PrimeReact?.changeTheme?.(
+										"lara-light-teal",
+										"lara-dark-teal",
+										"prime-react-theme"
+									);
+									setIsThemeOpen((prev) => !prev);
+								}}
+							>
+								<i className="fa-solid fa-moon w-4 text-sky-400 mr-4 self-center text-2xl" />
+								<p className="md:text-lg self-center">
+									Dark Mode
+								</p>
+							</button>
+						</li>
+						<li className="my-2">
+							<button
+								className="flex"
+								onClick={() => {
+									setTheme("light");
+									PrimeReact?.changeTheme?.(
+										"lara-dark-teal",
+										"lara-light-teal",
+										"prime-react-theme"
+									);
+									setIsThemeOpen((prev) => !prev);
+								}}
+							>
+								<i className="fa-solid fa-sun w-4 text-yellow-400 mr-4 self-center text-xl" />
+								<p className="md:text-lg self-center">
+									Light Mode
+								</p>
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</nav>
 	);
 }

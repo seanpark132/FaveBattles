@@ -6,7 +6,6 @@ import { InputText } from "primereact/inputtext";
 import { Image } from "primereact/image";
 import { ProgressBar } from "primereact/progressbar";
 import "primereact/resources/primereact.min.css";
-import "primereact/resources/themes/arya-purple/theme.css";
 import { useQuery } from "@tanstack/react-query";
 import { getRankingsData } from "../api/getRankingsData";
 
@@ -49,7 +48,7 @@ export default function Rankings({ gameData }) {
 						placeholder="Search by Name"
 					/>
 				</span>
-				<h2 className="mt-4 text-white text-center text-lg lg:text-2xl">
+				<h2 className="mt-4 text-center text-lg lg:text-2xl">
 					[{gameData.mainCategory}] {gameData.title}
 				</h2>
 			</div>

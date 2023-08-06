@@ -2,20 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+.App {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
-	color: rgba(255, 255, 255, 0.9);
-	background-color: #212121;
+	color: black;
+	background-color: white;
 	-webkit-text-size-adjust: 100%;
+	min-height: 100vh;
 }
 
-body {
-	height: 100%;
-}
-
-a:hover {
-	color: rgba(240, 240, 240, 0.82);
+.App#dark {
+	color: rgba(240, 240, 240);
+	background-color: #212121;
 }
 
 h1 {
@@ -37,19 +35,30 @@ button {
 	font-weight: 600;
 }
 
+a:hover,
 button:hover {
-	color: rgb(172, 172, 172);
+	color: #9e9fa5;
 }
 
 input {
-	font-weight: 600;
-	border: transparent;
+	font-weight: 500;
+	border: 1px solid #9e9fa5;
 	border-radius: 0.25rem;
+	background-color: white;
+}
+
+input.dark {
 	background-color: #535353;
+	border: 1px solid #535353;
+}
+
+input:focus {
+	outline-color: #99f6e4;
+	border-color: #99f6e4;
 }
 
 label {
-	font-weight: 600;
+	font-weight: 500;
 }
 
 nav {
@@ -57,32 +66,71 @@ nav {
 	align-items: center;
 	z-index: 10000;
 	height: 2.75rem;
+	background-color: white;
+	box-shadow: 0rem 0.125rem 0.25rem rgb(0, 0, 0, 0.25);
+}
+
+nav#dark {
 	background-color: #444444;
 	box-shadow: 0rem 0.125rem 0.25rem rgb(255, 255, 255, 0.25);
 }
 
 textarea {
 	resize: none;
+	border: 1px solid #9e9fa5;
 }
+
+textarea:focus {
+	outline-color: #99f6e4;
+	border-color: #99f6e4;
+}
+
+textarea.dark {
+	background-color: #535353;
+	border: 1px solid #535353;
+}
+
 /* For primereact Image component, toolbar under navbar */
 .p-image-toolbar {
 	margin-top: 2rem;
 }
 
+/* NAVBAR */
+
 .nav-menu {
-	display: none;
+	opacity: 0;
+	visibility: hidden;
 	position: absolute;
-	background-color: #616161;
+	font-weight: 500;
+	background-color: #99f6e4;
 	top: 2.75rem;
-	padding: 0.5rem 1.5rem 0.5rem 1rem;
+	padding: 0.5rem 1rem 0.5rem 1rem;
 	border-right: transparent;
-	border-bottom-right-radius: 2rem;
+	border-bottom-right-radius: 1rem;
 }
 
-.nav-menu.open {
-	display: block;
+#dark.nav-menu {
+	background-color: #616161;
 }
 
-.flex-flow-column {
-	flex-flow: column;
+.nav-theme-menu {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	background-color: #99f6e4;
+	top: 2.75rem;
+	right: 0;
+	padding: 0.5rem 1rem 0.5rem 1rem;
+	border-left: transparent;
+	border-bottom-left-radius: 1rem;
+}
+
+#dark.nav-theme-menu {
+	background-color: #616161;
+}
+
+.open {
+	opacity: 1;
+	visibility: visible;
+	transition: 400ms;
 }

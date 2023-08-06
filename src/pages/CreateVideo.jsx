@@ -10,6 +10,7 @@ import AddNewVideo from "../components/Create_Edit/AddNewVideo";
 import NotSignedIn from "../components/NotSignedIn";
 import { useUser } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 export default function CreateVideo() {
 	const [choicesData, setChoicesData] = useState(null);
@@ -17,6 +18,7 @@ export default function CreateVideo() {
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const navigate = useNavigate();
 	const user = useUser();
+	const { theme, setTheme } = useTheme();
 
 	if (!user) {
 		return <NotSignedIn />;
@@ -109,7 +111,9 @@ export default function CreateVideo() {
 							})}
 					</div>
 					<button
-						className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"
+						className={`m-6 py-4 px-8 w-fit border-transparent rounded ${
+							theme === "dark" ? "bg-green-700" : "bg-green-400"
+						}  text-2xl md:text-3xl`}
 						type="submit"
 					>
 						Create Game! ({choicesData ? choicesData.length : 0}{" "}

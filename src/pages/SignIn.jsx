@@ -3,12 +3,14 @@ import { signInWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 	const navigate = useNavigate();
+	const { theme, setTheme } = useTheme();
 
 	async function signIn(e) {
 		e.preventDefault();
@@ -52,7 +54,7 @@ export default function Login() {
 						Don't have an account?{" "}
 						<Link
 							to="/sign-up"
-							className="underline underline-offset-2"
+							className="underline underline-offset-2 font-semibold"
 						>
 							Sign Up.
 						</Link>
@@ -60,27 +62,44 @@ export default function Login() {
 				</div>
 				<form>
 					<div className="flex flex-col border rounded-3xl p-8 w-fit m-2">
-						<label className="mb-2">Email Address:</label>
+						<label className="mb-2" htmlFor="email">
+							Email Address:
+						</label>
 						<input
-							className="sign-up-input"
+							className={`sign-up-input ${
+								theme === "dark" && "dark"
+							}`}
 							onChange={(e) => setEmail(e.target.value)}
+							id="email"
+							name="email"
 						/>
-						<label className="my-2">Password:</label>
+						<label className="my-2" htmlFor="password">
+							Password:
+						</label>
 						<input
-							className="sign-up-input"
+							className={`sign-up-input ${
+								theme === "dark" && "dark"
+							}`}
 							type="password"
 							onChange={(e) => setPassword(e.target.value)}
+							id="password"
+							name="password"
 						/>
 						{errorMessage && (
-							<p className="text-red-500 mb-2 sign-up-form-width">
+							<p className="text-red-500 mb-2 font-medium sign-up-form-width">
 								{errorMessage}
 							</p>
 						)}
-						<Link className="text-blue-400" to="/reset-password">
+						<Link
+							className="text-blue-400 w-fit font-medium"
+							to="/reset-password"
+						>
 							Reset Password
 						</Link>
 						<button
-							className="sign-up-button"
+							className={`sign-up-button ${
+								theme === "dark" && "dark"
+							}`}
 							onClick={(e) => signIn(e)}
 						>
 							Sign In
