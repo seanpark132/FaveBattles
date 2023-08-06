@@ -3,12 +3,14 @@ import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 export default function SignUp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 	const navigate = useNavigate();
+	const { theme, setTheme } = useTheme();
 
 	async function signUpUser(e) {
 		e.preventDefault();
@@ -66,12 +68,16 @@ export default function SignUp() {
 					<div className="flex flex-col border rounded-3xl p-8 w-fit m-2">
 						<label className="mb-2">Email Address:</label>
 						<input
-							className="sign-up-input"
+							className={`sign-up-input ${
+								theme === "dark" && "dark"
+							}`}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 						<label className="mb-2">Password:</label>
 						<input
-							className="sign-up-input"
+							className={`sign-up-input ${
+								theme === "dark" && "dark"
+							}`}
 							type="password"
 							onChange={(e) => setPassword(e.target.value)}
 						/>
@@ -81,7 +87,9 @@ export default function SignUp() {
 							</p>
 						)}
 						<button
-							className="sign-up-button"
+							className={`sign-up-button ${
+								theme === "dark" && "dark"
+							}`}
 							onClick={(e) => signUpUser(e)}
 						>
 							Sign Up
