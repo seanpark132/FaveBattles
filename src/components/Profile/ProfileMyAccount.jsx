@@ -13,10 +13,12 @@ export default function ProfileMyAccount() {
 				Email Address:
 			</label>
 			<input
-				className="mt-2 py-2 px-4 max-w-md"
+				className={`mt-2 py-2 px-4 max-w-md ${
+					theme === "dark" && "dark"
+				}`}
 				type="text"
 				name="email"
-				id={theme}
+				id="email"
 				placeholder={user.email}
 				readOnly
 			/>

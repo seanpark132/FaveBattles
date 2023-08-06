@@ -47,7 +47,7 @@ input {
 	background-color: white;
 }
 
-input#dark {
+input.dark {
 	background-color: #535353;
 	border: 1px solid #535353;
 }
@@ -85,7 +85,7 @@ textarea:focus {
 	border-color: #99f6e4;
 }
 
-textarea#dark {
+textarea.dark {
 	background-color: #535353;
 	border: 1px solid #535353;
 }

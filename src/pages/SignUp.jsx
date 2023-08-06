@@ -66,20 +66,28 @@ export default function SignUp() {
 				</div>
 				<form>
 					<div className="flex flex-col border rounded-3xl p-8 w-fit m-2">
-						<label className="mb-2">Email Address:</label>
+						<label className="mb-2" htmlFor="email">
+							Email Address:
+						</label>
 						<input
 							className={`sign-up-input ${
 								theme === "dark" && "dark"
 							}`}
 							onChange={(e) => setEmail(e.target.value)}
+							id="email"
+							name="email"
 						/>
-						<label className="mb-2">Password:</label>
+						<label className="mb-2" htmlFor="password">
+							Password:
+						</label>
 						<input
 							className={`sign-up-input ${
 								theme === "dark" && "dark"
 							}`}
 							type="password"
 							onChange={(e) => setPassword(e.target.value)}
+							id="password"
+							name="password"
 						/>
 						{errorMessage && (
 							<p className="text-red-500 font-medium sign-up-form-width">
