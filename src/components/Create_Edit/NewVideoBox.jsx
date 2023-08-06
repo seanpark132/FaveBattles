@@ -1,5 +1,6 @@
 import { _ } from "lodash";
 import { toast } from "react-toastify";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function NewVideoBox({
 	choiceId,
@@ -7,6 +8,8 @@ export default function NewVideoBox({
 	name,
 	setChoicesData,
 }) {
+	const { theme, setTheme } = useTheme();
+
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
 			let newArray = _.cloneDeep(prev);
@@ -27,7 +30,7 @@ export default function NewVideoBox({
 
 	// Component viable for screens below 768 px
 	const mdScreen = (
-		<div className="create-new-video-box-md">
+		<div id={theme} className="create-new-video-box-md">
 			<iframe
 				className="create-iframe-dimensions-md"
 				src={embedUrl}
@@ -43,6 +46,7 @@ export default function NewVideoBox({
 						className="w-full text-lg p-2 rounded"
 						onChange={(e) => handleNameChange(e)}
 						value={name}
+						id={theme}
 					/>
 				</div>
 				<button
@@ -59,7 +63,7 @@ export default function NewVideoBox({
 	return (
 		<>
 			{mdScreen}
-			<div className="create-new-video-box">
+			<div id={theme} className="create-new-video-box">
 				<iframe
 					width="400"
 					height="225"
@@ -75,6 +79,7 @@ export default function NewVideoBox({
 						className="w-full text-lg p-2 rounded"
 						onChange={(e) => handleNameChange(e)}
 						value={name}
+						id={theme}
 					/>
 				</div>
 				<button

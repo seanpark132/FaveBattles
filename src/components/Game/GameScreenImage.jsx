@@ -10,9 +10,9 @@ export default function GameScreenImage({
 	animationsInProgress,
 }) {
 	return (
-		<div className="game-choices-height flex relative">
+		<div className="flex game-image-height">
 			<button
-				className={`game-choice-btn justify-end ${
+				className={`game-image-btn justify-end ${
 					hideLeft && "fade-out"
 				} ${!animationsInProgress && "fade-in"} ${
 					leftChosen && "opacity-0"
@@ -28,13 +28,13 @@ export default function GameScreenImage({
 						sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
 						alt={leftChoice.name}
 					/>
-					<label className="game-choice-label" htmlFor="leftImg">
+					<label className="game-image-label" htmlFor="leftImg">
 						{leftChoice.name}
 					</label>
 				</div>
 			</button>
 			<button
-				className={`game-choice-btn justify-start ${
+				className={`game-image-btn justify-start ${
 					hideRight && "fade-out"
 				} ${!animationsInProgress && "fade-in"} ${
 					rightChosen && "opacity-0"
@@ -50,7 +50,7 @@ export default function GameScreenImage({
 						sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
 						alt={rightChoice.name}
 					/>
-					<label className="game-choice-label" htmlFor="rightImg">
+					<label className="game-image-label" htmlFor="rightImg">
 						{rightChoice.name}
 					</label>
 				</div>

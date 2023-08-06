@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { v4 } from "uuid";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function AddNewVideo({ setChoicesData }) {
 	const [inputUrl, setInputUrl] = useState("");
 	const [inputTime, setInputTime] = useState("");
+	const { theme, setTheme } = useTheme();
 
 	function convertInputTimeToSeconds(timeString) {
 		if (timeString.length === 0) {
@@ -107,7 +109,9 @@ export default function AddNewVideo({ setChoicesData }) {
 			/>
 			<button
 				type="button"
-				className="mt-2 p-2 border-transparent rounded bg-blue-800"
+				className={`mt-2 p-2 text-xl border-transparent rounded ${
+					theme === "dark" ? "bg-blue-800" : "bg-blue-300"
+				}`}
 				onClick={handleAddVideo}
 			>
 				Add Video

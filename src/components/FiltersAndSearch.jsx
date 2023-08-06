@@ -7,6 +7,7 @@ import {
 } from "../utils/helper_functions";
 import { Dropdown } from "primereact/dropdown";
 import { CATEGORY_OPTIONS } from "../utils/global_consts";
+import { useTheme } from "../context/ThemeContext";
 
 export default function FiltersAndSearch({
 	allGamesData,
@@ -17,6 +18,7 @@ export default function FiltersAndSearch({
 	const [sortByProperty, setSortByProperty] = useState("Popularity");
 	const [filterByCategory, setFilterByCategory] = useState("No Filter");
 	const [searchInput, setSearchInput] = useState("");
+	const { theme, setTheme } = useTheme();
 
 	function handleSort(e) {
 		setSortByProperty(e.value);
@@ -72,7 +74,7 @@ export default function FiltersAndSearch({
 					onChange={(e) => handleSort(e)}
 					options={["Popularity", "Latest"]}
 					placeholder="Sort By"
-					className="w-40 pl-2 rounded-lg"
+					className="w-40 rounded-lg"
 				/>
 			</div>
 			<div className="mr-6 pt-4">
@@ -85,7 +87,7 @@ export default function FiltersAndSearch({
 						...CATEGORY_OPTIONS.map((option) => option.label),
 					]}
 					placeholder="Category"
-					className="w-40 pl-2 rounded-lg"
+					className="w-40 rounded-lg"
 				/>
 			</div>
 			<div className="flex flex-col pt-4">
@@ -99,10 +101,12 @@ export default function FiltersAndSearch({
 						value={searchInput}
 						onChange={(e) => setSearchInput(e.target.value)}
 						onKeyDown={(e) => handleSearch(e)}
+						id={theme}
 					/>
 					<button
 						onClick={handleSearchButton}
 						className="home-search-btn"
+						id={theme}
 					>
 						<i className="fa-solid fa-magnifying-glass"></i>
 					</button>

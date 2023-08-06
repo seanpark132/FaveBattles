@@ -4,6 +4,8 @@ module.exports = {
 	theme: {
 		extend: {
 			spacing: {
+				22: "5.5rem",
+				30: "7.5rem",
 				31: "7.75rem",
 				39: "9.75rem",
 				110: "27.5rem",
@@ -17,6 +19,8 @@ module.exports = {
 			},
 			colors: {
 				"input-gray": "#535353",
+				"focus-teal": "#99f6e4",
+				"dark-mode-text": "#f0f0f0",
 			},
 		},
 	},

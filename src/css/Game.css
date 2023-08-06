@@ -1,39 +1,20 @@
-.game-choices-height {
-	height: calc(100vh - 2.75rem - 5.5rem - 1rem);
+.game-image-height {
+	height: calc(100vh - 8rem);
 }
 
-.game-video-btn {
-	padding-left: 1rem;
-	padding-right: 1rem;
-	width: 100%;
-	height: 5.5rem;
-	font-size: 1.25rem;
-	color: rgba(255, 255, 255, 0.87);
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.game-choice-btn {
+.game-image-btn {
 	display: flex;
 	flex: 1 1 0%;
 	height: 100%;
 	transition: color 500ms ease-out;
+	color: rgb(240, 240, 240);
 }
 
-.game-choice-btn:hover {
+.game-image-btn:hover {
 	color: rgb(0, 255, 98);
 }
 
-.fade-in {
-	animation: fade-in 1s ease-out forwards;
-}
-
-.fade-out {
-	animation: fade-out 1s ease-out forwards;
-}
-
-.game-choice-label {
+.game-image-label {
 	position: absolute;
 	transform: translateX(-50%);
 	left: 50%;
@@ -43,6 +24,43 @@
 	font-size: 1.25rem;
 	line-height: 1;
 	font-weight: 700;
+}
+
+.game-video-btn {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	line-height: 1.25;
+	width: 100%;
+	height: 5rem;
+	font-size: 1.25rem;
+}
+
+.game-video-btn:hover {
+	color: rgb(0, 255, 98);
+}
+
+.game-video-btn.left {
+	background-color: rgb(56, 189, 248);
+}
+
+.game-video-btn.right {
+	background-color: rgb(251, 113, 133);
+}
+
+#dark.game-video-btn.left {
+	background-color: rgb(2, 132, 199);
+}
+
+#dark.game-video-btn.right {
+	background-color: rgb(225, 29, 72);
+}
+
+.fade-in {
+	animation: fade-in 1s ease-out forwards;
+}
+
+.fade-out {
+	animation: fade-out 1s ease-out forwards;
 }
 
 .winner-img {
@@ -56,18 +74,27 @@
 }
 
 @media (min-width: 48rem) {
-	.game-video-btn {
-		font-size: 1.5rem;
-	}
-
-	.game-choice-label {
+	.game-image-label {
 		font-size: 1.75rem;
 	}
 }
 
 @media (min-width: 64rem) {
-	.game-choice-label {
-		font-size: 2.25rem;
+	.game-video-btn {
+		font-size: 1.5rem;
+	}
+
+	.game-image-label {
+		font-size: 2rem;
+	}
+}
+
+@media (orientation: landscape) {
+	.game-video-btn {
+		height: 3.5rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 }
 

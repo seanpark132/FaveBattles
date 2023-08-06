@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
+import PrimeReact from "primereact/api";
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,7 +51,10 @@ export default function Navbar() {
 	}, []);
 
 	return (
-		<nav className="sticky top-0 flex justify-between items-center">
+		<nav
+			id={theme}
+			className="sticky top-0 flex justify-between items-center"
+		>
 			<div ref={menuRef}>
 				<button
 					className="ml-4 text-2xl"
@@ -58,7 +62,7 @@ export default function Navbar() {
 				>
 					<i className="fa-solid fa-bars select-none"></i>
 				</button>
-				<div className={`nav-menu ${isMenuOpen && "open"}`}>
+				<div id={theme} className={`nav-menu ${isMenuOpen && "open"}`}>
 					<ul>
 						<li className="mt-2">
 							<Link
@@ -117,17 +121,28 @@ export default function Navbar() {
 					onClick={() => setIsThemeOpen((prev) => !prev)}
 				>
 					{theme === "light" ? (
-						<i className="fa-regular fa-sun text-yellow-400 text-xl" />
+						<i className="fa-solid fa-sun text-yellow-400 text-xl" />
 					) : (
 						<i className="fa-solid fa-moon text-sky-400 text-2xl" />
 					)}
 				</button>
-				<div className={`nav-theme-menu ${isThemeOpen && "open"}`}>
+				<div
+					id={theme}
+					className={`nav-theme-menu ${isThemeOpen && "open"}`}
+				>
 					<ul>
 						<li className="mt-2">
 							<button
-								className="flex font-normal"
-								onClick={() => setTheme("dark")}
+								className="flex"
+								onClick={() => {
+									setTheme("dark");
+									PrimeReact?.changeTheme?.(
+										"lara-light-teal",
+										"lara-dark-teal",
+										"prime-react-theme"
+									);
+									setIsThemeOpen((prev) => !prev);
+								}}
 							>
 								<i className="fa-solid fa-moon w-4 text-sky-400 mr-4 self-center text-2xl" />
 								<p className="md:text-lg self-center">
@@ -137,13 +152,18 @@ export default function Navbar() {
 						</li>
 						<li className="my-2">
 							<button
-								className="flex font-normal"
+								className="flex"
 								onClick={() => {
-									console.log("OK");
 									setTheme("light");
+									PrimeReact?.changeTheme?.(
+										"lara-dark-teal",
+										"lara-light-teal",
+										"prime-react-theme"
+									);
+									setIsThemeOpen((prev) => !prev);
 								}}
 							>
-								<i className="fa-regular fa-sun w-4 text-yellow-400 mr-4 self-center text-xl" />
+								<i className="fa-solid fa-sun w-4 text-yellow-400 mr-4 self-center text-xl" />
 								<p className="md:text-lg self-center">
 									Light Mode
 								</p>

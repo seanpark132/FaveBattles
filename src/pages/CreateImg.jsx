@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebaseConfig";
-import { doc, setDoc, waitForPendingWrites } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import NewImgBox from "../components/Create_Edit/NewImgBox";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 export default function CreateImg() {
 	const [choicesData, setChoicesData] = useState(null);
@@ -19,6 +20,7 @@ export default function CreateImg() {
 	const navigate = useNavigate();
 	const user = useUser();
 	const queryClient = useQueryClient();
+	const { theme, setTheme } = useTheme();
 
 	if (!user) {
 		return <NotSignedIn />;
@@ -117,7 +119,9 @@ export default function CreateImg() {
 							})}
 					</div>
 					<button
-						className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"
+						className={`m-6 py-4 px-8 w-fit border-transparent rounded text-2xl md:text-3xl ${
+							theme === "dark" ? "bg-green-700" : "bg-green-400"
+						}`}
 						type="submit"
 					>
 						Create Game! ({choicesData ? choicesData.length : 0}{" "}

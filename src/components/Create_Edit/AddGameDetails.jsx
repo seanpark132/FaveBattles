@@ -1,5 +1,6 @@
 import { CATEGORY_OPTIONS } from "../../utils/global_consts";
 import Select from "react-select";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function AddGameDetails({
 	formData,
@@ -7,6 +8,8 @@ export default function AddGameDetails({
 	selectedCategories,
 	setSelectedCategories,
 }) {
+	const { theme, setTheme } = useTheme();
+
 	function handleChange(event) {
 		const { name, value } = event.target;
 
@@ -24,20 +27,45 @@ export default function AddGameDetails({
 				<label htmlFor="title">Game Title:</label>
 				<input
 					type="text"
-					className="mb-4 p-2"
+					className="mt-2 mb-4 p-2"
 					value={formData.title}
 					onChange={(e) => handleChange(e)}
-					id="title"
 					name="title"
+					id={theme}
 				/>
 				<label>Categories (First one will be the main one):</label>
 				<Select
 					isMulti
 					options={CATEGORY_OPTIONS}
-					className="text-black"
+					className="mt-2"
+					styles={{
+						control: (baseStyles, state) => ({
+							...baseStyles,
+							background: theme === "dark" ? "#535353" : "white",
+							borderColor:
+								theme === "dark" ? "#535353" : "#9e9fa5",
+						}),
+						menu: (baseStyles, state) => ({
+							...baseStyles,
+							background: theme === "dark" ? "#535353" : "white",
+						}),
+						placeholder: (baseStyles, state) => ({
+							...baseStyles,
+							color: theme === "dark" ? "white" : "black",
+						}),
+						option: (baseStyles, state) => ({
+							...baseStyles,
+							background:
+								state.isFocused &&
+								(theme === "dark" ? "teal" : "#99f6e4"),
+						}),
+						multiValueRemove: (baseStyles, state) => ({
+							...baseStyles,
+							color: theme === "dark" ? "black" : "white",
+						}),
+					}}
 					value={selectedCategories}
 					onChange={setSelectedCategories}
-					id="categories"
 					name="categories"
 				/>
 			</div>
@@ -47,10 +75,10 @@ export default function AddGameDetails({
 				</label>
 				<br />
 				<textarea
-					className="text-base mt-2 h-28 bg-input-gray border-transparent rounded w-full p-2 md:h-26"
+					className="mt-2 h-32 rounded w-full p-2"
 					value={formData.description}
 					onChange={(e) => handleChange(e)}
-					id="description"
+					id={theme}
 					name="description"
 				/>
 			</div>

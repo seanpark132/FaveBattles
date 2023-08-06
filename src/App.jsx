@@ -22,12 +22,14 @@ import "./css/Create_Edit.css";
 import { useQuery } from "@tanstack/react-query";
 import { getAllGameData } from "./api/getAllGameData";
 import { ToastContainer } from "react-toastify";
+import { useTheme } from "./context/ThemeContext";
 
 export default function App() {
 	const allGamesDataQuery = useQuery({
 		queryKey: ["allGamesData"],
 		queryFn: () => getAllGameData(),
 	});
+	const { theme, setTheme } = useTheme();
 
 	if (allGamesDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
 	if (allGamesDataQuery.isError) {
@@ -39,8 +41,8 @@ export default function App() {
 	}
 
 	return (
-		<>
-			<ToastContainer theme="dark" style={{ zIndex: 10001 }} />
+		<div className="App" id={theme}>
+			<ToastContainer theme={theme} style={{ zIndex: 10001 }} />
 			<Navbar />
 			<Routes>
 				<Route
@@ -83,6 +85,6 @@ export default function App() {
 				))}
 				<Route path="*" element={<NoPage />} />
 			</Routes>
-		</>
+		</div>
 	);
 }
