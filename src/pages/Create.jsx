@@ -12,7 +12,7 @@ export default function Create() {
 					</h1>
 					<img
 						className="hidden w-full h-5/12 md:block"
-						src="/create-img-example.webp"
+						src="/create-img-example.JPG"
 						alt="image-choice"
 					/>
 				</Link>
@@ -22,7 +22,7 @@ export default function Create() {
 					</h1>
 					<img
 						className="hidden w-full h-5/12 md:block"
-						src="/create-video-example.webp"
+						src="/create-video-example.JPG"
 						alt="video-choice"
 					/>
 				</Link>
