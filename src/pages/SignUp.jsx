@@ -48,7 +48,7 @@ export default function SignUp() {
 	}
 
 	return (
-		<div className="h-vh-nav flex flex-col justify-center items-center">
+		<main className="h-vh-nav flex flex-col justify-center items-center">
 			<div>
 				<div className="mb-6 px-4 sign-up-title-width">
 					<p className="mb-4 text-3xl font-bold md:text-4xl">
@@ -105,6 +105,6 @@ export default function SignUp() {
 					</div>
 				</form>
 			</div>
-		</div>
+		</main>
 	);
 }

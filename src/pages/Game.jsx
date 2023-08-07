@@ -15,45 +15,40 @@ export default function Game({ gameData }) {
 	const [gameCompleted, setGameCompleted] = useState(false);
 
 	return (
-		<div>
-			<div className="flex justify-center text-center">
-				{!gameActive && !gameCompleted && (
-					<GameSetup
-						gameSize={gameSize}
-						setGameActive={setGameActive}
-						setGameSize={setGameSize}
-						currChoices={currChoices}
-						setCurrChoices={setCurrChoices}
-						setLeftChoice={setLeftChoice}
-						setRightChoice={setRightChoice}
-						gameData={gameData}
-					/>
-				)}
-				{gameActive && (
-					<GameScreen
-						gameSize={gameSize}
-						setGameSize={setGameSize}
-						setGameActive={setGameActive}
-						currChoices={currChoices}
-						nextChoices={nextChoices}
-						setCurrChoices={setCurrChoices}
-						setNextChoices={setNextChoices}
-						leftChoice={leftChoice}
-						rightChoice={rightChoice}
-						setLeftChoice={setLeftChoice}
-						setRightChoice={setRightChoice}
-						setWinner={setWinner}
-						setGameCompleted={setGameCompleted}
-						gameData={gameData}
-					/>
-				)}
-				{gameCompleted && (
-					<WinnerScreen
-						gameType={gameData.gameType}
-						winner={winner}
-					/>
-				)}
-			</div>
-		</div>
+		<main className="flex justify-center text-center">
+			{!gameActive && !gameCompleted && (
+				<GameSetup
+					gameSize={gameSize}
+					setGameActive={setGameActive}
+					setGameSize={setGameSize}
+					currChoices={currChoices}
+					setCurrChoices={setCurrChoices}
+					setLeftChoice={setLeftChoice}
+					setRightChoice={setRightChoice}
+					gameData={gameData}
+				/>
+			)}
+			{gameActive && (
+				<GameScreen
+					gameSize={gameSize}
+					setGameSize={setGameSize}
+					setGameActive={setGameActive}
+					currChoices={currChoices}
+					nextChoices={nextChoices}
+					setCurrChoices={setCurrChoices}
+					setNextChoices={setNextChoices}
+					leftChoice={leftChoice}
+					rightChoice={rightChoice}
+					setLeftChoice={setLeftChoice}
+					setRightChoice={setRightChoice}
+					setWinner={setWinner}
+					setGameCompleted={setGameCompleted}
+					gameData={gameData}
+				/>
+			)}
+			{gameCompleted && (
+				<WinnerScreen gameType={gameData.gameType} winner={winner} />
+			)}
+		</main>
 	);
 }

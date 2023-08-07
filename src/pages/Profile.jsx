@@ -13,7 +13,7 @@ export default function Profile() {
 	}
 
 	return (
-		<div className="w-full">
+		<main className="w-full">
 			<div className="mt-6 mx-6 flex">
 				<button
 					className={
@@ -40,6 +40,6 @@ export default function Profile() {
 
 			{currentTab === "my-account" && <ProfileMyAccount />}
 			{currentTab === "my-games" && <ProfileMyGames />}
-		</div>
+		</main>
 	);
 }

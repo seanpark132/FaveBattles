@@ -72,7 +72,7 @@ export default function Edit({ gameData }) {
 	}
 
 	return (
-		<div className="w-full">
+		<>
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<fieldset>
 					<AddGameDetails
@@ -134,6 +134,6 @@ export default function Edit({ gameData }) {
 					</button>
 				</div>
 			</form>
-		</div>
+		</>
 	);
 }

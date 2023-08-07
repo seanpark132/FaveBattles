@@ -83,7 +83,7 @@ export default function CreateVideo() {
 	}, [choicesData]);
 
 	return (
-		<div className="w-full">
+		<main className="w-full">
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<fieldset>
 					<AddGameDetails
@@ -121,6 +121,6 @@ export default function CreateVideo() {
 					</button>
 				</div>
 			</form>
-		</div>
+		</main>
 	);
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Create() {
 	return (
-		<div>
+		<main>
 			<section className="flex justify-center items-center h-vh-nav">
 				<Link className="create-landing-btn" to="/create-img">
 					<h1 className="mb-4 px-4 text-2xl md:text-3xl xl:text-4xl">
@@ -27,6 +27,6 @@ export default function Create() {
 					/>
 				</Link>
 			</section>
-		</div>
+		</main>
 	);
 }
