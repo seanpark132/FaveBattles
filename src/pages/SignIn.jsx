@@ -44,8 +44,8 @@ export default function Login() {
 	}
 
 	return (
-		<div className="h-vh-nav flex flex-col justify-center items-center">
-			<div>
+		<main className="h-vh-nav flex flex-col justify-center items-center">
+			<section>
 				<div className="mb-6 px-4 sign-up-title-width">
 					<p className="mb-4 text-3xl font-bold md:text-4xl">
 						Sign In to Account
@@ -66,9 +66,7 @@ export default function Login() {
 							Email Address:
 						</label>
 						<input
-							className={`sign-up-input ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-input ${theme}`}
 							onChange={(e) => setEmail(e.target.value)}
 							id="email"
 							name="email"
@@ -77,9 +75,7 @@ export default function Login() {
 							Password:
 						</label>
 						<input
-							className={`sign-up-input ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-input ${theme}`}
 							type="password"
 							onChange={(e) => setPassword(e.target.value)}
 							id="password"
@@ -97,16 +93,14 @@ export default function Login() {
 							Reset Password
 						</Link>
 						<button
-							className={`sign-up-button ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-button ${theme}`}
 							onClick={(e) => signIn(e)}
 						>
 							Sign In
 						</button>
 					</div>
 				</form>
-			</div>
-		</div>
+			</section>
+		</main>
 	);
 }

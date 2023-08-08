@@ -27,8 +27,8 @@ export default function EditGame({ gameId }) {
 	}
 
 	return (
-		<div className="w-full">
+		<main className="w-full">
 			<Edit gameData={gameDataQuery.data} />
-		</div>
+		</main>
 	);
 }

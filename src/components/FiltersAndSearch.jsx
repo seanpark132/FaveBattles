@@ -97,9 +97,7 @@ export default function FiltersAndSearch({
 				<div className="flex">
 					<input
 						type="text"
-						className={`home-search-input ${
-							theme === "dark" && "dark"
-						}`}
+						className={`home-search-input ${theme}`}
 						value={searchInput}
 						onChange={(e) => setSearchInput(e.target.value)}
 						onKeyDown={(e) => handleSearch(e)}

@@ -10,10 +10,6 @@
 	color: rgb(240, 240, 240);
 }
 
-.game-image-btn:hover {
-	color: rgb(0, 255, 98);
-}
-
 .game-image-label {
 	position: absolute;
 	transform: translateX(-50%);
@@ -35,10 +31,6 @@
 	font-size: 1.25rem;
 }
 
-.game-video-btn:hover {
-	color: rgb(0, 255, 98);
-}
-
 .game-video-btn.left {
 	background-color: rgb(56, 189, 248);
 }
@@ -47,11 +39,11 @@
 	background-color: rgb(251, 113, 133);
 }
 
-#dark.game-video-btn.left {
+.game-video-btn.left.dark {
 	background-color: rgb(2, 132, 199);
 }
 
-#dark.game-video-btn.right {
+.game-video-btn.right.dark {
 	background-color: rgb(225, 29, 72);
 }
 
@@ -95,6 +87,32 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+}
+
+@media (hover: hover) {
+	.game-image-btn:hover {
+		color: rgb(0, 255, 98);
+	}
+
+	.game-video-btn.left:hover {
+		background-color: rgb(156, 225, 255);
+		color: black;
+	}
+
+	.game-video-btn.right:hover {
+		background-color: rgb(255, 172, 185);
+		color: black;
+	}
+
+	.game-video-btn.left.dark:hover {
+		background-color: rgb(0, 86, 129);
+		color: white;
+	}
+
+	.game-video-btn.right.dark:hover {
+		background-color: rgb(167, 0, 36);
+		color: white;
 	}
 }
 

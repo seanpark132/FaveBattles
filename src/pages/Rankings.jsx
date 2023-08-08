@@ -107,7 +107,7 @@ export default function Rankings({ gameData }) {
 	};
 
 	return (
-		<div>
+		<main>
 			<DataTable
 				tableStyle={{ fontSize: "1rem" }}
 				value={rankingsQuery.data}
@@ -169,6 +169,6 @@ export default function Rankings({ gameData }) {
 					sortable
 				/>
 			</DataTable>
-		</div>
+		</main>
 	);
 }

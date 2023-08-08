@@ -37,7 +37,7 @@ export default function DisplayGameBox({ type, gameData }) {
 	}
 
 	return (
-		<div className="home-box">
+		<article className="home-box">
 			<div className={`h-48 w-full overflow-hidden flex select-none`}>
 				<img
 					className="h-full w-1/2 object-cover rounded-tl-lg"
@@ -66,23 +66,21 @@ export default function DisplayGameBox({ type, gameData }) {
 				[{gameData.mainCategory}] {gameData.title} (
 				{gameData.choices.length} choices)
 			</h3>
-			<p id={theme} className="home-box-desc">
-				{gameData.description}
-			</p>
+			<p className={`home-box-desc ${theme}`}>{gameData.description}</p>
 			<div className="mt-auto">
 				<Link
 					to={`/game/${gameData.id}`}
 					className={`home-box-btn ${
-						theme === "light" ? "bg-green-300" : "bg-green-600"
-					} hover:bg-green-500`}
+						theme === "dark" ? "bg-green-800" : "bg-green-300"
+					} hover:bg-green-500 hover:text-inherit`}
 				>
 					<i className="mr-2 fa-solid fa-play fa-xs"></i>Play!
 				</Link>
 				<Link
 					to={`/stats/${gameData.id}`}
 					className={`home-box-btn ${
-						theme === "light" ? "bg-purple-300" : "bg-purple-600"
-					} hover:bg-purple-500`}
+						theme === "dark" ? "bg-purple-800" : "bg-purple-300"
+					} hover:bg-purple-500 hover:text-inherit`}
 				>
 					<i className="mr-2 fa-sharp fa-solid fa-square-poll-horizontal fa-sm"></i>
 					Rankings
@@ -92,7 +90,7 @@ export default function DisplayGameBox({ type, gameData }) {
 						<Link
 							to={`/edit-game/${gameData.id}`}
 							className={`home-box-btn ${
-								theme === "light" ? "bg-sky-300" : "bg-sky-600"
+								theme === "dark" ? "bg-sky-700" : "bg-sky-300"
 							} hover:bg-sky-500`}
 						>
 							<i className="mr-2 fa-solid fa-pen-to-square"></i>
@@ -100,7 +98,7 @@ export default function DisplayGameBox({ type, gameData }) {
 						</Link>
 						<button
 							className={`home-box-btn text-left ${
-								theme === "light" ? "bg-red-300" : "bg-red-600"
+								theme === "dark" ? "bg-red-700" : "bg-red-300"
 							} hover:bg-red-500`}
 							onClick={() => deleteGame(gameData.id)}
 						>
@@ -109,6 +107,6 @@ export default function DisplayGameBox({ type, gameData }) {
 					</div>
 				)}
 			</div>
-		</div>
+		</article>
 	);
 }

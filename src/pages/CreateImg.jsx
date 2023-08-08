@@ -87,7 +87,7 @@ export default function CreateImg() {
 	}, [choicesData]);
 
 	return (
-		<div className="w-full">
+		<main className="w-full">
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<fieldset>
 					<AddGameDetails
@@ -129,6 +129,6 @@ export default function CreateImg() {
 					</button>
 				</div>
 			</form>
-		</div>
+		</main>
 	);
 }

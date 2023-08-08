@@ -10,10 +10,6 @@
 	border-radius: 0.5rem;
 }
 
-#dark.create-landing-btn {
-	border: 2px solid white;
-}
-
 .create-landing-btn:hover {
 	color: #00cec9;
 	border: 2px solid #00cec9;
@@ -56,8 +52,8 @@
 	width: 100%;
 }
 
-#dark.create-new-video-box,
-#dark.create-new-video-box-md {
+.create-new-video-box.dark,
+.create-new-video-box-md.dark {
 	background-color: rgb(30, 41, 59);
 }
 

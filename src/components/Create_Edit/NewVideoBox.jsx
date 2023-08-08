@@ -30,7 +30,7 @@ export default function NewVideoBox({
 
 	// Component visible for screens below 768 px
 	const mdScreen = (
-		<div id={theme} className="create-new-video-box-md">
+		<div className={`create-new-video-box-md ${theme}`}>
 			<iframe
 				className="create-iframe-dimensions-md"
 				src={embedUrl}
@@ -45,9 +45,7 @@ export default function NewVideoBox({
 					</label>
 					<input
 						type="text"
-						className={`w-full mt-2 text-lg p-2 rounded ${
-							theme === "dark" && "dark"
-						}`}
+						className={`w-full mt-2 text-lg p-2 rounded ${theme}`}
 						onChange={(e) => handleNameChange(e)}
 						value={name}
 						id="choiceName"
@@ -68,7 +66,7 @@ export default function NewVideoBox({
 	return (
 		<>
 			{mdScreen}
-			<div id={theme} className="create-new-video-box">
+			<div className={`create-new-video-box ${theme}`}>
 				<iframe
 					width="400"
 					height="225"
@@ -83,9 +81,7 @@ export default function NewVideoBox({
 					</label>
 					<input
 						type="text"
-						className={`w-full mt-2 text-lg p-2 rounded ${
-							theme === "dark" && "dark"
-						}`}
+						className={`w-full mt-2 text-lg p-2 rounded ${theme}`}
 						onChange={(e) => handleNameChange(e)}
 						value={name}
 						id="choiceName"
