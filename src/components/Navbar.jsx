@@ -114,7 +114,6 @@ export default function Navbar() {
 				className="absolute -translate-x-1/2 left-1/2 select-none"
 			>
 				<img
-					className="h-5 md:h-7"
 					width="229.5"
 					height="28"
 					src="/logo.png"
