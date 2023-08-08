@@ -70,7 +70,7 @@ nav {
 	box-shadow: 0rem 0.125rem 0.25rem rgb(0, 0, 0, 0.25);
 }
 
-nav#dark {
+nav.dark {
 	background-color: #444444;
 	box-shadow: 0rem 0.125rem 0.25rem rgb(255, 255, 255, 0.25);
 }
@@ -125,7 +125,7 @@ textarea.dark {
 	border-bottom-left-radius: 1rem;
 }
 
-#dark.nav-theme-menu {
+.nav-theme-menu.dark {
 	background-color: #616161;
 }
 

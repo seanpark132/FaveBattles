@@ -106,8 +106,7 @@ export default function FiltersAndSearch({
 					/>
 					<button
 						onClick={handleSearchButton}
-						className="home-search-btn"
-						id={theme}
+						className={`home-search-btn ${theme}`}
 					>
 						<i className="fa-solid fa-magnifying-glass"></i>
 					</button>

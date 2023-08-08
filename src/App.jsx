@@ -13,7 +13,6 @@ import ResetPassword from "./pages/ResetPassword";
 import EditGame from "./pages/EditGame";
 import NoPage from "./pages/NoPage";
 import "react-toastify/dist/ReactToastify.css";
-import "./css/Profile.css";
 import "./css/SignUp.css";
 import "./css/App.css";
 import "./css/Home.css";

@@ -5,15 +5,6 @@
 	width: 100%;
 }
 
-.home-box {
-	display: flex;
-	flex-direction: column;
-	margin: 0.75rem 0;
-	border: 1px solid rgb(218, 218, 218);
-	border-radius: 0.5rem;
-	width: 100%;
-}
-
 .home-box-img-label {
 	display: -webkit-box;
 	-webkit-line-clamp: 1; /* Number of lines to show before truncating */
@@ -43,16 +34,6 @@
 	color: rgb(218, 218, 218);
 }
 
-.home-box-btn {
-	border: transparent;
-	font-weight: 600;
-	border-radius: 0.5rem;
-	display: inline-block;
-	padding: 0.5rem 0rem 0.5rem 0.75rem;
-	margin: 0.75rem;
-	width: 7rem;
-}
-
 .home-search-input {
 	padding: 0.5rem;
 	border-radius: 0.5rem;
@@ -71,7 +52,7 @@
 	padding: 0 0.75rem;
 }
 
-#dark.home-search-btn {
+.home-search-btn.dark {
 	background-color: rgb(122, 122, 122);
 	border: 1px solid transparent;
 }

@@ -17,11 +17,6 @@ module.exports = {
 			screens: {
 				xxl: { raw: "(min-width: 1440px)" },
 			},
-			colors: {
-				"input-gray": "#535353",
-				"focus-teal": "#99f6e4",
-				"dark-mode-text": "#f0f0f0",
-			},
 		},
 	},
 	plugins: [],

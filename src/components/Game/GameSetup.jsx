@@ -80,7 +80,7 @@ export default function GameSetup({
 	return (
 		<section
 			className={`m-6 w-full p-4 max-w-screen-md border-transparent rounded mt-16 ${
-				theme === "dark" ? "bg-violet-700" : "bg-violet-400"
+				theme === "dark" ? "bg-violet-800" : "bg-violet-300"
 			}`}
 		>
 			<h2 className="my-6">{`[${gameData.mainCategory}] ${gameData.title} (${gameData.choices.length} choices)`}</h2>
@@ -97,7 +97,7 @@ export default function GameSetup({
 					</select>
 					<button
 						className={`mx-2 flex-1 p-2 text-lg border-transparent rounded ${
-							theme === "dark" ? "bg-green-700" : "bg-green-400"
+							theme === "dark" ? "bg-green-800" : "bg-green-300"
 						}`}
 					>
 						Start game!
