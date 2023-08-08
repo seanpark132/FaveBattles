@@ -13,9 +13,7 @@ export default function ProfileMyAccount() {
 				Email Address:
 			</label>
 			<input
-				className={`mt-2 py-2 px-4 max-w-md ${
-					theme === "dark" && "dark"
-				}`}
+				className={`mt-2 py-2 px-4 max-w-md ${theme}`}
 				type="text"
 				name="email"
 				id="email"

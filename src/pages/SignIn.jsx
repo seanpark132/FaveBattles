@@ -66,9 +66,7 @@ export default function Login() {
 							Email Address:
 						</label>
 						<input
-							className={`sign-up-input ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-input ${theme}`}
 							onChange={(e) => setEmail(e.target.value)}
 							id="email"
 							name="email"
@@ -77,9 +75,7 @@ export default function Login() {
 							Password:
 						</label>
 						<input
-							className={`sign-up-input ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-input ${theme}`}
 							type="password"
 							onChange={(e) => setPassword(e.target.value)}
 							id="password"
@@ -97,9 +93,7 @@ export default function Login() {
 							Reset Password
 						</Link>
 						<button
-							className={`sign-up-button ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-button ${theme}`}
 							onClick={(e) => signIn(e)}
 						>
 							Sign In

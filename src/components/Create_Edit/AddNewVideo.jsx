@@ -94,7 +94,7 @@ export default function AddNewVideo({ setChoicesData }) {
 			<label htmlFor="inputLink">Full Youtube Link:</label>
 			<input
 				type="text"
-				className={`my-2 p-2 ${theme === "dark" && "dark"}`}
+				className={`my-2 p-2 ${theme}`}
 				value={inputUrl}
 				onChange={(e) => setInputUrl(e.target.value)}
 				name="inputLink"
@@ -103,7 +103,7 @@ export default function AddNewVideo({ setChoicesData }) {
 			<label htmlFor="inputTime">Start time (optional): </label>
 			<input
 				type="text"
-				className={`my-2 p-2 w-24 ${theme === "dark" && "dark"}`}
+				className={`my-2 p-2 w-24 ${theme}`}
 				value={inputTime}
 				onChange={(e) => setInputTime(e.target.value)}
 				name="inputTime"

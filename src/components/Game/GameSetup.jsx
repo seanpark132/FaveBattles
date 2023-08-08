@@ -97,7 +97,7 @@ export default function GameSetup({
 					</select>
 					<button
 						className={`mx-2 flex-1 p-2 text-lg border-transparent rounded ${
-							theme === "dark" ? "bg-green-600" : "bg-green-400"
+							theme === "dark" ? "bg-green-700" : "bg-green-400"
 						}`}
 					>
 						Start game!

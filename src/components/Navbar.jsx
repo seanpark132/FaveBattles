@@ -62,7 +62,7 @@ export default function Navbar() {
 				>
 					<i className="fa-solid fa-bars select-none"></i>
 				</button>
-				<div id={theme} className={`nav-menu ${isMenuOpen && "open"}`}>
+				<div className={`nav-menu ${isMenuOpen && "open"} ${theme}`}>
 					<ul>
 						<li className="mt-2">
 							<Link
@@ -113,17 +113,23 @@ export default function Navbar() {
 				to="/"
 				className="absolute -translate-x-1/2 left-1/2 select-none"
 			>
-				<img className="h-5 md:h-7" src="/logo.png" />
+				<img
+					className="h-5 md:h-7"
+					width="229.5"
+					height="28"
+					src="/logo.png"
+					alt="site logo"
+				/>
 			</Link>
 			<div ref={themeRef}>
 				<button
 					className="mr-4"
 					onClick={() => setIsThemeOpen((prev) => !prev)}
 				>
-					{theme === "light" ? (
-						<i className="fa-solid fa-sun text-yellow-400 text-xl" />
-					) : (
+					{theme === "dark" ? (
 						<i className="fa-solid fa-moon text-sky-400 text-2xl" />
+					) : (
+						<i className="fa-solid fa-sun text-yellow-400 text-xl" />
 					)}
 				</button>
 				<div

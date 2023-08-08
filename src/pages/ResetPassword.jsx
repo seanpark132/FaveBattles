@@ -50,9 +50,7 @@ export default function ResetPassword() {
 							Email Address:
 						</label>
 						<input
-							className={`sign-up-input ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-input ${theme}`}
 							onChange={(e) => setEmail(e.target.value)}
 							id="email"
 							name="email"
@@ -63,9 +61,7 @@ export default function ResetPassword() {
 							</p>
 						)}
 						<button
-							className={`sign-up-button ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-button ${theme}`}
 							onClick={(e) => resetPassword(e)}
 						>
 							Reset Password

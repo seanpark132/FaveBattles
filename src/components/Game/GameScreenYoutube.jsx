@@ -30,9 +30,8 @@ export default function GameScreenYoutube({
 					allowFullScreen
 				></iframe>
 				<button
-					className="game-video-btn left"
+					className={`game-video-btn left ${theme}`}
 					onClick={handleLeft}
-					id={theme}
 				>
 					{leftChoice.name}
 				</button>
@@ -52,9 +51,8 @@ export default function GameScreenYoutube({
 					allowFullScreen
 				></iframe>
 				<button
-					className="game-video-btn right"
+					className={`game-video-btn right ${theme}`}
 					onClick={handleRight}
-					id={theme}
 				>
 					{rightChoice.name}
 				</button>

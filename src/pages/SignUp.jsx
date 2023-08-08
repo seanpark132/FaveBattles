@@ -70,9 +70,7 @@ export default function SignUp() {
 							Email Address:
 						</label>
 						<input
-							className={`sign-up-input ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-input ${theme}`}
 							onChange={(e) => setEmail(e.target.value)}
 							id="email"
 							name="email"
@@ -81,9 +79,7 @@ export default function SignUp() {
 							Password:
 						</label>
 						<input
-							className={`sign-up-input ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-input ${theme}`}
 							type="password"
 							onChange={(e) => setPassword(e.target.value)}
 							id="password"
@@ -95,9 +91,7 @@ export default function SignUp() {
 							</p>
 						)}
 						<button
-							className={`sign-up-button ${
-								theme === "dark" && "dark"
-							}`}
+							className={`sign-up-button ${theme}`}
 							onClick={(e) => signUpUser(e)}
 						>
 							Sign Up

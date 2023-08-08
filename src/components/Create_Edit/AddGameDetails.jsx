@@ -27,7 +27,7 @@ export default function AddGameDetails({
 				<label htmlFor="title">Game Title:</label>
 				<input
 					type="text"
-					className={`mt-2 mb-4 p-2 ${theme === "dark" && "dark"}`}
+					className={`mt-2 mb-4 p-2 ${theme}`}
 					value={formData.title}
 					onChange={(e) => handleChange(e)}
 					name="title"
@@ -75,9 +75,7 @@ export default function AddGameDetails({
 				</label>
 				<br />
 				<textarea
-					className={`mt-2 p-2 w-full h-32 rounded ${
-						theme === "dark" && "dark"
-					}`}
+					className={`mt-2 p-2 w-full h-32 rounded ${theme}`}
 					value={formData.description}
 					onChange={(e) => handleChange(e)}
 					id="description"

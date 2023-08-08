@@ -65,9 +65,7 @@ export default function NewImgBox({
 				</label>
 				<input
 					type="text"
-					className={`w-full mt-2 p-2 text-sm rounded border-2 md:text-lg ${
-						theme === "dark" && "dark"
-					}`}
+					className={`w-full mt-2 p-2 text-sm rounded border-2 md:text-lg ${theme}`}
 					onChange={(e) => handleNameChange(e)}
 					name="choiceName"
 					id="choiceName"
