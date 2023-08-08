@@ -49,7 +49,7 @@ export default function SignUp() {
 
 	return (
 		<main className="h-vh-nav flex flex-col justify-center items-center">
-			<div>
+			<section>
 				<div className="mb-6 px-4 sign-up-title-width">
 					<p className="mb-4 text-3xl font-bold md:text-4xl">
 						Create Account
@@ -104,7 +104,7 @@ export default function SignUp() {
 						</button>
 					</div>
 				</form>
-			</div>
+			</section>
 		</main>
 	);
 }

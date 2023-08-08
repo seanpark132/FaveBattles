@@ -37,7 +37,7 @@ export default function DisplayGameBox({ type, gameData }) {
 	}
 
 	return (
-		<div className="home-box">
+		<article className="home-box">
 			<div className={`h-48 w-full overflow-hidden flex select-none`}>
 				<img
 					className="h-full w-1/2 object-cover rounded-tl-lg"
@@ -109,6 +109,6 @@ export default function DisplayGameBox({ type, gameData }) {
 					</div>
 				)}
 			</div>
-		</div>
+		</article>
 	);
 }

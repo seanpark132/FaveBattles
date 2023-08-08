@@ -34,7 +34,7 @@ export default function ResetPassword() {
 
 	return (
 		<main className="h-vh-nav flex flex-col justify-center items-center">
-			<div>
+			<section>
 				<div className="mb-6 px-4 sign-up-title-width">
 					<p className="mb-4 text-3xl font-bold md:text-4xl">
 						Reset Password
@@ -72,7 +72,7 @@ export default function ResetPassword() {
 						</button>
 					</div>
 				</form>
-			</div>
+			</section>
 		</main>
 	);
 }
