@@ -56,6 +56,7 @@ export default function NewVideoBox({
 					type="button"
 					className="absolute top-0 right-0 h-fit py-1 px-1.5 bg-red-500"
 					onClick={() => deleteBtn(choiceId)}
+					aria-label="Delete video"
 				>
 					<i className="fa-solid fa-xmark fa-lg text-white"></i>
 				</button>
@@ -92,6 +93,7 @@ export default function NewVideoBox({
 					type="button"
 					className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
 					onClick={() => deleteBtn(choiceId)}
+					aria-label="Delete video"
 				>
 					<i className="fa-solid fa-xmark fa-lg text-white"></i>
 				</button>

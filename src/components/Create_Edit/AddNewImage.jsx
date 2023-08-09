@@ -5,9 +5,11 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Compressor from "compressorjs";
 import { BUCKET_NAME } from "../../utils/global_consts";
 import { toast } from "react-toastify";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function AddNewImage({ gameId, setChoicesData }) {
 	const [inputtedImgs, setInputtedImgs] = useState([]);
+	const { theme, setTheme } = useTheme();
 
 	async function handleInputtedImgs(images) {
 		if (!images) {
@@ -92,7 +94,7 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 			<h2 className="mb-4">Choose images to add</h2>
 			<input
 				type="file"
-				className="create-file-btn"
+				className={`create-file-btn ${theme}`}
 				accept="image/png, image/jpeg, image/jpg, image/webp"
 				multiple={true}
 				onChange={(e) => {
@@ -101,7 +103,9 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 			/>
 			<button
 				type="button"
-				className="mt-4 py-2 px-20 w-fit bg-blue-400 border-transparent rounded"
+				className={`mt-4 py-2 px-20 w-fit border-transparent rounded ${
+					theme === "dark" ? "bg-sky-800" : "bg-sky-300"
+				} `}
 				onClick={() => uploadImage(inputtedImgs)}
 			>
 				Add Images

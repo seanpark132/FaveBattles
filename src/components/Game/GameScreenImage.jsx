@@ -18,6 +18,7 @@ export default function GameScreenImage({
 					leftChosen && "opacity-0"
 				}`}
 				onClick={handleLeft}
+				aria-label="Left choice"
 			>
 				<div className="relative w-fit h-full flex justify-center">
 					<img
@@ -39,6 +40,7 @@ export default function GameScreenImage({
 					rightChosen && "opacity-0"
 				}`}
 				onClick={handleRight}
+				aria-label="Right choice"
 			>
 				<div className="relative w-fit h-full flex justify-center">
 					<img

@@ -58,6 +58,7 @@ export default function Navbar() {
 				<button
 					className="ml-4 text-2xl"
 					onClick={() => setIsMenuOpen((prev) => !prev)}
+					aria-label="Menu"
 				>
 					<i className="fa-solid fa-bars select-none"></i>
 				</button>
@@ -99,6 +100,7 @@ export default function Navbar() {
 								<button
 									className="md:text-lg text-red-500"
 									onClick={signOutUser}
+									aria-label="Sign out"
 								>
 									<i className="mr-3 -scale-x-100 fa-solid fa-right-from-bracket"></i>
 									Sign Out
@@ -123,6 +125,7 @@ export default function Navbar() {
 				<button
 					className="mr-4"
 					onClick={() => setIsThemeOpen((prev) => !prev)}
+					aria-label="Theme menu"
 				>
 					{theme === "dark" ? (
 						<i className="fa-solid fa-moon text-sky-400 text-2xl" />
@@ -148,6 +151,7 @@ export default function Navbar() {
 									);
 									setIsThemeOpen((prev) => !prev);
 								}}
+								aria-label="Dark mode"
 							>
 								<i className="fa-solid fa-moon w-4 text-sky-400 mr-4 self-center text-2xl" />
 								<p className="md:text-lg self-center">
@@ -167,6 +171,7 @@ export default function Navbar() {
 									);
 									setIsThemeOpen((prev) => !prev);
 								}}
+								aria-label="Light mode"
 							>
 								<i className="fa-solid fa-sun w-4 text-yellow-400 mr-4 self-center text-xl" />
 								<p className="md:text-lg self-center">
