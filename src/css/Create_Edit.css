@@ -22,12 +22,22 @@
 }
 
 .create-file-btn::file-selector-button {
-	font-weight: 700;
+	font-weight: 600;
 	padding: 0.5rem 1rem;
 	margin-right: 0.5rem;
 	border: transparent;
 	border-radius: 0.25rem;
-	background-color: #fd8d14;
+	background-color: #f1c159;
+}
+
+.dark.create-file-btn {
+	background-color: inherit;
+	border: transparent;
+}
+
+.dark.create-file-btn::file-selector-button {
+	color: rgba(240, 240, 240);
+	background-color: rgb(161, 43, 0);
 }
 
 .create-new-img-container {
