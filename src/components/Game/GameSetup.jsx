@@ -91,7 +91,9 @@ export default function GameSetup({
 						onChange={(e) => setGameSize(e.target.value)}
 						name="startingOptions"
 						id="startingOptions"
-						className="mx-2 flex-1 font-semibold p-2 text-lg border-transparent rounded text-center"
+						className={`mx-2 flex-1 font-semibold p-2 text-lg border-transparent rounded text-center ${
+							theme === "dark" && "bg-neutral-700"
+						}`}
 					>
 						{selectOptions}
 					</select>
