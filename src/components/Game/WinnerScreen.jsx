@@ -8,7 +8,7 @@ export default function WinnerScreen({ gameType, winner }) {
 					src={winner.url}
 					srcSet={`${winner.url_384w} 384w, ${winner.url_683w} 683w, ${winner.url}`}
 					sizes="(max-width: 769px) 35vw, (max-width: 1367px) 45vw, 60vw"
-					alt="winnerImg"
+					alt="winner image"
 				/>
 			) : (
 				<iframe
