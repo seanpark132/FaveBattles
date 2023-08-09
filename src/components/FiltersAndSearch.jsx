@@ -91,7 +91,7 @@ export default function FiltersAndSearch({
 				/>
 			</div>
 			<div className="flex flex-col pt-4">
-				<label htmlFor="search_input" className="mb-1">
+				<label htmlFor="searchInput" className="mb-1">
 					Search by title:
 				</label>
 				<div className="flex">
@@ -107,6 +107,7 @@ export default function FiltersAndSearch({
 					<button
 						onClick={handleSearchButton}
 						className={`home-search-btn ${theme}`}
+						aria-label="Search by title"
 					>
 						<i className="fa-solid fa-magnifying-glass"></i>
 					</button>
