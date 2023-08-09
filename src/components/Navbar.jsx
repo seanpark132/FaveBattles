@@ -52,8 +52,7 @@ export default function Navbar() {
 
 	return (
 		<nav
-			id={theme}
-			className="sticky top-0 flex justify-between items-center"
+			className={`sticky top-0 flex justify-between items-center ${theme}`}
 		>
 			<div ref={menuRef}>
 				<button
@@ -114,7 +113,6 @@ export default function Navbar() {
 				className="absolute -translate-x-1/2 left-1/2 select-none"
 			>
 				<img
-					className="h-5 md:h-7"
 					width="229.5"
 					height="28"
 					src="/logo.png"
@@ -133,8 +131,9 @@ export default function Navbar() {
 					)}
 				</button>
 				<div
-					id={theme}
-					className={`nav-theme-menu ${isThemeOpen && "open"}`}
+					className={`nav-theme-menu ${
+						isThemeOpen && "open"
+					} ${theme}`}
 				>
 					<ul>
 						<li className="mt-2">

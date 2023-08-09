@@ -64,13 +64,13 @@ label {
 nav {
 	display: flex;
 	align-items: center;
-	z-index: 10000;
+	z-index: 1;
 	height: 2.75rem;
 	background-color: white;
 	box-shadow: 0rem 0.125rem 0.25rem rgb(0, 0, 0, 0.25);
 }
 
-nav#dark {
+nav.dark {
 	background-color: #444444;
 	box-shadow: 0rem 0.125rem 0.25rem rgb(255, 255, 255, 0.25);
 }
@@ -88,11 +88,6 @@ textarea:focus {
 textarea.dark {
 	background-color: #535353;
 	border: 1px solid #535353;
-}
-
-/* For primereact Image component, toolbar under navbar */
-.p-image-toolbar {
-	margin-top: 2rem;
 }
 
 /* NAVBAR */
@@ -125,7 +120,7 @@ textarea.dark {
 	border-bottom-left-radius: 1rem;
 }
 
-#dark.nav-theme-menu {
+.nav-theme-menu.dark {
 	background-color: #616161;
 }
 

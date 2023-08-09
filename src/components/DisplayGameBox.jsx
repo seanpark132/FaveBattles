@@ -37,7 +37,7 @@ export default function DisplayGameBox({ type, gameData }) {
 	}
 
 	return (
-		<article className="home-box">
+		<article className="flex flex-col my-3 border border-neutral-300 rounded-lg">
 			<div className={`h-48 w-full overflow-hidden flex select-none`}>
 				<img
 					className="h-full w-1/2 object-cover rounded-tl-lg"
@@ -46,7 +46,7 @@ export default function DisplayGameBox({ type, gameData }) {
 							? firstHighest.thumbnailUrl
 							: firstHighest.url_384w
 					}
-					alt="left img"
+					alt="left preview img"
 				/>
 				<img
 					className="h-full w-1/2 object-cover rounded-tr-lg"
@@ -55,7 +55,7 @@ export default function DisplayGameBox({ type, gameData }) {
 							? secondHighest.thumbnailUrl
 							: secondHighest.url_384w
 					}
-					alt="right img"
+					alt="right preview img"
 				/>
 			</div>
 			<div className="flex w-full mb-2 border-b-2 border-b-slate-200">
@@ -70,7 +70,7 @@ export default function DisplayGameBox({ type, gameData }) {
 			<div className="mt-auto">
 				<Link
 					to={`/game/${gameData.id}`}
-					className={`home-box-btn ${
+					className={`border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 ${
 						theme === "dark" ? "bg-green-800" : "bg-green-300"
 					} hover:bg-green-500 hover:text-inherit`}
 				>
@@ -78,7 +78,7 @@ export default function DisplayGameBox({ type, gameData }) {
 				</Link>
 				<Link
 					to={`/stats/${gameData.id}`}
-					className={`home-box-btn ${
+					className={`border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 ${
 						theme === "dark" ? "bg-purple-800" : "bg-purple-300"
 					} hover:bg-purple-500 hover:text-inherit`}
 				>
@@ -89,7 +89,7 @@ export default function DisplayGameBox({ type, gameData }) {
 					<div>
 						<Link
 							to={`/edit-game/${gameData.id}`}
-							className={`home-box-btn ${
+							className={`border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 ${
 								theme === "dark" ? "bg-sky-700" : "bg-sky-300"
 							} hover:bg-sky-500`}
 						>
@@ -97,7 +97,7 @@ export default function DisplayGameBox({ type, gameData }) {
 							Edit
 						</Link>
 						<button
-							className={`home-box-btn text-left ${
+							className={`font-normal border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 text-left ${
 								theme === "dark" ? "bg-red-700" : "bg-red-300"
 							} hover:bg-red-500`}
 							onClick={() => deleteGame(gameData.id)}

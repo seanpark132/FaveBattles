@@ -13,7 +13,6 @@ import ResetPassword from "./pages/ResetPassword";
 import EditGame from "./pages/EditGame";
 import NoPage from "./pages/NoPage";
 import "react-toastify/dist/ReactToastify.css";
-import "./css/Profile.css";
 import "./css/SignUp.css";
 import "./css/App.css";
 import "./css/Home.css";
@@ -42,7 +41,7 @@ export default function App() {
 
 	return (
 		<div className="App" id={theme}>
-			<ToastContainer theme={theme} style={{ zIndex: 10001 }} />
+			<ToastContainer theme={theme} style={{ zIndex: 9999 }} />
 			<Navbar />
 			<Routes>
 				<Route
