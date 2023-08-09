@@ -41,7 +41,7 @@ export default function App() {
 
 	return (
 		<div className="App" id={theme}>
-			<ToastContainer theme={theme} style={{ zIndex: 10001 }} />
+			<ToastContainer theme={theme} style={{ zIndex: 9999 }} />
 			<Navbar />
 			<Routes>
 				<Route

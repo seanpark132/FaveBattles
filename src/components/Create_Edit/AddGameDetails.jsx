@@ -48,6 +48,7 @@ export default function AddGameDetails({
 						menu: (baseStyles, state) => ({
 							...baseStyles,
 							background: theme === "dark" ? "#535353" : "white",
+							zIndex: 0,
 						}),
 						placeholder: (baseStyles, state) => ({
 							...baseStyles,
