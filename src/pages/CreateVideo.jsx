@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
 
 export default function CreateVideo() {
+	const [gameId, setGameId] = useState(v4());
 	const [choicesData, setChoicesData] = useState(null);
 	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
@@ -24,10 +25,30 @@ export default function CreateVideo() {
 		return <NotSignedIn />;
 	}
 
-	// create a new id for the game, or if game creation was in progress, restore saved id from local storage
-	const storedGameId = localStorage.getItem("create-video-gameId");
-	const gameId = storedGameId ? storedGameId : v4();
-	localStorage.setItem("create-video-GameId", gameId);
+	useEffect(() => {
+		const storedGameId = localStorage.getItem("create-video-gameId");
+		if (storedGameId) {
+			setGameId(storedGameId);
+		} else {
+			localStorage.setItem("create-video-gameId", gameId);
+		}
+
+		const storedChoicesData = localStorage.getItem(
+			"create-video-choicesData"
+		);
+		if (storedChoicesData !== null) {
+			setChoicesData(JSON.parse(storedChoicesData));
+		}
+	}, []);
+
+	useEffect(() => {
+		if (choicesData !== null) {
+			localStorage.setItem(
+				"create-video-choicesData",
+				JSON.stringify(choicesData)
+			);
+		}
+	}, [choicesData]);
 
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
@@ -63,24 +84,6 @@ export default function CreateVideo() {
 		toast("Game created!");
 		navigate(`/game/${gameId}`);
 	}
-
-	useEffect(() => {
-		const storedChoicesData = localStorage.getItem(
-			"create-video-choicesData"
-		);
-		if (storedChoicesData !== null) {
-			setChoicesData(JSON.parse(storedChoicesData));
-		}
-	}, []);
-
-	useEffect(() => {
-		if (choicesData !== null) {
-			localStorage.setItem(
-				"create-video-choicesData",
-				JSON.stringify(choicesData)
-			);
-		}
-	}, [choicesData]);
 
 	return (
 		<main className="w-full">

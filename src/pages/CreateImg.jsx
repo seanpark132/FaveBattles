@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
 
 export default function CreateImg() {
+	const [gameId, setGameId] = useState(v4());
 	const [choicesData, setChoicesData] = useState(null);
 	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
@@ -26,12 +27,14 @@ export default function CreateImg() {
 		return <NotSignedIn />;
 	}
 
-	// create a new id for the game, or if game creation was in progress, restore saved id from local storage
-	const storedGameId = localStorage.getItem("create-img-gameId");
-	const gameId = storedGameId ? storedGameId : v4();
-	localStorage.setItem("create-img-gameId", gameId);
-
 	useEffect(() => {
+		const storedGameId = localStorage.getItem("create-img-gameId");
+		if (storedGameId) {
+			setGameId(storedGameId);
+		} else {
+			localStorage.setItem("create-img-gameId", gameId);
+		}
+
 		const storedChoicesData = localStorage.getItem(
 			"create-img-choicesData"
 		);
