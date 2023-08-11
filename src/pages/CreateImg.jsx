@@ -31,6 +31,24 @@ export default function CreateImg() {
 	const gameId = storedGameId ? storedGameId : v4();
 	localStorage.setItem("create-img-gameId", gameId);
 
+	useEffect(() => {
+		const storedChoicesData = localStorage.getItem(
+			"create-img-choicesData"
+		);
+		if (storedChoicesData !== null) {
+			setChoicesData(JSON.parse(storedChoicesData));
+		}
+	}, []);
+
+	useEffect(() => {
+		if (choicesData !== null) {
+			localStorage.setItem(
+				"create-img-choicesData",
+				JSON.stringify(choicesData)
+			);
+		}
+	}, [choicesData]);
+
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -67,24 +85,6 @@ export default function CreateImg() {
 		toast("Created game!");
 		navigate(`/game/${gameId}`);
 	}
-
-	useEffect(() => {
-		const storedChoicesData = localStorage.getItem(
-			"create-img-choicesData"
-		);
-		if (storedChoicesData !== null) {
-			setChoicesData(JSON.parse(storedChoicesData));
-		}
-	}, []);
-
-	useEffect(() => {
-		if (choicesData !== null) {
-			localStorage.setItem(
-				"create-img-choicesData",
-				JSON.stringify(choicesData)
-			);
-		}
-	}, [choicesData]);
 
 	return (
 		<main className="w-full">

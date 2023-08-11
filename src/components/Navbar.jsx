@@ -144,11 +144,6 @@ export default function Navbar() {
 								className="flex"
 								onClick={() => {
 									setTheme("dark");
-									PrimeReact?.changeTheme?.(
-										"lara-light-teal",
-										"lara-dark-teal",
-										"prime-react-theme"
-									);
 									setIsThemeOpen((prev) => !prev);
 								}}
 								aria-label="Dark mode"
@@ -164,11 +159,6 @@ export default function Navbar() {
 								className="flex"
 								onClick={() => {
 									setTheme("light");
-									PrimeReact?.changeTheme?.(
-										"lara-dark-teal",
-										"lara-light-teal",
-										"prime-react-theme"
-									);
 									setIsThemeOpen((prev) => !prev);
 								}}
 								aria-label="Light mode"
