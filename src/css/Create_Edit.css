@@ -27,7 +27,12 @@
 	margin-right: 0.5rem;
 	border: transparent;
 	border-radius: 0.25rem;
-	background-color: #f1c159;
+	background-color: #99f6e4;
+	font-size: 1.125rem;
+}
+
+.create-file-btn::file-selector-button:hover {
+	color: #9e9fa5;
 }
 
 .dark.create-file-btn {
@@ -37,7 +42,11 @@
 
 .dark.create-file-btn::file-selector-button {
 	color: rgba(240, 240, 240);
-	background-color: rgb(161, 43, 0);
+	background-color: #00aa88;
+}
+
+.dark.create-file-btn::file-selector-button:hover {
+	color: #9e9fa5;
 }
 
 .create-new-img-container {

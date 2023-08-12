@@ -1,4 +1,5 @@
 import { _ } from "lodash";
+import { useState, useEffect } from "react";
 import { Image } from "primereact/image";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
 import { toast } from "react-toastify";
@@ -13,7 +14,16 @@ export default function NewImgBox({
 	setChoiceIdsToRemove,
 	page,
 }) {
+	const [isDeletable, setIsDeletable] = useState(false);
 	const { theme, setTheme } = useTheme();
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setIsDeletable(true);
+		}, 5000);
+
+		return () => clearTimeout(timer);
+	});
 
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
@@ -27,6 +37,12 @@ export default function NewImgBox({
 	}
 
 	async function deleteBtn(choiceId) {
+		if (!isDeletable) {
+			toast(
+				"Choices cannot be deleted for 5 seconds after being added. Please try again in 5 seconds."
+			);
+			return;
+		}
 		if (page === "edit") {
 			setChoiceIdsToRemove((prev) => [...prev, choiceId]);
 
@@ -72,14 +88,16 @@ export default function NewImgBox({
 					value={name}
 				/>
 			</div>
-			<button
-				type="button"
-				className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
-				onClick={() => deleteBtn(choiceId)}
-				aria-label="Delete image"
-			>
-				<i className="fa-solid fa-xmark fa-lg text-white"></i>
-			</button>
+			{isDeletable && (
+				<button
+					type="button"
+					className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
+					onClick={() => deleteBtn(choiceId)}
+					aria-label="Delete image"
+				>
+					<i className="fa-solid fa-xmark fa-lg text-white"></i>
+				</button>
+			)}
 		</div>
 	);
 }

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
 
 export default function CreateVideo() {
+	const [gameId, setGameId] = useState(v4());
 	const [choicesData, setChoicesData] = useState(null);
 	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
@@ -24,10 +25,43 @@ export default function CreateVideo() {
 		return <NotSignedIn />;
 	}
 
-	// create a new id for the game, or if game creation was in progress, restore saved id from local storage
-	const storedGameId = localStorage.getItem("create-video-gameId");
-	const gameId = storedGameId ? storedGameId : v4();
-	localStorage.setItem("create-video-GameId", gameId);
+	useEffect(() => {
+		const storedGameId = localStorage.getItem("create-video-gameId");
+		if (storedGameId) {
+			setGameId(storedGameId);
+		} else {
+			localStorage.setItem("create-video-gameId", gameId);
+		}
+
+		const storedChoicesData = localStorage.getItem(
+			"create-video-choicesData"
+		);
+		if (storedChoicesData !== null) {
+			setChoicesData(JSON.parse(storedChoicesData));
+		}
+	}, []);
+
+	useEffect(() => {
+		if (choicesData !== null) {
+			localStorage.setItem(
+				"create-video-choicesData",
+				JSON.stringify(choicesData)
+			);
+		}
+	}, [choicesData]);
+
+	async function clearChoices() {
+		const isConfirmed = window.confirm(
+			"Are you sure you want to delete all the current choices?"
+		);
+
+		if (!isConfirmed) {
+			return;
+		}
+
+		setChoicesData([]);
+		toast("Cleared all choices.");
+	}
 
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
@@ -64,24 +98,6 @@ export default function CreateVideo() {
 		navigate(`/game/${gameId}`);
 	}
 
-	useEffect(() => {
-		const storedChoicesData = localStorage.getItem(
-			"create-video-choicesData"
-		);
-		if (storedChoicesData !== null) {
-			setChoicesData(JSON.parse(storedChoicesData));
-		}
-	}, []);
-
-	useEffect(() => {
-		if (choicesData !== null) {
-			localStorage.setItem(
-				"create-video-choicesData",
-				JSON.stringify(choicesData)
-			);
-		}
-	}, [choicesData]);
-
 	return (
 		<main className="w-full">
 			<form onSubmit={(e) => handleSubmit(e)}>
@@ -94,6 +110,15 @@ export default function CreateVideo() {
 					/>
 					<AddNewVideo setChoicesData={setChoicesData} />
 				</fieldset>
+				<button
+					type="button"
+					onClick={() => clearChoices()}
+					className={`ml-6 mb-4 py-2 px-18 text-lg w-fit border-transparent rounded ${
+						theme === "dark" ? "bg-red-700" : "bg-red-400"
+					} `}
+				>
+					Clear Choices
+				</button>
 				<hr />
 				<div className="flex flex-col w-full items-center px-6 mt-8">
 					<div className="create-new-video-container">

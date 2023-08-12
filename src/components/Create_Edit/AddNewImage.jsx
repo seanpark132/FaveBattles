@@ -7,7 +7,11 @@ import { BUCKET_NAME } from "../../utils/global_consts";
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
 
-export default function AddNewImage({ gameId, setChoicesData }) {
+export default function AddNewImage({
+	gameId,
+	setChoicesData,
+	setIsClearable,
+}) {
 	const [inputtedImgs, setInputtedImgs] = useState([]);
 	const { theme, setTheme } = useTheme();
 
@@ -80,6 +84,7 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 					? [...prev, ...uploadedImagesData]
 					: [...uploadedImagesData]
 			);
+			setIsClearable(false);
 			toast("Image(s) uploaded");
 		} catch (error) {
 			console.error("Error occurred during image uploading:", error);
@@ -103,7 +108,7 @@ export default function AddNewImage({ gameId, setChoicesData }) {
 			/>
 			<button
 				type="button"
-				className={`mt-4 py-2 px-20 w-fit border-transparent rounded ${
+				className={`mt-4 py-2 px-20 text-lg w-fit border-transparent rounded ${
 					theme === "dark" ? "bg-sky-800" : "bg-sky-300"
 				} `}
 				onClick={() => uploadImage(inputtedImgs)}
