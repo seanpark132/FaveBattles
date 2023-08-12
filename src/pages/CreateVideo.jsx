@@ -50,6 +50,19 @@ export default function CreateVideo() {
 		}
 	}, [choicesData]);
 
+	async function clearChoices() {
+		const isConfirmed = window.confirm(
+			"Are you sure you want to delete all the current choices?"
+		);
+
+		if (!isConfirmed) {
+			return;
+		}
+
+		setChoicesData([]);
+		toast("Cleared all choices.");
+	}
+
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -97,6 +110,15 @@ export default function CreateVideo() {
 					/>
 					<AddNewVideo setChoicesData={setChoicesData} />
 				</fieldset>
+				<button
+					type="button"
+					onClick={() => clearChoices()}
+					className={`ml-6 mb-4 py-2 px-18 text-lg w-fit border-transparent rounded ${
+						theme === "dark" ? "bg-red-700" : "bg-red-400"
+					} `}
+				>
+					Clear Choices
+				</button>
 				<hr />
 				<div className="flex flex-col w-full items-center px-6 mt-8">
 					<div className="create-new-video-container">

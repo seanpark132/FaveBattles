@@ -12,12 +12,14 @@ import { useUser } from "../context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
+import { deleteStoredImage } from "../api/deleteStoredImage";
 
 export default function CreateImg() {
 	const [gameId, setGameId] = useState(v4());
 	const [choicesData, setChoicesData] = useState(null);
 	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [isClearable, setIsClearable] = useState(true);
 	const navigate = useNavigate();
 	const user = useUser();
 	const queryClient = useQueryClient();
@@ -51,6 +53,45 @@ export default function CreateImg() {
 			);
 		}
 	}, [choicesData]);
+
+	useEffect(() => {
+		if (isClearable) {
+			return;
+		}
+
+		const timer = setTimeout(() => {
+			setIsClearable(true);
+		}, 5000);
+
+		return () => clearTimeout(timer);
+	}, [isClearable]);
+
+	async function clearChoices() {
+		if (!isClearable) {
+			toast(
+				"You have recently added a choice. Please try again in 5 seconds."
+			);
+			return;
+		}
+
+		const isConfirmed = window.confirm(
+			"Are you sure you want to delete all the current choices?"
+		);
+
+		if (!isConfirmed) {
+			return;
+		}
+
+		try {
+			choicesData.forEach(async (choice) => {
+				await deleteStoredImage(gameId, choice.id);
+			});
+			setChoicesData([]);
+			toast("Cleared all choices.");
+		} catch (error) {
+			toast("An error has occurred. Please try again.");
+		}
+	}
 
 	// final "create game" button submit - initialize game object on firestore database
 	async function handleSubmit(event) {
@@ -102,8 +143,18 @@ export default function CreateImg() {
 					<AddNewImage
 						gameId={gameId}
 						setChoicesData={setChoicesData}
+						setIsClearable={setIsClearable}
 					/>
 				</fieldset>
+				<button
+					type="button"
+					onClick={() => clearChoices()}
+					className={`ml-6 mb-4 py-2 px-18 text-lg w-fit border-transparent rounded ${
+						theme === "dark" ? "bg-red-700" : "bg-red-400"
+					} `}
+				>
+					Clear Choices
+				</button>
 				<hr />
 				<div className="flex flex-col w-full items-center px-6 mt-8">
 					<div className="create-new-img-container">

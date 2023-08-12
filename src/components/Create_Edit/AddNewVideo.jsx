@@ -111,7 +111,7 @@ export default function AddNewVideo({ setChoicesData }) {
 			/>
 			<button
 				type="button"
-				className={`mt-2 p-2 text-xl border-transparent rounded ${
+				className={`mt-2 p-2 text-lg border-transparent rounded ${
 					theme === "dark" ? "bg-blue-800" : "bg-blue-300"
 				}`}
 				onClick={handleAddVideo}

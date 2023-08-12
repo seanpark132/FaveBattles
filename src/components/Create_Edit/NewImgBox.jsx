@@ -14,12 +14,12 @@ export default function NewImgBox({
 	setChoiceIdsToRemove,
 	page,
 }) {
-	const [isDeletable, setisDeletable] = useState(false);
+	const [isDeletable, setIsDeletable] = useState(false);
 	const { theme, setTheme } = useTheme();
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setisDeletable(true);
+			setIsDeletable(true);
 		}, 5000);
 
 		return () => clearTimeout(timer);
