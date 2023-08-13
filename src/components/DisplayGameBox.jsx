@@ -82,7 +82,7 @@ export default function DisplayGameBox({ type, gameData }) {
 							to={`/edit-game/${gameData.id}`}
 							className={`border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 ${
 								theme === "dark" ? "bg-sky-700" : "bg-sky-300"
-							} hover:bg-sky-500`}
+							} hover:bg-sky-500 hover:text-inherit`}
 						>
 							<i className="mr-2 fa-solid fa-pen-to-square"></i>
 							Edit
@@ -90,7 +90,7 @@ export default function DisplayGameBox({ type, gameData }) {
 						<button
 							className={`font-normal border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 text-left ${
 								theme === "dark" ? "bg-red-700" : "bg-red-300"
-							} hover:bg-red-500`}
+							} hover:bg-red-500 hover:text-inherit`}
 							onClick={() => handleDelete(gameData.id)}
 						>
 							<i className="mr-2 fa-solid fa-trash"></i>DELETE
