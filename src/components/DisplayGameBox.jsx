@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
-import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
-import { deleteStoredImage } from "../api/deleteStoredImage";
 import { useMemo } from "react";
 import { getFirstAndSecondHighestFirstChoices } from "../utils/helper_functions";
+import { useTheme } from "../context/ThemeContext";
+import { deleteGame } from "../api/deleteGame";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useTheme } from "../context/ThemeContext";
 
 export default function DisplayGameBox({ type, gameData }) {
 	const { firstHighest, secondHighest } = useMemo(
@@ -17,22 +14,16 @@ export default function DisplayGameBox({ type, gameData }) {
 	const queryClient = useQueryClient();
 	const { theme, setTheme } = useTheme();
 
-	async function deleteGame(gameId) {
-		try {
-			const gameDoc = doc(db, FIRESTORE_COLLECTION_NAME, gameId);
-			await deleteDoc(gameDoc);
+	async function handleDelete(gameId) {
+		const isConfirmed = window.confirm(
+			"Are you sure you want to delete this game and all it's rankings data?"
+		);
 
-			if (gameData.gameType === "image") {
-				gameData.choices.forEach(async (choice) => {
-					await deleteStoredImage(gameId, choice.id);
-				});
-			}
+		if (isConfirmed) {
+			deleteGame(gameId, gameData);
 			queryClient.invalidateQueries(["myGames"]);
 			queryClient.invalidateQueries(["allGamesData"]);
 			toast("Game Deleted.");
-		} catch (error) {
-			console.error(error.message);
-			toast("Error occurred in deleting game. Please try again.");
 		}
 	}
 
@@ -100,7 +91,7 @@ export default function DisplayGameBox({ type, gameData }) {
 							className={`font-normal border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 text-left ${
 								theme === "dark" ? "bg-red-700" : "bg-red-300"
 							} hover:bg-red-500`}
-							onClick={() => deleteGame(gameData.id)}
+							onClick={() => handleDelete(gameData.id)}
 						>
 							<i className="mr-2 fa-solid fa-trash"></i>DELETE
 						</button>
