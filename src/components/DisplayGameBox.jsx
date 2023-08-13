@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
-import { getFirstAndSecondHighestFirstChoices } from "../utils/helper_functions";
+import { getFirstAndSecondHighestFirstChoices } from "../utils/sort_functions";
 import { useTheme } from "../context/ThemeContext";
 import { deleteGame } from "../api/deleteGame";
 import { useQueryClient } from "@tanstack/react-query";
@@ -8,7 +8,11 @@ import { toast } from "react-toastify";
 
 export default function DisplayGameBox({ type, gameData }) {
 	const { firstHighest, secondHighest } = useMemo(
-		() => getFirstAndSecondHighestFirstChoices(gameData.choices),
+		() =>
+			getFirstAndSecondHighestFirstChoices(
+				gameData.choices,
+				gameData.numCompletes
+			),
 		[gameData]
 	);
 	const queryClient = useQueryClient();

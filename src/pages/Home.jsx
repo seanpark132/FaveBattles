@@ -1,6 +1,6 @@
 import DisplayGameBox from "../components/DisplayGameBox";
 import { useState, useEffect } from "react";
-import { sortGameDataByProperty } from "../utils/helper_functions";
+import { sortGameDataByProperty } from "../utils/sort_functions";
 import FiltersAndSearch from "../components/FiltersAndSearch";
 
 export default function Home({ allGamesData }) {
