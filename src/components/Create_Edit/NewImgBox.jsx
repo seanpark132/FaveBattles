@@ -20,7 +20,7 @@ export default function NewImgBox({
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsDeletable(true);
-		}, 5000);
+		}, 3000);
 
 		return () => clearTimeout(timer);
 	});

@@ -40,6 +40,11 @@ export default function Edit({ gameData }) {
 			return;
 		}
 
+		if (formData.title.length < 1) {
+			toast("Please enter a game title.");
+			return;
+		}
+
 		try {
 			choiceIdsToRemove.forEach(async (choiceId) => {
 				await deleteStoredImage(gameData.id, choiceId);

@@ -55,12 +55,10 @@ export default function CreateVideo() {
 			"Are you sure you want to delete all the current choices?"
 		);
 
-		if (!isConfirmed) {
-			return;
+		if (isConfirmed) {
+			setChoicesData([]);
+			toast("Cleared all choices.");
 		}
-
-		setChoicesData([]);
-		toast("Cleared all choices.");
 	}
 
 	// final "create game" button submit - initialize game object on firestore database
@@ -76,6 +74,11 @@ export default function CreateVideo() {
 
 		if (selectedCategories.length === 0) {
 			toast("Please select at least 1 category");
+			return;
+		}
+
+		if (formData.title.length < 1) {
+			toast("Please enter a game title.");
 			return;
 		}
 

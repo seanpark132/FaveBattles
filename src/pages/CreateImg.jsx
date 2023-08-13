@@ -61,7 +61,7 @@ export default function CreateImg() {
 
 		const timer = setTimeout(() => {
 			setIsClearable(true);
-		}, 5000);
+		}, 3000);
 
 		return () => clearTimeout(timer);
 	}, [isClearable]);
@@ -78,18 +78,16 @@ export default function CreateImg() {
 			"Are you sure you want to delete all the current choices?"
 		);
 
-		if (!isConfirmed) {
-			return;
-		}
-
-		try {
-			choicesData.forEach(async (choice) => {
-				await deleteStoredImage(gameId, choice.id);
-			});
-			setChoicesData([]);
-			toast("Cleared all choices.");
-		} catch (error) {
-			toast("An error has occurred. Please try again.");
+		if (isConfirmed) {
+			try {
+				choicesData.forEach(async (choice) => {
+					await deleteStoredImage(gameId, choice.id);
+				});
+				setChoicesData([]);
+				toast("Cleared all choices.");
+			} catch (error) {
+				toast("An error has occurred. Please try again.");
+			}
 		}
 	}
 
@@ -105,6 +103,11 @@ export default function CreateImg() {
 
 		if (selectedCategories.length === 0) {
 			toast("Please select at least 1 category");
+			return;
+		}
+
+		if (formData.title.length < 1) {
+			toast("Please enter a game title.");
 			return;
 		}
 
