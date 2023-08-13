@@ -4,7 +4,7 @@ import {
 	filterGameDataByCategory,
 	filterGameDataByTitle,
 	sortGameDataByProperty,
-} from "../utils/helper_functions";
+} from "../utils/sort_functions";
 import { Dropdown } from "primereact/dropdown";
 import { CATEGORY_OPTIONS } from "../utils/global_consts";
 import { useTheme } from "../context/ThemeContext";

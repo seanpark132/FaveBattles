@@ -13,6 +13,8 @@ export async function getMyGames(authId) {
 			gamesArray.push(doc.data());
 		});
 
+		gamesArray.sort((a, b) => b.createdOn - a.createdOn);
+
 		return gamesArray;
 	}
 	return [];

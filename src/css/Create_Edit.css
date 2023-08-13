@@ -42,7 +42,7 @@
 
 .dark.create-file-btn::file-selector-button {
 	color: rgba(240, 240, 240);
-	background-color: #00aa88;
+	background-color: #00755e;
 }
 
 .dark.create-file-btn::file-selector-button:hover {

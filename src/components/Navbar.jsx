@@ -123,7 +123,7 @@ export default function Navbar() {
 			</Link>
 			<div ref={themeRef}>
 				<button
-					className="mr-4"
+					className="mr-4 select-none"
 					onClick={() => setIsThemeOpen((prev) => !prev)}
 					aria-label="Theme menu"
 				>

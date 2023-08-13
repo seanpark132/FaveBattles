@@ -2,7 +2,7 @@ import { _ } from "lodash";
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";
-import { getTwoChoicesFromCurrentChoices } from "../../utils/helper_functions";
+import { getTwoChoicesFromCurrentChoices } from "../../utils/game_functions";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function GameSetup({
