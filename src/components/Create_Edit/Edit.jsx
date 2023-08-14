@@ -11,6 +11,8 @@ import AddNewVideo from "./AddNewVideo";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
 import { useUser } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Edit({ gameData }) {
 	const [choicesData, setChoicesData] = useState(gameData.choices);
@@ -22,8 +24,10 @@ export default function Edit({ gameData }) {
 		gameData.categories
 	);
 	const [choiceIdsToRemove, setChoiceIdsToRemove] = useState([]);
+	const { theme, setTheme } = useTheme();
 	const navigate = useNavigate();
 	const user = useUser();
+	const queryClient = useQueryClient();
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -45,6 +49,11 @@ export default function Edit({ gameData }) {
 			return;
 		}
 
+		if (user.uid !== gameData.creatorId) {
+			toast("You are not authorized to edit this game. ");
+			return;
+		}
+
 		try {
 			choiceIdsToRemove.forEach(async (choiceId) => {
 				await deleteStoredImage(gameData.id, choiceId);
@@ -62,10 +71,15 @@ export default function Edit({ gameData }) {
 				createdOn: Date.now(),
 				gameType: gameData.gameType,
 			};
+
 			await setDoc(
 				doc(db, FIRESTORE_COLLECTION_NAME, gameData.id),
 				fullFormData
 			);
+			await queryClient.invalidateQueries([
+				`edit_${gameData.id}`,
+				"allGamesData",
+			]);
 			toast("Game Updated!");
 			navigate("/profile");
 		} catch (error) {
@@ -90,6 +104,7 @@ export default function Edit({ gameData }) {
 						<AddNewImage
 							gameId={gameData.id}
 							setChoicesData={setChoicesData}
+							setIsClearable={true}
 						/>
 					) : (
 						<AddNewVideo setChoicesData={setChoicesData} />
@@ -132,7 +147,9 @@ export default function Edit({ gameData }) {
 							})}
 					</div>
 					<button
-						className="m-6 py-4 px-8 w-fit border-transparent rounded bg-green-600 text-2xl md:text-3xl"
+						className={`m-6 py-4 px-8 w-fit border-transparent rounded text-2xl md:text-3xl ${
+							theme === "dark" ? "bg-green-700" : "bg-green-400"
+						}`}
 						type="submit"
 					>
 						Save Changes!

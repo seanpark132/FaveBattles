@@ -5,6 +5,7 @@ import { useTheme } from "../context/ThemeContext";
 import { deleteGame } from "../api/deleteGame";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useUser } from "../context/AuthContext";
 
 export default function DisplayGameBox({ type, gameData }) {
 	const { firstHighest, secondHighest } = useMemo(
@@ -16,9 +17,14 @@ export default function DisplayGameBox({ type, gameData }) {
 		[gameData]
 	);
 	const queryClient = useQueryClient();
+	const user = useUser();
 	const { theme, setTheme } = useTheme();
 
 	async function handleDelete(gameId) {
+		if (user.uid !== gameData.creatorId) {
+			("You are not authorized to delete this game.");
+		}
+
 		const isConfirmed = window.confirm(
 			"Are you sure you want to delete this game and all it's rankings data?"
 		);
