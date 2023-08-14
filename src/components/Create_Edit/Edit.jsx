@@ -104,7 +104,6 @@ export default function Edit({ gameData }) {
 						<AddNewImage
 							gameId={gameData.id}
 							setChoicesData={setChoicesData}
-							setIsClearable={true}
 						/>
 					) : (
 						<AddNewVideo setChoicesData={setChoicesData} />

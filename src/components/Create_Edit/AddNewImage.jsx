@@ -85,7 +85,9 @@ export default function AddNewImage({
 					: [...uploadedImagesData]
 			);
 
-			setIsClearable(false);
+			if (setIsClearable) {
+				setIsClearable(false);
+			}
 			toast("Image(s) uploaded");
 		} catch (error) {
 			console.error("Error occurred during image uploading:", error);
