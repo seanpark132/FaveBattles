@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { storage } from "../../firebaseConfig";
 import { v4 } from "uuid";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 import Compressor from "compressorjs";
 import { BUCKET_NAME } from "../../utils/global_consts";
 import { toast } from "react-toastify";
@@ -84,7 +84,10 @@ export default function AddNewImage({
 					? [...prev, ...uploadedImagesData]
 					: [...uploadedImagesData]
 			);
-			setIsClearable(false);
+
+			if (setIsClearable) {
+				setIsClearable(false);
+			}
 			toast("Image(s) uploaded");
 		} catch (error) {
 			console.error("Error occurred during image uploading:", error);

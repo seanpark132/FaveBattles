@@ -116,7 +116,7 @@ export default function CreateVideo() {
 				<button
 					type="button"
 					onClick={() => clearChoices()}
-					className={`ml-6 mb-4 py-2 px-18 text-lg w-fit border-transparent rounded ${
+					className={`ml-6 mb-4 py-2 px-18.5 text-lg w-fit border-transparent rounded ${
 						theme === "dark" ? "bg-red-700" : "bg-red-400"
 					} `}
 				>

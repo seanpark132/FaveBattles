@@ -1,16 +1,16 @@
 export const CATEGORY_OPTIONS = [
-	{ value: "food", label: "Food" },
-	{ value: "entertainment", label: "Entertainment" },
-	{ value: "music", label: "Music" },
-	{ value: "games", label: "Games" },
-	{ value: "tv", label: "TV" },
-	{ value: "movies", label: "Movies" },
 	{ value: "anime", label: "Anime" },
 	{ value: "art", label: "Art" },
 	{ value: "books", label: "Books" },
-	{ value: "sports", label: "Sports" },
+	{ value: "entertainment", label: "Entertainment" },
+	{ value: "food", label: "Food" },
+	{ value: "games", label: "Games" },
 	{ value: "kpop", label: "Kpop" },
+	{ value: "movies", label: "Movies" },
+	{ value: "music", label: "Music" },
 	{ value: "scenarios", label: "Scenarios" },
+	{ value: "sports", label: "Sports" },
+	{ value: "tv", label: "TV" },
 	{ value: "other", label: "Other" },
 ];
 
