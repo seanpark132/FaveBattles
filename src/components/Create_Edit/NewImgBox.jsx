@@ -9,6 +9,7 @@ export default function NewImgBox({
 	choiceId,
 	gameId,
 	url,
+	url_384w,
 	name,
 	setChoicesData,
 	setChoiceIdsToRemove,
@@ -70,8 +71,10 @@ export default function NewImgBox({
 			}`}
 		>
 			<Image
-				src={url}
-				alt="choice-img"
+				src={url_384w}
+				zoomSrc={url}
+				alt={`${name} image`}
+				loading="lazy"
 				imageClassName="h-full w-32 object-cover"
 				preview
 			/>

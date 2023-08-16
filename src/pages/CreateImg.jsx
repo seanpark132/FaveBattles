@@ -169,6 +169,7 @@ export default function CreateImg() {
 										choiceId={choiceData.id}
 										gameId={gameId}
 										url={choiceData.url}
+										url_384w={choiceData.url_384w}
 										name={choiceData.name}
 										setChoicesData={setChoicesData}
 									/>

@@ -26,7 +26,7 @@ export default function GameScreenImage({
 						src={leftChoice.url}
 						srcSet={`${leftChoice.url_384w} 384w, ${leftChoice.url_683w} 683w, ${leftChoice.url} 960w`}
 						sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
-						alt={leftChoice.name}
+						alt={`${leftChoice.name} image`}
 					/>
 					<label className="game-image-label">
 						{leftChoice.name}
@@ -48,7 +48,7 @@ export default function GameScreenImage({
 						src={rightChoice.url}
 						srcSet={`${rightChoice.url_384w} 384w, ${rightChoice.url_683w} 683w, ${rightChoice.url} 960w`}
 						sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
-						alt={rightChoice.name}
+						alt={`${rightChoice.name} image`}
 					/>
 					<label className="game-image-label">
 						{rightChoice.name}
