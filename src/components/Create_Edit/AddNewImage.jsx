@@ -10,7 +10,7 @@ import { useTheme } from "../../context/ThemeContext";
 export default function AddNewImage({
 	gameId,
 	setChoicesData,
-	setIsClearable,
+	setIsRecentlyAdded,
 }) {
 	const [inputtedImgs, setInputtedImgs] = useState([]);
 	const { theme, setTheme } = useTheme();
@@ -19,6 +19,7 @@ export default function AddNewImage({
 		if (!images) {
 			return;
 		}
+		setInputtedImgs([]);
 
 		const imgsArray = Object.values(images);
 
@@ -85,10 +86,13 @@ export default function AddNewImage({
 					: [...uploadedImagesData]
 			);
 
-			if (setIsClearable) {
-				setIsClearable(false);
+			if (setIsRecentlyAdded) {
+				setIsRecentlyAdded(true);
 			}
-			toast("Image(s) uploaded");
+
+			setTimeout(() => {
+				toast("Image(s) uploaded");
+			}, 5000);
 		} catch (error) {
 			console.error("Error occurred during image uploading:", error);
 			toast(
