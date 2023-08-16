@@ -78,7 +78,7 @@ export default function DisplayGameBox({ type, gameData }) {
 					<i className="mr-2 fa-solid fa-play fa-xs"></i>Play!
 				</Link>
 				<Link
-					to={`/stats/${gameData.id}`}
+					to={`/rankings/${gameData.id}`}
 					className={`border-transparent rounded-lg inline-block py-2 pl-3 m-3 w-28 ${
 						theme === "dark" ? "bg-purple-800" : "bg-purple-300"
 					} hover:bg-purple-500 hover:text-inherit`}

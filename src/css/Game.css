@@ -10,6 +10,10 @@
 	color: rgb(240, 240, 240);
 }
 
+.game-image-btn:hover {
+	color: rgb(0, 255, 98);
+}
+
 .game-image-label {
 	position: absolute;
 	transform: translateX(-50%);
@@ -18,7 +22,7 @@
 	text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
 		-1px 1px 0 #000, 1px 1px 0 #000;
 	font-size: 1.25rem;
-	line-height: 1;
+	line-height: 1.25;
 	font-weight: 700;
 }
 
@@ -29,6 +33,11 @@
 	width: 100%;
 	height: 5rem;
 	font-size: 1.25rem;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* Number of lines to show before truncating */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .game-video-btn.left {
@@ -45,6 +54,26 @@
 
 .game-video-btn.right.dark {
 	background-color: rgb(225, 29, 72);
+}
+
+.game-video-btn.left:hover {
+	background-color: rgb(156, 225, 255);
+	color: black;
+}
+
+.game-video-btn.right:hover {
+	background-color: rgb(255, 172, 185);
+	color: black;
+}
+
+.game-video-btn.left.dark:hover {
+	background-color: rgb(0, 86, 129);
+	color: white;
+}
+
+.game-video-btn.right.dark:hover {
+	background-color: rgb(167, 0, 36);
+	color: white;
 }
 
 .fade-in {
@@ -90,29 +119,29 @@
 	}
 }
 
-@media (hover: hover) {
+@media (hover: none) {
 	.game-image-btn:hover {
-		color: rgb(0, 255, 98);
+		color: rgb(240, 240, 240);
 	}
 
 	.game-video-btn.left:hover {
-		background-color: rgb(156, 225, 255);
-		color: black;
+		background-color: rgb(56, 189, 248);
+		color: inherit;
 	}
 
 	.game-video-btn.right:hover {
-		background-color: rgb(255, 172, 185);
-		color: black;
+		background-color: rgb(251, 113, 133);
+		color: inherit;
 	}
 
 	.game-video-btn.left.dark:hover {
-		background-color: rgb(0, 86, 129);
-		color: white;
+		background-color: rgb(2, 132, 199);
+		color: inherit;
 	}
 
 	.game-video-btn.right.dark:hover {
-		background-color: rgb(167, 0, 36);
-		color: white;
+		background-color: rgb(225, 29, 72);
+		color: inherit;
 	}
 }
 
