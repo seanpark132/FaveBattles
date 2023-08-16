@@ -25,10 +25,15 @@ export default function Edit({ gameData }) {
 	);
 	const [choiceIdsToRemove, setChoiceIdsToRemove] = useState([]);
 	const [isRecentlyAdded, setIsRecentlyAdded] = useState(false);
+	const [isRendered, setIsRendered] = useState(false);
 	const { theme, setTheme } = useTheme();
 	const navigate = useNavigate();
 	const user = useUser();
 	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		setIsRendered(true);
+	}, []);
 
 	useEffect(() => {
 		if (!isRecentlyAdded) {
@@ -81,7 +86,7 @@ export default function Edit({ gameData }) {
 				mainCategory: selectedCategories[0]?.label,
 				numStarts: gameData.numStarts,
 				numCompletes: gameData.numCompletes,
-				createdOn: Date.now(),
+				createdOn: gameData.createdOn,
 				gameType: gameData.gameType,
 			};
 
@@ -147,6 +152,7 @@ export default function Edit({ gameData }) {
 											setChoiceIdsToRemove
 										}
 										isRecentlyAdded={isRecentlyAdded}
+										isRendered={isRendered}
 										page="edit"
 									/>
 								) : (

@@ -15,18 +15,29 @@ export default function NewImgBox({
 	setChoicesData,
 	setChoiceIdsToRemove,
 	isRecentlyAdded,
+	isRendered,
 	page,
 }) {
 	const [isAlreadyAdded, setIsAlreadyAdded] = useState(false);
 	const { theme, setTheme } = useTheme();
 
 	useEffect(() => {
-		const timer = setTimeout(() => {
+		if (!isRendered) {
 			setIsAlreadyAdded(true);
-		}, 5000);
+		}
+	}, []);
 
-		return () => clearTimeout(timer);
-	});
+	useEffect(() => {
+		if (isAlreadyAdded) {
+			return;
+		} else {
+			const timer = setTimeout(() => {
+				setIsAlreadyAdded(true);
+			}, 5000);
+
+			return () => clearTimeout(timer);
+		}
+	}, [isRecentlyAdded]);
 
 	if (isRecentlyAdded && !isAlreadyAdded) {
 		return <SkeletonNewImgBox />;

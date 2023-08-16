@@ -20,6 +20,7 @@ export default function CreateImg() {
 	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [isRecentlyAdded, setIsRecentlyAdded] = useState(false);
+	const [isRendered, setIsRendered] = useState(false);
 	const navigate = useNavigate();
 	const user = useUser();
 	const queryClient = useQueryClient();
@@ -43,6 +44,7 @@ export default function CreateImg() {
 		if (storedChoicesData !== null) {
 			setChoicesData(JSON.parse(storedChoicesData));
 		}
+		setIsRendered(true);
 	}, []);
 
 	useEffect(() => {
@@ -173,6 +175,7 @@ export default function CreateImg() {
 										name={choiceData.name}
 										setChoicesData={setChoicesData}
 										isRecentlyAdded={isRecentlyAdded}
+										isRendered={isRendered}
 									/>
 								);
 							})}
