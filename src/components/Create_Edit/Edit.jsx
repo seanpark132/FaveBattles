@@ -79,8 +79,8 @@ export default function Edit({ gameData }) {
 				choices: choicesData,
 				categories: selectedCategories,
 				mainCategory: selectedCategories[0]?.label,
-				numStarts: 0,
-				numCompletes: 0,
+				numStarts: gameData.numStarts,
+				numCompletes: gameData.numCompletes,
 				createdOn: Date.now(),
 				gameType: gameData.gameType,
 			};
