@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storage } from "../../firebaseConfig";
 import { v4 } from "uuid";
 import { ref, uploadBytes } from "firebase/storage";
@@ -13,7 +13,18 @@ export default function AddNewImage({
 	setIsRecentlyAdded,
 }) {
 	const [inputtedImgs, setInputtedImgs] = useState([]);
+	const [isAddImagesDisabled, setIsAddImagesDisabled] = useState(false);
 	const { theme, setTheme } = useTheme();
+
+	useEffect(() => {
+		if (isAddImagesDisabled) {
+			const timer = setTimeout(() => {
+				setIsAddImagesDisabled(false);
+			}, 5000);
+
+			return () => clearTimeout(timer);
+		}
+	}, [isAddImagesDisabled]);
 
 	async function handleInputtedImgs(images) {
 		if (!images) {
@@ -115,8 +126,12 @@ export default function AddNewImage({
 				type="button"
 				className={`mt-4 py-2 px-20 text-lg w-fit border-transparent rounded ${
 					theme === "dark" ? "bg-sky-800" : "bg-sky-300"
-				} `}
-				onClick={() => uploadImage(inputtedImgs)}
+				} ${isAddImagesDisabled && "bg-neutral-500"}`}
+				onClick={() => {
+					uploadImage(inputtedImgs);
+					setIsAddImagesDisabled(true);
+				}}
+				disabled={isAddImagesDisabled}
 			>
 				Add Images
 			</button>
