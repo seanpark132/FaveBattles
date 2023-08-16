@@ -86,9 +86,7 @@ export default function AddNewImage({
 					: [...uploadedImagesData]
 			);
 
-			if (setIsRecentlyAdded) {
-				setIsRecentlyAdded(true);
-			}
+			setIsRecentlyAdded(true);
 
 			setTimeout(() => {
 				toast("Image(s) uploaded");

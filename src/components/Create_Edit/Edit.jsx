@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";
@@ -24,10 +24,23 @@ export default function Edit({ gameData }) {
 		gameData.categories
 	);
 	const [choiceIdsToRemove, setChoiceIdsToRemove] = useState([]);
+	const [isRecentlyAdded, setIsRecentlyAdded] = useState(false);
 	const { theme, setTheme } = useTheme();
 	const navigate = useNavigate();
 	const user = useUser();
 	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		if (!isRecentlyAdded) {
+			return;
+		}
+
+		const timer = setTimeout(() => {
+			setIsRecentlyAdded(false);
+		}, 5000);
+
+		return () => clearTimeout(timer);
+	}, [isRecentlyAdded]);
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -104,6 +117,7 @@ export default function Edit({ gameData }) {
 						<AddNewImage
 							gameId={gameData.id}
 							setChoicesData={setChoicesData}
+							setIsRecentlyAdded={setIsRecentlyAdded}
 						/>
 					) : (
 						<AddNewVideo setChoicesData={setChoicesData} />
@@ -132,6 +146,7 @@ export default function Edit({ gameData }) {
 										setChoiceIdsToRemove={
 											setChoiceIdsToRemove
 										}
+										isRecentlyAdded={isRecentlyAdded}
 										page="edit"
 									/>
 								) : (
