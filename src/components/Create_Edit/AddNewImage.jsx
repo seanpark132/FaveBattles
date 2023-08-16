@@ -124,9 +124,13 @@ export default function AddNewImage({
 			/>
 			<button
 				type="button"
-				className={`mt-4 py-2 px-20 text-lg w-fit border-transparent rounded ${
-					theme === "dark" ? "bg-sky-800" : "bg-sky-300"
-				} ${isAddImagesDisabled && "bg-neutral-500"}`}
+				className={`${
+					isAddImagesDisabled
+						? "bg-neutral-500"
+						: theme === "dark"
+						? "bg-sky-800"
+						: "bg-sky-300"
+				} mt-4 py-2 px-20 text-lg w-fit border-transparent rounded`}
 				onClick={() => {
 					uploadImage(inputtedImgs);
 					setIsAddImagesDisabled(true);
