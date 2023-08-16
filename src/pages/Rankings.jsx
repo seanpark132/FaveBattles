@@ -57,7 +57,8 @@ export default function Rankings({ gameData }) {
 	const imageBody = (rowData) => {
 		return (
 			<Image
-				src={rowData.url}
+				src={rowData.url_384w}
+				zoomSrc={rowData.url}
 				alt="choice-img"
 				imageClassName="h-32 object-cover"
 				preview
@@ -148,7 +149,7 @@ export default function Rankings({ gameData }) {
 						field="url"
 						header="Image"
 						body={imageBody}
-						style={{ width: "25%" }}
+						style={{ width: "25%", minWidth: "10rem" }}
 					/>
 				)}
 				<Column

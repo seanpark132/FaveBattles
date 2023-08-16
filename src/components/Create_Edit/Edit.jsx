@@ -126,6 +126,7 @@ export default function Edit({ gameData }) {
 										choiceId={choiceData.id}
 										gameId={gameData.id}
 										url={choiceData.url}
+										url_384w={choiceData.url_384w}
 										name={choiceData.name}
 										setChoicesData={setChoicesData}
 										setChoiceIdsToRemove={
