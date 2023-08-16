@@ -4,6 +4,7 @@ import { Image } from "primereact/image";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
+import SkeletonNewImgBox from "../skeletons/SkeletonNewImgBox";
 
 export default function NewImgBox({
 	choiceId,
@@ -13,18 +14,23 @@ export default function NewImgBox({
 	name,
 	setChoicesData,
 	setChoiceIdsToRemove,
+	isRecentlyAdded,
 	page,
 }) {
-	const [isDeletable, setIsDeletable] = useState(false);
+	const [isAlreadyAdded, setIsAlreadyAdded] = useState(false);
 	const { theme, setTheme } = useTheme();
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setIsDeletable(true);
-		}, 3000);
+			setIsAlreadyAdded(true);
+		}, 5000);
 
 		return () => clearTimeout(timer);
 	});
+
+	if (isRecentlyAdded && !isAlreadyAdded) {
+		return <SkeletonNewImgBox />;
+	}
 
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
@@ -38,12 +44,6 @@ export default function NewImgBox({
 	}
 
 	async function deleteBtn(choiceId) {
-		if (!isDeletable) {
-			toast(
-				"Choices cannot be deleted for 5 seconds after being added. Please try again in 5 seconds."
-			);
-			return;
-		}
 		if (page === "edit") {
 			setChoiceIdsToRemove((prev) => [...prev, choiceId]);
 
@@ -91,16 +91,14 @@ export default function NewImgBox({
 					value={name}
 				/>
 			</div>
-			{isDeletable && (
-				<button
-					type="button"
-					className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
-					onClick={() => deleteBtn(choiceId)}
-					aria-label="Delete image"
-				>
-					<i className="fa-solid fa-xmark fa-lg text-white"></i>
-				</button>
-			)}
+			<button
+				type="button"
+				className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
+				onClick={() => deleteBtn(choiceId)}
+				aria-label="Delete image"
+			>
+				<i className="fa-solid fa-xmark fa-lg text-white"></i>
+			</button>
 		</div>
 	);
 }

@@ -129,3 +129,13 @@ textarea.dark {
 	visibility: visible;
 	transition: 400ms;
 }
+
+.skeleton {
+	animation: skeleton-loading 2s linear infinite;
+}
+
+@keyframes skeleton-loading {
+	50% {
+		opacity: 50%;
+	}
+}

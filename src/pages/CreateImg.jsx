@@ -19,7 +19,7 @@ export default function CreateImg() {
 	const [choicesData, setChoicesData] = useState(null);
 	const [formData, setFormData] = useState({ title: "", description: "" });
 	const [selectedCategories, setSelectedCategories] = useState([]);
-	const [isClearable, setIsClearable] = useState(true);
+	const [isRecentlyAdded, setIsRecentlyAdded] = useState(false);
 	const navigate = useNavigate();
 	const user = useUser();
 	const queryClient = useQueryClient();
@@ -55,21 +55,21 @@ export default function CreateImg() {
 	}, [choicesData]);
 
 	useEffect(() => {
-		if (isClearable) {
+		if (!isRecentlyAdded) {
 			return;
 		}
 
 		const timer = setTimeout(() => {
-			setIsClearable(true);
-		}, 3000);
+			setIsRecentlyAdded(false);
+		}, 5000);
 
 		return () => clearTimeout(timer);
-	}, [isClearable]);
+	}, [isRecentlyAdded]);
 
 	async function clearChoices() {
-		if (!isClearable) {
+		if (isRecentlyAdded) {
 			toast(
-				"You have recently added a choice. Please try again in 5 seconds."
+				"You have recently added a choice. Please try again in 3 seconds."
 			);
 			return;
 		}
@@ -146,7 +146,7 @@ export default function CreateImg() {
 					<AddNewImage
 						gameId={gameId}
 						setChoicesData={setChoicesData}
-						setIsClearable={setIsClearable}
+						setIsRecentlyAdded={setIsRecentlyAdded}
 					/>
 				</fieldset>
 				<button
@@ -172,6 +172,7 @@ export default function CreateImg() {
 										url_384w={choiceData.url_384w}
 										name={choiceData.name}
 										setChoicesData={setChoicesData}
+										isRecentlyAdded={isRecentlyAdded}
 									/>
 								);
 							})}
