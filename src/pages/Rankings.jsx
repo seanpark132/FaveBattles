@@ -5,7 +5,6 @@ import { FilterMatchMode } from "primereact/api";
 import { InputText } from "primereact/inputtext";
 import { Image } from "primereact/image";
 import { ProgressBar } from "primereact/progressbar";
-import "primereact/resources/primereact.min.css";
 import { useQuery } from "@tanstack/react-query";
 import { getRankingsData } from "../api/getRankingsData";
 
