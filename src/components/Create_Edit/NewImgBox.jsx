@@ -73,7 +73,8 @@ export default function NewImgBox({
 			<Image
 				src={url_384w}
 				zoomSrc={url}
-				alt="choice-img"
+				alt={`${name} image`}
+				loading="lazy"
 				imageClassName="h-full w-32 object-cover"
 				preview
 			/>

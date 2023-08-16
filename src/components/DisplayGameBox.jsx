@@ -47,7 +47,8 @@ export default function DisplayGameBox({ type, gameData }) {
 							? firstHighest.thumbnailUrl
 							: firstHighest.url_384w
 					}
-					alt="left preview img"
+					alt={`${firstHighest.name} image`}
+					loading="lazy"
 				/>
 				<img
 					className="h-full w-1/2 object-cover rounded-tr-lg"
@@ -56,7 +57,8 @@ export default function DisplayGameBox({ type, gameData }) {
 							? secondHighest.thumbnailUrl
 							: secondHighest.url_384w
 					}
-					alt="right preview img"
+					alt={`${secondHighest.name} image`}
+					loading="lazy"
 				/>
 			</div>
 			<div className="flex w-full mb-2 border-b-2 border-b-slate-200">

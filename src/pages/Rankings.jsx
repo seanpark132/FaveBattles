@@ -59,8 +59,9 @@ export default function Rankings({ gameData }) {
 			<Image
 				src={rowData.url_384w}
 				zoomSrc={rowData.url}
-				alt="choice-img"
+				alt={`${rowData.name} image`}
 				imageClassName="h-32 object-cover"
+				loading="lazy"
 				preview
 			/>
 		);
