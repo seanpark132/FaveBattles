@@ -56,7 +56,7 @@ export default function NewImgBox({
 	}
 
 	function handleImageError() {
-		setTimeout(() => setRetryCount((prev) => prev + 1), 1000);
+		setTimeout(() => setRetryCount((prev) => prev + 1), 2000);
 	}
 
 	async function deleteBtn(choiceId) {
