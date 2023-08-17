@@ -19,6 +19,7 @@ export default function NewImgBox({
 	page,
 }) {
 	const [isAlreadyAdded, setIsAlreadyAdded] = useState(false);
+	const [retryCount, setRetryCount] = useState(0);
 	const { theme, setTheme } = useTheme();
 
 	useEffect(() => {
@@ -33,7 +34,7 @@ export default function NewImgBox({
 		} else {
 			const timer = setTimeout(() => {
 				setIsAlreadyAdded(true);
-			}, 5000);
+			}, 4000);
 
 			return () => clearTimeout(timer);
 		}
@@ -52,6 +53,10 @@ export default function NewImgBox({
 			newArray[index] = newData;
 			return newArray;
 		});
+	}
+
+	function handleImageError() {
+		setTimeout(() => setRetryCount((prev) => prev + 1), 1000);
 	}
 
 	async function deleteBtn(choiceId) {
@@ -82,8 +87,13 @@ export default function NewImgBox({
 			}`}
 		>
 			<Image
-				src={url_384w}
+				src={
+					retryCount > 0
+						? `${url_384w}?retry=${retryCount}`
+						: url_384w
+				}
 				zoomSrc={url}
+				onError={handleImageError}
 				alt={`${name} image`}
 				loading="lazy"
 				imageClassName="h-full w-32 object-cover"

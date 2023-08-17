@@ -20,7 +20,7 @@ export default function AddNewImage({
 		if (isAddImagesDisabled) {
 			const timer = setTimeout(() => {
 				setIsAddImagesDisabled(false);
-			}, 1500);
+			}, 1000);
 
 			return () => clearTimeout(timer);
 		}
@@ -102,7 +102,7 @@ export default function AddNewImage({
 
 			setTimeout(() => {
 				toast("Image(s) uploaded");
-			}, 5000);
+			}, 4000);
 		} catch (error) {
 			console.error("Error occurred during image uploading:", error);
 			toast(
