@@ -20,7 +20,7 @@ export default function AddNewImage({
 		if (isAddImagesDisabled) {
 			const timer = setTimeout(() => {
 				setIsAddImagesDisabled(false);
-			}, 5000);
+			}, 1500);
 
 			return () => clearTimeout(timer);
 		}
@@ -30,6 +30,7 @@ export default function AddNewImage({
 		if (!images) {
 			return;
 		}
+		setIsAddImagesDisabled(true);
 		setInputtedImgs([]);
 
 		const imgsArray = Object.values(images);
