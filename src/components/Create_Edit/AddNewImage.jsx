@@ -91,7 +91,7 @@ export default function AddNewImage({
 			});
 
 			const uploadedImagesData = await Promise.all(uploadPromises);
-			setInputtedImgs([]);
+
 			setChoicesData((prev) =>
 				prev
 					? [...prev, ...uploadedImagesData]
