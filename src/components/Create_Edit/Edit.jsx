@@ -24,8 +24,10 @@ export default function Edit({ gameData }) {
 		gameData.categories
 	);
 	const [choiceIdsToRemove, setChoiceIdsToRemove] = useState([]);
+	const [numCompletesToDeduct, setNumCompletesToDeduct] = useState(0);
 	const [isRecentlyAdded, setIsRecentlyAdded] = useState(false);
 	const [isRendered, setIsRendered] = useState(false);
+
 	const { theme, setTheme } = useTheme();
 	const navigate = useNavigate();
 	const user = useUser();
@@ -85,7 +87,7 @@ export default function Edit({ gameData }) {
 				categories: selectedCategories,
 				mainCategory: selectedCategories[0]?.label,
 				numStarts: gameData.numStarts,
-				numCompletes: gameData.numCompletes,
+				numCompletes: gameData.numCompletes - numCompletesToDeduct,
 				createdOn: gameData.createdOn,
 				gameType: gameData.gameType,
 			};
@@ -142,27 +144,28 @@ export default function Edit({ gameData }) {
 								return gameData.gameType === "image" ? (
 									<NewImgBox
 										key={choiceData.id}
-										choiceId={choiceData.id}
 										gameId={gameData.id}
-										url={choiceData.url}
-										url_384w={choiceData.url_384w}
-										name={choiceData.name}
+										choiceData={choiceData}
 										setChoicesData={setChoicesData}
 										setChoiceIdsToRemove={
 											setChoiceIdsToRemove
 										}
+										setNumCompletesToDeduct={
+											setNumCompletesToDeduct
+										}
 										isRecentlyAdded={isRecentlyAdded}
 										isRendered={isRendered}
-										page="edit"
+										isEditPage={true}
 									/>
 								) : (
 									<NewVideoBox
 										key={choiceData.id}
-										choiceId={choiceData.id}
-										gameId={gameData.id}
-										embedUrl={choiceData.embedUrl}
-										name={choiceData.name}
+										choiceData={choiceData}
 										setChoicesData={setChoicesData}
+										setNumCompletesToDeduct={
+											setNumCompletesToDeduct
+										}
+										isEditPage={true}
 									/>
 								);
 							})}

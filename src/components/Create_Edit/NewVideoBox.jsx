@@ -3,29 +3,36 @@ import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function NewVideoBox({
-	choiceId,
-	embedUrl,
-	name,
+	choiceData,
 	setChoicesData,
+	setNumCompletesToDeduct,
+	isEditPage,
 }) {
 	const { theme, setTheme } = useTheme();
 
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
 			let newArray = _.cloneDeep(prev);
-			const videoData = newArray.find((obj) => obj.id === choiceId);
-			const index = newArray.findIndex((obj) => obj.id === choiceId);
+			const videoData = newArray.find((obj) => obj.id === choiceData.id);
+			const index = newArray.findIndex((obj) => obj.id === choiceData.id);
 			const newData = { ...videoData, name: event.target.value };
 			newArray[index] = newData;
 			return newArray;
 		});
 	}
 
-	function deleteBtn(choiceId) {
+	function deleteBtn() {
+		if (isEditPage) {
+			setNumCompletesToDeduct((prev) => prev + choiceData.numFirst);
+		}
+
 		setChoicesData((prev) => {
-			return prev.filter((choiceData) => choiceData.id !== choiceId);
+			return prev.filter((choice) => choice.id !== choiceData.id);
 		});
-		toast("Choice deleted");
+
+		if (!isEditPage) {
+			toast("Choice deleted");
+		}
 	}
 
 	// Component visible for screens below 768 px
@@ -33,7 +40,7 @@ export default function NewVideoBox({
 		<div className={`create-new-video-box-md ${theme}`}>
 			<iframe
 				className="create-iframe-dimensions-md"
-				src={embedUrl}
+				src={choiceData.embedUrl}
 				title="YouTube video player"
 				allow="accelerometer"
 				allowFullScreen
@@ -47,7 +54,7 @@ export default function NewVideoBox({
 						type="text"
 						className={`w-full mt-2 text-lg p-2 rounded ${theme}`}
 						onChange={(e) => handleNameChange(e)}
-						value={name}
+						value={choiceData.name}
 						id="choiceName"
 						name="choiceName"
 					/>
@@ -55,7 +62,7 @@ export default function NewVideoBox({
 				<button
 					type="button"
 					className="absolute top-0 right-0 h-fit py-1 px-1.5 bg-red-500"
-					onClick={() => deleteBtn(choiceId)}
+					onClick={deleteBtn}
 					aria-label="Delete video"
 				>
 					<i className="fa-solid fa-xmark fa-lg text-white"></i>
@@ -71,7 +78,7 @@ export default function NewVideoBox({
 				<iframe
 					width="400"
 					height="225"
-					src={embedUrl}
+					src={choiceData.embedUrl}
 					title="YouTube video player"
 					allow="accelerometer;"
 					allowFullScreen
@@ -84,7 +91,7 @@ export default function NewVideoBox({
 						type="text"
 						className={`w-full mt-2 text-lg p-2 rounded ${theme}`}
 						onChange={(e) => handleNameChange(e)}
-						value={name}
+						value={choiceData.name}
 						id="choiceName"
 						name="choiceName"
 					/>
@@ -92,7 +99,7 @@ export default function NewVideoBox({
 				<button
 					type="button"
 					className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
-					onClick={() => deleteBtn(choiceId)}
+					onClick={deleteBtn}
 					aria-label="Delete video"
 				>
 					<i className="fa-solid fa-xmark fa-lg text-white"></i>
