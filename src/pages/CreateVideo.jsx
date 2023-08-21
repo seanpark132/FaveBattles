@@ -115,7 +115,7 @@ export default function CreateVideo() {
 				</fieldset>
 				<button
 					type="button"
-					onClick={() => clearChoices()}
+					onClick={clearChoices}
 					className={`ml-6 mb-4 py-2 px-18.5 text-lg w-fit border-transparent rounded ${
 						theme === "dark" ? "bg-red-700" : "bg-red-400"
 					} `}
@@ -130,9 +130,7 @@ export default function CreateVideo() {
 								return (
 									<NewVideoBox
 										key={choiceData.id}
-										choiceId={choiceData.id}
-										embedUrl={choiceData.embedUrl}
-										name={choiceData.name}
+										choiceData={choiceData}
 										setChoicesData={setChoicesData}
 									/>
 								);

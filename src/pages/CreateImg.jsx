@@ -21,6 +21,7 @@ export default function CreateImg() {
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [isRecentlyAdded, setIsRecentlyAdded] = useState(false);
 	const [isRendered, setIsRendered] = useState(false);
+
 	const navigate = useNavigate();
 	const user = useUser();
 	const queryClient = useQueryClient();
@@ -168,11 +169,8 @@ export default function CreateImg() {
 								return (
 									<NewImgBox
 										key={choiceData.id}
-										choiceId={choiceData.id}
 										gameId={gameId}
-										url={choiceData.url}
-										url_384w={choiceData.url_384w}
-										name={choiceData.name}
+										choiceData={choiceData}
 										setChoicesData={setChoicesData}
 										isRecentlyAdded={isRecentlyAdded}
 										isRendered={isRendered}

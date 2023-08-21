@@ -7,16 +7,14 @@ import { useTheme } from "../../context/ThemeContext";
 import SkeletonNewImgBox from "../skeletons/SkeletonNewImgBox";
 
 export default function NewImgBox({
-	choiceId,
 	gameId,
-	url,
-	url_384w,
-	name,
+	choiceData,
 	setChoicesData,
 	setChoiceIdsToRemove,
+	setNumCompletesToDeduct,
 	isRecentlyAdded,
 	isRendered,
-	page,
+	isEditPage,
 }) {
 	const [isAlreadyAdded, setIsAlreadyAdded] = useState(false);
 	const [retryCount, setRetryCount] = useState(0);
@@ -47,8 +45,8 @@ export default function NewImgBox({
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
 			let newArray = _.cloneDeep(prev);
-			const imgData = newArray.find((obj) => obj.id === choiceId);
-			const index = newArray.findIndex((obj) => obj.id === choiceId);
+			const imgData = newArray.find((obj) => obj.id === choiceData.id);
+			const index = newArray.findIndex((obj) => obj.id === choiceData.id);
 			const newData = { ...imgData, name: event.target.value };
 			newArray[index] = newData;
 			return newArray;
@@ -56,24 +54,30 @@ export default function NewImgBox({
 	}
 
 	function handleImageError() {
-		setTimeout(() => setRetryCount((prev) => prev + 1), 2000);
+		if (retryCount < 6) {
+			setTimeout(() => setRetryCount((prev) => prev + 1), 2000);
+		} else {
+			toast(
+				`Error in loading preview image for ${choiceData.name}. Please try refreshing the page.`
+			);
+		}
 	}
 
-	async function deleteBtn(choiceId) {
-		if (page === "edit") {
-			setChoiceIdsToRemove((prev) => [...prev, choiceId]);
-
+	async function handleDeleteBtn() {
+		if (isEditPage) {
+			setChoiceIdsToRemove((prev) => [...prev, choiceData.id]);
+			setNumCompletesToDeduct((prev) => prev + choiceData.numFirst);
 			setChoicesData((prev) => {
-				return prev.filter((choiceData) => choiceData.id !== choiceId);
+				return prev.filter((choice) => choice.id !== choiceData.id);
 			});
 			return;
 		}
 
 		try {
-			await deleteStoredImage(gameId, choiceId);
+			await deleteStoredImage(gameId, choiceData.id);
 			toast("Choice deleted");
 			setChoicesData((prev) => {
-				return prev.filter((choiceData) => choiceData.id !== choiceId);
+				return prev.filter((choice) => choice.id !== choiceData.id);
 			});
 		} catch (error) {
 			toast("An error has occurred");
@@ -89,12 +93,12 @@ export default function NewImgBox({
 			<Image
 				src={
 					retryCount > 0
-						? `${url_384w}?retry=${retryCount}`
-						: url_384w
+						? `${choiceData.url_384w}?retry=${retryCount}`
+						: choiceData.url_384w
 				}
-				zoomSrc={url}
+				zoomSrc={choiceData.url}
 				onError={handleImageError}
-				alt={`${name} image`}
+				alt={`${choiceData.name} image`}
 				loading="lazy"
 				imageClassName="h-full w-32 object-cover"
 				preview
@@ -109,13 +113,13 @@ export default function NewImgBox({
 					onChange={(e) => handleNameChange(e)}
 					name="choiceName"
 					id="choiceName"
-					value={name}
+					value={choiceData.name}
 				/>
 			</div>
 			<button
 				type="button"
 				className="absolute top-0 right-0 border-transparent rounded h-fit py-1 px-1.5 bg-red-500"
-				onClick={() => deleteBtn(choiceId)}
+				onClick={handleDeleteBtn}
 				aria-label="Delete image"
 			>
 				<i className="fa-solid fa-xmark fa-lg text-white"></i>
