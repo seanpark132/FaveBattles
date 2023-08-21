@@ -20,7 +20,7 @@ export default function AddNewImage({
 		if (isAddImagesDisabled) {
 			const timer = setTimeout(() => {
 				setIsAddImagesDisabled(false);
-			}, 5000);
+			}, 1000);
 
 			return () => clearTimeout(timer);
 		}
@@ -30,6 +30,7 @@ export default function AddNewImage({
 		if (!images) {
 			return;
 		}
+		setIsAddImagesDisabled(true);
 		setInputtedImgs([]);
 
 		const imgsArray = Object.values(images);
@@ -90,7 +91,7 @@ export default function AddNewImage({
 			});
 
 			const uploadedImagesData = await Promise.all(uploadPromises);
-			setInputtedImgs([]);
+
 			setChoicesData((prev) =>
 				prev
 					? [...prev, ...uploadedImagesData]
@@ -101,7 +102,7 @@ export default function AddNewImage({
 
 			setTimeout(() => {
 				toast("Image(s) uploaded");
-			}, 5000);
+			}, 4000);
 		} catch (error) {
 			console.error("Error occurred during image uploading:", error);
 			toast(

@@ -18,6 +18,7 @@ export default function SkeletonNewImgBox() {
 					type="text"
 					id="choiceName"
 					className={`w-full mt-2 p-2 text-sm rounded border-2 md:text-lg ${theme}`}
+					disabled
 				/>
 			</div>
 		</div>
