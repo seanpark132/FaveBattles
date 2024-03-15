@@ -8,22 +8,22 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
 
 const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-		},
-	},
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<QueryClientProvider client={queryClient}>
-		<AuthContextProvider>
-			<ThemeContextProvider>
-				<BrowserRouter>
-					<App />
-					<ReactQueryDevtools />
-				</BrowserRouter>
-			</ThemeContextProvider>
-		</AuthContextProvider>
-	</QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <AuthContextProvider>
+      <ThemeContextProvider>
+        <BrowserRouter>
+          <App />
+          <ReactQueryDevtools />
+        </BrowserRouter>
+      </ThemeContextProvider>
+    </AuthContextProvider>
+  </QueryClientProvider>,
 );
