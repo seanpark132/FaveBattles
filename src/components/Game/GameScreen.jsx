@@ -1,5 +1,5 @@
 import { useState } from "react";
-import cloneDeep from "lodash/cloneDeep"
+import cloneDeep from "lodash.clonedeep"
 import { db } from "../../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";

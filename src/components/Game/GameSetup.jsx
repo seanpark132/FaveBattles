@@ -1,4 +1,4 @@
-import cloneDeep from "lodash/cloneDeep"
+import cloneDeep from "lodash.clonedeep"
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";

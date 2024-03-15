@@ -1,4 +1,4 @@
-import cloneDeep from "lodash/cloneDeep"
+import cloneDeep from "lodash.clonedeep";
 import { useState, useEffect } from "react";
 import { Image } from "primereact/image";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
