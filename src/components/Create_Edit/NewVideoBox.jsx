@@ -1,4 +1,4 @@
-import { _ } from "lodash";
+import cloneDeep from "lodash/cloneDeep"
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -12,7 +12,7 @@ export default function NewVideoBox({
 
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
-			let newArray = _.cloneDeep(prev);
+			let newArray = cloneDeep(prev);
 			const videoData = newArray.find((obj) => obj.id === choiceData.id);
 			const index = newArray.findIndex((obj) => obj.id === choiceData.id);
 			const newData = { ...videoData, name: event.target.value };

@@ -1,4 +1,4 @@
-import { _ } from "lodash";
+import cloneDeep from "lodash/cloneDeep"
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";
@@ -36,7 +36,7 @@ export default function GameSetup({
 
 	async function handleGameStart(e) {
 		e.preventDefault();
-		const copyCurrChoices = _.cloneDeep(currChoices);
+		const copyCurrChoices = cloneDeep(currChoices);
 		const gameSizedChoices =
 			gameSize === copyCurrChoices.length
 				? copyCurrChoices

@@ -1,4 +1,4 @@
-import { _ } from "lodash";
+import cloneDeep from "lodash/cloneDeep"
 import { useState, useEffect } from "react";
 import { Image } from "primereact/image";
 import { deleteStoredImage } from "../../api/deleteStoredImage";
@@ -44,7 +44,7 @@ export default function NewImgBox({
 
 	function handleNameChange(event) {
 		setChoicesData((prev) => {
-			let newArray = _.cloneDeep(prev);
+			let newArray = cloneDeep(prev);
 			const imgData = newArray.find((obj) => obj.id === choiceData.id);
 			const index = newArray.findIndex((obj) => obj.id === choiceData.id);
 			const newData = { ...imgData, name: event.target.value };

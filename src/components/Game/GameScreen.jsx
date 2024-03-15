@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { _ } from "lodash";
+import cloneDeep from "lodash/cloneDeep"
 import { db } from "../../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { FIRESTORE_COLLECTION_NAME } from "../../utils/global_consts";
@@ -76,7 +76,7 @@ export default function GameScreen({
 				setLeftChosen(true);
 				setNextChoices((prev) => [...prev, leftChoice]);
 				setNextChoices((newChoices) => {
-					const copyNewChoices = _.cloneDeep(newChoices);
+					const copyNewChoices = cloneDeep(newChoices);
 					const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 						copyNewChoices,
 						setCurrChoices
@@ -93,7 +93,7 @@ export default function GameScreen({
 				setLeftChosen(true);
 				setRoundNum((prevRoundNum) => prevRoundNum + 1);
 				setNextChoices((prev) => [...prev, leftChoice]);
-				const copyCurrChoices = _.cloneDeep(currChoices);
+				const copyCurrChoices = cloneDeep(currChoices);
 				const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 					copyCurrChoices,
 					setCurrChoices
@@ -133,7 +133,7 @@ export default function GameScreen({
 				setRightChosen(true);
 				setNextChoices((prev) => [...prev, rightChoice]);
 				setNextChoices((newChoices) => {
-					const copyNewChoices = _.cloneDeep(newChoices);
+					const copyNewChoices = cloneDeep(newChoices);
 					const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 						copyNewChoices,
 						setCurrChoices
@@ -152,7 +152,7 @@ export default function GameScreen({
 				setRightChosen(true);
 				setRoundNum((prevRoundNum) => prevRoundNum + 1);
 				setNextChoices((prev) => [...prev, rightChoice]);
-				const copyCurrChoices = _.cloneDeep(currChoices);
+				const copyCurrChoices = cloneDeep(currChoices);
 				const [newLeft, newRight] = getTwoChoicesFromCurrentChoices(
 					copyCurrChoices,
 					setCurrChoices
