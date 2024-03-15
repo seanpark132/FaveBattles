@@ -2,140 +2,154 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --focus-blue: #2688ff;
+}
+
 .App {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
-	color: black;
-	background-color: white;
-	-webkit-text-size-adjust: 100%;
-	min-height: 100vh;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color: black;
+  background-color: white;
+  -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
 }
 
 .App#dark {
-	color: rgba(240, 240, 240);
-	background-color: #212121;
+  color: rgba(240, 240, 240);
+  background-color: #212121;
 }
 
 h1 {
-	font-size: 2rem;
-	font-weight: bold;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 h2 {
-	font-size: 1.5rem;
-	font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 h3 {
-	font-size: 1.17rem;
-	font-weight: bold;
+  font-size: 1.17rem;
+  font-weight: bold;
 }
 
 button {
-	font-weight: 600;
+  font-weight: 600;
 }
 
 a:hover,
 button:hover {
-	color: #9e9fa5;
+  color: #9e9fa5;
 }
 
 input {
-	font-weight: 500;
-	border: 1px solid #9e9fa5;
-	border-radius: 0.25rem;
-	background-color: white;
+  border: 1px solid #9e9fa5;
+  border-radius: 0.25rem;
+  background-color: white;
 }
 
+select.dark,
 input.dark {
-	background-color: #535353;
-	border: 1px solid #535353;
+  background-color: #535353;
+  border: 1px solid #535353;
 }
 
+select:focus,
 input:focus {
-	outline-color: #99f6e4;
-	border-color: #99f6e4;
+  outline: 1px solid var(--focus-blue);
+  border-color: var(--focus-blue);
+}
+
+select {
+  border: 1px solid #9e9fa5;
+  border-radius: 0.25rem;
 }
 
 label {
-	font-weight: 500;
+  font-weight: 500;
 }
 
 nav {
-	display: flex;
-	align-items: center;
-	z-index: 1;
-	height: 2.75rem;
-	background-color: white;
-	box-shadow: 0rem 0.125rem 0.25rem rgb(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  height: 2.75rem;
+  background-color: white;
+  box-shadow: 0rem 0.125rem 0.25rem rgb(0, 0, 0, 0.25);
 }
 
 nav.dark {
-	background-color: #444444;
-	box-shadow: 0rem 0.125rem 0.25rem rgb(255, 255, 255, 0.25);
+  background-color: #444444;
+  box-shadow: 0rem 0.125rem 0.25rem rgb(255, 255, 255, 0.25);
 }
 
 textarea {
-	resize: none;
-	border: 1px solid #9e9fa5;
+  resize: none;
+  border: 1px solid #9e9fa5;
 }
 
 textarea:focus {
-	outline-color: #99f6e4;
-	border-color: #99f6e4;
+  outline-color: var(--focus-blue);
+  border-color: var(--focus-blue);
 }
 
 textarea.dark {
-	background-color: #535353;
-	border: 1px solid #535353;
+  background-color: #535353;
+  border: 1px solid #535353;
 }
 
 /* NAVBAR */
 
 .nav-menu {
-	opacity: 0;
-	visibility: hidden;
-	position: absolute;
-	font-weight: 500;
-	background-color: #99f6e4;
-	top: 2.75rem;
-	padding: 0.5rem 1rem 0.5rem 1rem;
-	border-right: transparent;
-	border-bottom-right-radius: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  font-weight: 500;
+  background-color: #99f6e4;
+  top: 2.75rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-right: transparent;
+  border-bottom-right-radius: 1rem;
 }
 
 .nav-menu.dark {
-	background-color: #616161;
+  background-color: #616161;
 }
 
 .nav-theme-menu {
-	opacity: 0;
-	visibility: hidden;
-	position: absolute;
-	background-color: #99f6e4;
-	top: 2.75rem;
-	right: 0;
-	padding: 0.5rem 1rem 0.5rem 1rem;
-	border-left: transparent;
-	border-bottom-left-radius: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  background-color: #99f6e4;
+  top: 2.75rem;
+  right: 0;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-left: transparent;
+  border-bottom-left-radius: 1rem;
 }
 
 .nav-theme-menu.dark {
-	background-color: #616161;
+  background-color: #616161;
 }
 
 .open {
-	opacity: 1;
-	visibility: visible;
-	transition: 400ms;
+  opacity: 1;
+  visibility: visible;
+  transition: 400ms;
 }
 
 .skeleton {
-	animation: skeleton-loading 2s linear infinite;
+  animation: skeleton-loading 2s linear infinite;
 }
 
 @keyframes skeleton-loading {
-	50% {
-		opacity: 50%;
-	}
+  50% {
+    opacity: 50%;
+  }
+}
+
+.p-datatable .p-sortable-column.p-highlight {
+  background-color: #2dd4be51;
 }

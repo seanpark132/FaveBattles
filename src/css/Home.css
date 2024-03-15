@@ -1,84 +1,84 @@
 .home-box-container {
-	display: flex;
-	flex-direction: column;
-	padding: 1rem 1rem;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  width: 100%;
 }
 
 .home-box-img-label {
-	display: -webkit-box;
-	-webkit-line-clamp: 1; /* Number of lines to show before truncating */
-	-webkit-box-orient: vertical;
-	font-weight: 500;
-	margin: 0.25rem 0.5rem;
-	text-align: center;
-	width: 50%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	line-height: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Number of lines to show before truncating */
+  -webkit-box-orient: vertical;
+  font-weight: 500;
+  margin: 0.25rem 0.5rem;
+  text-align: center;
+  width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
 }
 
 .home-box-desc {
-	display: -webkit-box;
-	-webkit-line-clamp: 4; /* Number of lines to show before truncating */
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	color: #3a3a44;
-	font-size: 1rem;
-	margin: 0.25rem 0.5rem;
-	word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Number of lines to show before truncating */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #3a3a44;
+  font-size: 1rem;
+  margin: 0.25rem 0.5rem;
+  word-wrap: break-word;
 }
 
 .home-box-desc.dark {
-	color: rgb(218, 218, 218);
+  color: rgb(218, 218, 218);
 }
 
 .home-search-input {
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	border-start-end-radius: 0;
-	border-end-end-radius: 0;
-	width: clamp(15rem, 75vw, 31.75rem);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  width: clamp(15rem, 75vw, 31.75rem);
 }
 
 .home-search-btn {
-	background-color: rgb(218, 218, 218);
-	border: 1px solid;
-	border-left: transparent;
-	border-top-right-radius: 0.5rem;
-	border-bottom-right-radius: 0.5rem;
-	user-select: none;
-	padding: 0 0.75rem;
+  background-color: rgb(218, 218, 218);
+  border: 1px solid;
+  border-left: transparent;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  user-select: none;
+  padding: 0 0.75rem;
 }
 
 .home-search-btn.dark {
-	background-color: rgb(122, 122, 122);
-	border: 1px solid transparent;
+  background-color: rgb(122, 122, 122);
+  border: 1px solid transparent;
 }
 
 .home-search-btn:hover {
-	background-color: #3a3a44;
+  background-color: #3a3a44;
 }
 
 @media (min-width: 48rem) {
-	.home-box-container {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		column-gap: 1.5rem;
-		padding-left: 1.5rem;
-		padding-right: 1.5rem;
-	}
+  .home-box-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 @media (min-width: 64rem) {
-	.home-box-container {
-		grid-template-columns: 1fr 1fr 1fr;
-	}
+  .home-box-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 @media (min-width: 90rem) {
-	.home-box-container {
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-	}
+  .home-box-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }

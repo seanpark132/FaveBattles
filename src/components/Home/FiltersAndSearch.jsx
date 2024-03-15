@@ -4,10 +4,11 @@ import {
   filterGameDataByCategory,
   filterGameDataByTitle,
   sortGameDataByProperty,
-} from "../utils/sort_functions";
+} from "../../utils/sort_functions";
 import { Dropdown } from "primereact/dropdown";
-import { CATEGORY_OPTIONS } from "../utils/global_consts";
-import { useTheme } from "../context/ThemeContext";
+import { CATEGORY_OPTIONS } from "../../utils/global_consts";
+import { useTheme } from "../../context/ThemeContext";
+import SelectDropdown from "./SelectDropdown";
 
 export default function FiltersAndSearch({
   allGamesData,
@@ -20,9 +21,16 @@ export default function FiltersAndSearch({
   const [searchInput, setSearchInput] = useState("");
   const { theme } = useTheme();
 
+  const SORT_BY_OPTIONS = ["Popularity", "Latest"];
+  const FILTER_BY_OPTIONS = [
+    "No Filter",
+    ...CATEGORY_OPTIONS.map((option) => option.label),
+  ];
+
   function handleSort(e) {
-    setSortByProperty(e.value);
-    const sorted = sortGameDataByProperty(allGamesData, e.value);
+    setSortByProperty(e.target.value);
+    const sorted = sortGameDataByProperty(allGamesData, e.target.value);
+    console.log(sorted);
     setSortedData(sorted);
     const categoryFiltered = filterGameDataByCategory(sorted, filterByCategory);
     setDisplayData(categoryFiltered);
@@ -30,8 +38,11 @@ export default function FiltersAndSearch({
   }
 
   function handleFilter(e) {
-    setFilterByCategory(e.value);
-    const categoryFiltered = filterGameDataByCategory(sortedData, e.value);
+    setFilterByCategory(e.target.value);
+    const categoryFiltered = filterGameDataByCategory(
+      sortedData,
+      e.target.value,
+    );
     setDisplayData(categoryFiltered);
     setSearchInput("");
   }
@@ -63,28 +74,25 @@ export default function FiltersAndSearch({
   }
 
   return (
-    <section className="flex flex-wrap px-6">
+    <form className="flex flex-wrap px-6">
       <div className="mr-6 pt-4">
         <p className="mb-1 pl-1 font-semibold">Sort by:</p>
-        <Dropdown
+        <SelectDropdown
+          options={SORT_BY_OPTIONS}
           value={sortByProperty}
-          onChange={(e) => handleSort(e)}
-          options={["Popularity", "Latest"]}
+          theme={theme}
+          onChangeHandle={handleSort}
           placeholder="Sort By"
-          className="w-40 rounded-lg"
         />
       </div>
       <div className="mr-6 pt-4">
         <p className="mb-1 pl-1 font-semibold">Filter by:</p>
-        <Dropdown
+        <SelectDropdown
+          options={FILTER_BY_OPTIONS}
           value={filterByCategory}
-          onChange={(e) => handleFilter(e)}
-          options={[
-            "No Filter",
-            ...CATEGORY_OPTIONS.map((option) => option.label),
-          ]}
+          theme={theme}
+          onChangeHandle={handleFilter}
           placeholder="Category"
-          className="w-40 rounded-lg"
         />
       </div>
       <div className="flex flex-col pt-4">
@@ -110,6 +118,6 @@ export default function FiltersAndSearch({
           </button>
         </div>
       </div>
-    </section>
+    </form>
   );
 }
