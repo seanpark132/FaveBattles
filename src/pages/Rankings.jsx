@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
-import { InputText } from "primereact/inputtext";
-import { Image } from "primereact/image";
-import { ProgressBar } from "primereact/progressbar";
 import { useQuery } from "@tanstack/react-query";
 import { getRankingsData } from "../api/getRankingsData";
-import { useTheme } from "../context/ThemeContext";
+import { TableHeader } from "../components/Rankings/TableHeader";
+import { TableImageBody } from "../components/Rankings/TableImageBody";
+import { TableYoutubeBody } from "../components/Rankings/TableYoutubeBody";
+import { TableFirstPercentBody } from "../components/Rankings/TableFirstPercentBody";
+import { TableWinPercentBody } from "../components/Rankings/TableWinPercentBody";
 
 export default function Rankings({ gameData }) {
   const [filters, setFilters] = useState({
@@ -33,84 +35,6 @@ export default function Rankings({ gameData }) {
     );
   }
 
-  const renderHeader = () => {
-    return (
-      <div className="m-2">
-        <span className="p-input-icon-left mt-2">
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <InputText
-            onInput={(e) =>
-              setFilters({
-                global: {
-                  value: e.target.value,
-                  matchMode: FilterMatchMode.CONTAINS,
-                },
-              })
-            }
-            placeholder="Search by Name"
-            className={`py-1 pl-9 pr-2  ${theme === "dark" ? "bg-slate-700" : ""}`}
-          />
-        </span>
-        <h2 className="mt-4 text-center text-lg lg:text-2xl">
-          [{gameData.mainCategory}] {gameData.title}
-        </h2>
-      </div>
-    );
-  };
-
-  const imageBody = (rowData) => {
-    return (
-      <Image
-        src={rowData.url_384w}
-        zoomSrc={rowData.url}
-        alt={`${rowData.name} image`}
-        imageClassName="h-32 object-cover"
-        loading="lazy"
-        preview
-      />
-    );
-  };
-
-  const youtubeBody = (rowData) => {
-    return (
-      <iframe
-        width="320"
-        height="180"
-        className=""
-        src={rowData.embedUrl}
-        title="YouTube video player"
-        allow="accelerometer;"
-        allowFullScreen
-      ></iframe>
-    );
-  };
-
-  const firstPercentBody = (rowData) => {
-    return (
-      <div className="mb-4 flex flex-col items-center">
-        <p>{rowData.firstPercent}%</p>
-        <ProgressBar
-          className="w-full max-w-xs"
-          value={rowData.firstPercent}
-          showValue={false}
-        ></ProgressBar>
-      </div>
-    );
-  };
-
-  const winPercentBody = (rowData) => {
-    return (
-      <div className="mb-4 flex flex-col items-center">
-        <p>{rowData.winPercent}%</p>
-        <ProgressBar
-          className="w-full max-w-xs"
-          value={rowData.winPercent}
-          showValue={false}
-        ></ProgressBar>
-      </div>
-    );
-  };
-
   return (
     <main>
       <DataTable
@@ -121,10 +45,16 @@ export default function Rankings({ gameData }) {
         globalFilterFields={["name"]}
         paginator
         rows={10}
-        rowsPerPageOptions={[10, 20, 100]}
+        rowsPerPageOptions={[10, 20, 40, 100]}
         stripedRows
         showGridlines
-        header={renderHeader}
+        header={
+          <TableHeader
+            gameData={gameData}
+            theme={theme}
+            setFilters={setFilters}
+          />
+        }
       >
         <Column
           className="font-bold md:text-lg lg:text-2xl"
@@ -145,7 +75,7 @@ export default function Rankings({ gameData }) {
             className="font-bold md:text-lg lg:text-2xl"
             field="embedUrl"
             header="Video"
-            body={youtubeBody}
+            body={TableYoutubeBody}
             style={{ width: "25%" }}
           />
         ) : (
@@ -153,7 +83,7 @@ export default function Rankings({ gameData }) {
             className="md:text-lg lg:text-2xl"
             field="url"
             header="Image"
-            body={imageBody}
+            body={TableImageBody}
             style={{ width: "25%", minWidth: "10rem" }}
           />
         )}
@@ -161,7 +91,7 @@ export default function Rankings({ gameData }) {
           className="md:text-lg lg:text-2xl"
           field="firstPercent"
           header="Game Win %"
-          body={firstPercentBody}
+          body={TableFirstPercentBody}
           style={{ width: "20%" }}
           sortable
         />
@@ -169,7 +99,7 @@ export default function Rankings({ gameData }) {
           className="md:text-lg lg:text-2xl"
           field="winPercent"
           header="Round Win %"
-          body={winPercentBody}
+          body={TableWinPercentBody}
           style={{ width: "20%" }}
           sortable
         />
