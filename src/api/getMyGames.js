@@ -3,19 +3,19 @@ import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 export async function getMyGames(authId) {
-	if (authId) {
-		const gamesRef = collection(db, FIRESTORE_COLLECTION_NAME);
-		const q = query(gamesRef, where("creatorId", "==", authId));
+  if (authId) {
+    const gamesRef = collection(db, FIRESTORE_COLLECTION_NAME);
+    const q = query(gamesRef, where("creatorId", "==", authId));
 
-		let gamesArray = [];
-		const querySnapshot = await getDocs(q);
-		querySnapshot.forEach((doc) => {
-			gamesArray.push(doc.data());
-		});
+    let gamesArray = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      gamesArray.push(doc.data());
+    });
 
-		gamesArray.sort((a, b) => b.createdOn - a.createdOn);
+    gamesArray.sort((a, b) => b.createdOn - a.createdOn);
 
-		return gamesArray;
-	}
-	return [];
+    return gamesArray;
+  }
+  return [];
 }

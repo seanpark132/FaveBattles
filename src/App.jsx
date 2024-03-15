@@ -33,152 +33,124 @@ const CreateVideo = lazy(() => import("./pages/CreateVideo"));
 const EditGame = lazy(() => import("./pages/EditGame"));
 
 export default function App() {
-	const allGamesDataQuery = useQuery({
-		queryKey: ["allGamesData"],
-		queryFn: () => getAllGameData(),
-	});
-	const { theme, setTheme } = useTheme();
-	const navigate = useNavigate();
+  const allGamesDataQuery = useQuery({
+    queryKey: ["allGamesData"],
+    queryFn: () => getAllGameData(),
+  });
+  const { theme, setTheme } = useTheme();
+  const navigate = useNavigate();
 
-	if (allGamesDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
-	if (allGamesDataQuery.isError) {
-		return (
-			<h1 className="m-6">
-				An error occurred. Please try refreshing the page.
-			</h1>
-		);
-	}
+  if (allGamesDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
+  if (allGamesDataQuery.isError) {
+    return (
+      <h1 className="m-6">
+        An error occurred. Please try refreshing the page.
+      </h1>
+    );
+  }
 
-	return (
-		<div className="App" id={theme}>
-			<ToastContainer theme={theme} style={{ zIndex: 9999 }} />
-			<Navbar />
-			<Routes>
-				<Route
-					index
-					element={
-						<Home
-							allGamesData={allGamesDataQuery.data.allGamesData}
-						/>
-					}
-				/>
-				<Route path="/sign-up" element={<SignUp />} />
-				<Route path="/sign-in" element={<SignIn />} />
-				<Route path="/reset-password" element={<ResetPassword />} />
-				<Route path="/create" element={<Create />} />
-				<Route
-					path="/create-img"
-					element={
-						<ErrorBoundary
-							FallbackComponent={NoPage}
-							onReset={() => navigate("/")}
-						>
-							<Suspense
-								fallback={<h1 className="m-6">Loading...</h1>}
-							>
-								<CreateImg />
-							</Suspense>
-						</ErrorBoundary>
-					}
-				/>
-				<Route
-					path="/create-video"
-					element={
-						<ErrorBoundary
-							FallbackComponent={NoPage}
-							onReset={() => navigate("/")}
-						>
-							<Suspense
-								fallback={<h1 className="m-6">Loading...</h1>}
-							>
-								<CreateVideo />
-							</Suspense>
-						</ErrorBoundary>
-					}
-				/>
-				<Route
-					path="/profile"
-					element={
-						<ErrorBoundary
-							FallbackComponent={NoPage}
-							onReset={() => navigate("/")}
-						>
-							<Suspense
-								fallback={<h1 className="m-6">Loading...</h1>}
-							>
-								<Profile />
-							</Suspense>
-						</ErrorBoundary>
-					}
-				/>
-				{allGamesDataQuery.data.allGameIds.map((id) => (
-					<Route
-						key={id}
-						path={`/edit-game/${id}`}
-						element={
-							<ErrorBoundary
-								FallbackComponent={NoPage}
-								onReset={() => navigate("/")}
-							>
-								<Suspense
-									fallback={
-										<h1 className="m-6">Loading...</h1>
-									}
-								>
-									<EditGame key={id} gameId={id} />
-								</Suspense>
-							</ErrorBoundary>
-						}
-					/>
-				))}
-				{allGamesDataQuery.data.allGamesData.map((gameData) => (
-					<Route
-						key={gameData.id}
-						path={`/game/${gameData.id}`}
-						element={
-							<ErrorBoundary
-								FallbackComponent={NoPage}
-								onReset={() => navigate("/")}
-							>
-								<Suspense
-									fallback={
-										<h1 className="m-6">Loading...</h1>
-									}
-								>
-									<Game
-										key={gameData.id}
-										gameData={gameData}
-									/>
-								</Suspense>
-							</ErrorBoundary>
-						}
-					/>
-				))}
-				{allGamesDataQuery.data.allGamesData.map((gameData) => (
-					<Route
-						key={gameData.id}
-						path={`/rankings/${gameData.id}`}
-						element={
-							<ErrorBoundary
-								FallbackComponent={NoPage}
-								onReset={() => navigate("/")}
-							>
-								<Suspense
-									fallback={
-										<h1 className="m-6">Loading...</h1>
-									}
-								>
-									<Rankings
-										key={gameData.id}
-										gameData={gameData}
-									/>
-								</Suspense>
-							</ErrorBoundary>
-						}
-					/>
-				))}
-				<Route path="*" element={<NoPage />} />
-			</Routes>
-		</div>
-	);
+  return (
+    <div className="App" id={theme}>
+      <ToastContainer theme={theme} style={{ zIndex: 9999 }} />
+      <Navbar />
+      <Routes>
+        <Route
+          index
+          element={<Home allGamesData={allGamesDataQuery.data.allGamesData} />}
+        />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/create" element={<Create />} />
+        <Route
+          path="/create-img"
+          element={
+            <ErrorBoundary
+              FallbackComponent={NoPage}
+              onReset={() => navigate("/")}
+            >
+              <Suspense fallback={<h1 className="m-6">Loading...</h1>}>
+                <CreateImg />
+              </Suspense>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/create-video"
+          element={
+            <ErrorBoundary
+              FallbackComponent={NoPage}
+              onReset={() => navigate("/")}
+            >
+              <Suspense fallback={<h1 className="m-6">Loading...</h1>}>
+                <CreateVideo />
+              </Suspense>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ErrorBoundary
+              FallbackComponent={NoPage}
+              onReset={() => navigate("/")}
+            >
+              <Suspense fallback={<h1 className="m-6">Loading...</h1>}>
+                <Profile />
+              </Suspense>
+            </ErrorBoundary>
+          }
+        />
+        {allGamesDataQuery.data.allGameIds.map((id) => (
+          <Route
+            key={id}
+            path={`/edit-game/${id}`}
+            element={
+              <ErrorBoundary
+                FallbackComponent={NoPage}
+                onReset={() => navigate("/")}
+              >
+                <Suspense fallback={<h1 className="m-6">Loading...</h1>}>
+                  <EditGame key={id} gameId={id} />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+        ))}
+        {allGamesDataQuery.data.allGamesData.map((gameData) => (
+          <Route
+            key={gameData.id}
+            path={`/game/${gameData.id}`}
+            element={
+              <ErrorBoundary
+                FallbackComponent={NoPage}
+                onReset={() => navigate("/")}
+              >
+                <Suspense fallback={<h1 className="m-6">Loading...</h1>}>
+                  <Game key={gameData.id} gameData={gameData} />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+        ))}
+        {allGamesDataQuery.data.allGamesData.map((gameData) => (
+          <Route
+            key={gameData.id}
+            path={`/rankings/${gameData.id}`}
+            element={
+              <ErrorBoundary
+                FallbackComponent={NoPage}
+                onReset={() => navigate("/")}
+              >
+                <Suspense fallback={<h1 className="m-6">Loading...</h1>}>
+                  <Rankings key={gameData.id} gameData={gameData} />
+                </Suspense>
+              </ErrorBoundary>
+            }
+          />
+        ))}
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </div>
+  );
 }

@@ -8,141 +8,132 @@ import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function AddNewImage({
-	gameId,
-	setChoicesData,
-	setIsRecentlyAdded,
+  gameId,
+  setChoicesData,
+  setIsRecentlyAdded,
 }) {
-	const [inputtedImgs, setInputtedImgs] = useState([]);
-	const [isAddImagesDisabled, setIsAddImagesDisabled] = useState(false);
-	const { theme, setTheme } = useTheme();
+  const [inputtedImgs, setInputtedImgs] = useState([]);
+  const [isAddImagesDisabled, setIsAddImagesDisabled] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-	useEffect(() => {
-		if (isAddImagesDisabled) {
-			const timer = setTimeout(() => {
-				setIsAddImagesDisabled(false);
-			}, 1000);
+  useEffect(() => {
+    if (isAddImagesDisabled) {
+      const timer = setTimeout(() => {
+        setIsAddImagesDisabled(false);
+      }, 1000);
 
-			return () => clearTimeout(timer);
-		}
-	}, [isAddImagesDisabled]);
+      return () => clearTimeout(timer);
+    }
+  }, [isAddImagesDisabled]);
 
-	async function handleInputtedImgs(images) {
-		if (!images) {
-			return;
-		}
-		setIsAddImagesDisabled(true);
-		setInputtedImgs([]);
+  async function handleInputtedImgs(images) {
+    if (!images) {
+      return;
+    }
+    setIsAddImagesDisabled(true);
+    setInputtedImgs([]);
 
-		const imgsArray = Object.values(images);
+    const imgsArray = Object.values(images);
 
-		imgsArray.forEach((img) => {
-			new Compressor(img, {
-				quality: 0.8,
-				mimeType: "image/webp",
-				maxWidth: 960,
-				maxHeight: 960,
-				success(result) {
-					setInputtedImgs((prev) => [...prev, result]);
-				},
-				error(error) {
-					console.error(
-						"An error occurred in adding your files.",
-						error
-					);
-					toast(
-						"An error occurred in adding your files. Please try again."
-					);
-				},
-			});
-		});
-	}
+    imgsArray.forEach((img) => {
+      new Compressor(img, {
+        quality: 0.8,
+        mimeType: "image/webp",
+        maxWidth: 960,
+        maxHeight: 960,
+        success(result) {
+          setInputtedImgs((prev) => [...prev, result]);
+        },
+        error(error) {
+          console.error("An error occurred in adding your files.", error);
+          toast("An error occurred in adding your files. Please try again.");
+        },
+      });
+    });
+  }
 
-	async function uploadImage(inputImages) {
-		if (inputImages.length === 0) {
-			toast("Please add a file first");
-			return;
-		}
+  async function uploadImage(inputImages) {
+    if (inputImages.length === 0) {
+      toast("Please add a file first");
+      return;
+    }
 
-		try {
-			const uploadPromises = inputImages.map(async (img) => {
-				const id = v4();
-				const imagePath = `all_games/${gameId}/${id}`;
-				const newImgRef = ref(storage, imagePath);
-				await uploadBytes(newImgRef, img);
-				const imgUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${imagePath}`;
-				const url_384w = `${imgUrl}_384w`;
-				const url_683w = `${imgUrl}_683w`;
-				const charsToRemove = 5;
+    try {
+      const uploadPromises = inputImages.map(async (img) => {
+        const id = v4();
+        const imagePath = `all_games/${gameId}/${id}`;
+        const newImgRef = ref(storage, imagePath);
+        await uploadBytes(newImgRef, img);
+        const imgUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${imagePath}`;
+        const url_384w = `${imgUrl}_384w`;
+        const url_683w = `${imgUrl}_683w`;
+        const charsToRemove = 5;
 
-				const defaultName = (
-					img.name.charAt(0).toUpperCase() + img.name.slice(1)
-				).slice(0, img.name.length - charsToRemove);
+        const defaultName = (
+          img.name.charAt(0).toUpperCase() + img.name.slice(1)
+        ).slice(0, img.name.length - charsToRemove);
 
-				return {
-					id: id,
-					url: imgUrl,
-					url_384w: url_384w,
-					url_683w: url_683w,
-					name: defaultName,
-					numWins: 0,
-					numGames: 0,
-					numFirst: 0,
-				};
-			});
+        return {
+          id: id,
+          url: imgUrl,
+          url_384w: url_384w,
+          url_683w: url_683w,
+          name: defaultName,
+          numWins: 0,
+          numGames: 0,
+          numFirst: 0,
+        };
+      });
 
-			const uploadedImagesData = await Promise.all(uploadPromises);
+      const uploadedImagesData = await Promise.all(uploadPromises);
 
-			setChoicesData((prev) =>
-				prev
-					? [...prev, ...uploadedImagesData]
-					: [...uploadedImagesData]
-			);
+      setChoicesData((prev) =>
+        prev ? [...prev, ...uploadedImagesData] : [...uploadedImagesData],
+      );
 
-			setIsRecentlyAdded(true);
+      setIsRecentlyAdded(true);
 
-			setTimeout(() => {
-				toast("Image(s) uploaded");
-			}, 4000);
-		} catch (error) {
-			console.error("Error occurred during image uploading:", error);
-			toast(
-				"An error has occurred in uploading image(s). Please try again."
-			);
-		}
-	}
+      setTimeout(() => {
+        toast("Image(s) uploaded");
+      }, 4000);
+    } catch (error) {
+      console.error("Error occurred during image uploading:", error);
+      toast("An error has occurred in uploading image(s). Please try again.");
+    }
+  }
 
-	return (
-		<section className="flex flex-col px-6 mb-6 max-w-xs">
-			<h2 className="mb-4">Choose images to add</h2>
-			<input
-				type="file"
-				className={`create-file-btn ${theme}`}
-				accept="image/png, image/jpeg, image/jpg, image/webp"
-				multiple={true}
-				onChange={(e) => {
-					handleInputtedImgs(e.target.files);
-				}}
-			/>
-			<button
-				type="button"
-				className={`${
-					isAddImagesDisabled
-						? "bg-neutral-500"
-						: theme === "dark"
-						? "bg-sky-800"
-						: "bg-sky-300"
-				} mt-4 py-2 px-20 text-lg w-fit border-transparent rounded`}
-				onClick={() => {
-					uploadImage(inputtedImgs);
-					setIsAddImagesDisabled(true);
-				}}
-				disabled={isAddImagesDisabled}
-			>
-				Add Images
-			</button>
-			<p className="mt-2">
-				<em>Accepts .png, .jpg, .jpeg, .webp types</em>
-			</p>
-		</section>
-	);
+  return (
+    <section className="mb-6 flex max-w-xs flex-col px-6">
+      <h2 className="mb-4">Choose images to add</h2>
+      <input
+        type="file"
+        className={`create-file-btn ${theme}`}
+        accept="image/png, image/jpeg, image/jpg, image/webp"
+        multiple={true}
+        onChange={(e) => {
+          handleInputtedImgs(e.target.files);
+        }}
+      />
+      <button
+        type="button"
+        className={`${
+          isAddImagesDisabled
+            ? "bg-neutral-500"
+            : theme === "dark"
+              ? "bg-sky-800"
+              : "bg-sky-300"
+        } mt-4 w-fit rounded border-transparent px-20 py-2 text-lg`}
+        onClick={() => {
+          uploadImage(inputtedImgs);
+          setIsAddImagesDisabled(true);
+        }}
+        disabled={isAddImagesDisabled}
+      >
+        Add Images
+      </button>
+      <p className="mt-2">
+        <em>Accepts .png, .jpg, .jpeg, .webp types</em>
+      </p>
+    </section>
+  );
 }

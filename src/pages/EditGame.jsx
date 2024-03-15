@@ -6,29 +6,29 @@ import { getGameData } from "../api/getGameData";
 import { useUser } from "../context/AuthContext";
 
 export default function EditGame({ gameId }) {
-	const user = useUser();
+  const user = useUser();
 
-	if (!user) {
-		return <NotSignedIn />;
-	}
+  if (!user) {
+    return <NotSignedIn />;
+  }
 
-	const gameDataQuery = useQuery({
-		queryKey: [`edit_${gameId}`],
-		queryFn: () => getGameData(gameId),
-	});
+  const gameDataQuery = useQuery({
+    queryKey: [`edit_${gameId}`],
+    queryFn: () => getGameData(gameId),
+  });
 
-	if (gameDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
-	if (gameDataQuery.isError) {
-		return (
-			<h1 className="m-6">
-				An error occurred. Please try refreshing the page.
-			</h1>
-		);
-	}
+  if (gameDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
+  if (gameDataQuery.isError) {
+    return (
+      <h1 className="m-6">
+        An error occurred. Please try refreshing the page.
+      </h1>
+    );
+  }
 
-	return (
-		<main className="w-full">
-			<Edit gameData={gameDataQuery.data} />
-		</main>
-	);
+  return (
+    <main className="w-full">
+      <Edit gameData={gameDataQuery.data} />
+    </main>
+  );
 }
