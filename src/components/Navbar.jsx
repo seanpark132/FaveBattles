@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
-import PrimeReact from "primereact/api";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
