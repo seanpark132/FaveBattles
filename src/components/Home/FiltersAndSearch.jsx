@@ -8,7 +8,7 @@ import {
 import { Dropdown } from "primereact/dropdown";
 import { CATEGORY_OPTIONS } from "../../utils/global_consts";
 import { useTheme } from "../../context/ThemeContext";
-import SelectDropdown from "../SelectDropdown";
+import SelectDropdown from "./SelectDropdown";
 
 export default function FiltersAndSearch({
   allGamesData,
@@ -80,6 +80,7 @@ export default function FiltersAndSearch({
         <SelectDropdown
           options={SORT_BY_OPTIONS}
           value={sortByProperty}
+          theme={theme}
           onChangeHandle={handleSort}
           placeholder="Sort By"
         />
@@ -89,6 +90,7 @@ export default function FiltersAndSearch({
         <SelectDropdown
           options={FILTER_BY_OPTIONS}
           value={filterByCategory}
+          theme={theme}
           onChangeHandle={handleFilter}
           placeholder="Category"
         />

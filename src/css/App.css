@@ -50,20 +50,15 @@ input {
   background-color: white;
 }
 
+select.dark,
 input.dark {
   background-color: #535353;
   border: 1px solid #535353;
 }
 
-select,
+select:focus,
 input:focus {
-  outline-color: var(--focus-blue);
-  border-color: var(--focus-blue);
-}
-
-select.dark,
-input.dark:focus {
-  outline-color: var(--focus-blue);
+  outline: 1px solid var(--focus-blue);
   border-color: var(--focus-blue);
 }
 
@@ -153,4 +148,8 @@ textarea.dark {
   50% {
     opacity: 50%;
   }
+}
+
+.p-datatable .p-sortable-column.p-highlight {
+  background-color: #2dd4be51;
 }
