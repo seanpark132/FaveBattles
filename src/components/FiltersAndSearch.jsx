@@ -18,7 +18,7 @@ export default function FiltersAndSearch({
   const [sortByProperty, setSortByProperty] = useState("Popularity");
   const [filterByCategory, setFilterByCategory] = useState("No Filter");
   const [searchInput, setSearchInput] = useState("");
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   function handleSort(e) {
     setSortByProperty(e.value);

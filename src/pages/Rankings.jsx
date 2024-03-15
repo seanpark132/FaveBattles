@@ -7,6 +7,7 @@ import { Image } from "primereact/image";
 import { ProgressBar } from "primereact/progressbar";
 import { useQuery } from "@tanstack/react-query";
 import { getRankingsData } from "../api/getRankingsData";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Rankings({ gameData }) {
   const [filters, setFilters] = useState({
@@ -18,6 +19,8 @@ export default function Rankings({ gameData }) {
     queryFn: () => getRankingsData(gameData.id),
     cacheTime: 0,
   });
+
+  const { theme } = useTheme();
 
   if (rankingsQuery.isLoading) {
     return <h1 className="m-6">Loading...</h1>;
@@ -33,7 +36,7 @@ export default function Rankings({ gameData }) {
   const renderHeader = () => {
     return (
       <div className="m-2">
-        <span className="p-input-icon-left">
+        <span className="p-input-icon-left mt-2">
           <i className="fa-solid fa-magnifying-glass"></i>
           <InputText
             onInput={(e) =>
@@ -45,6 +48,7 @@ export default function Rankings({ gameData }) {
               })
             }
             placeholder="Search by Name"
+            className={`py-1 pl-9 pr-2  ${theme === "dark" ? "bg-slate-700" : ""}`}
           />
         </span>
         <h2 className="mt-4 text-center text-lg lg:text-2xl">
