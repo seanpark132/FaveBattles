@@ -25,7 +25,7 @@ export default function CreateImg() {
   const navigate = useNavigate();
   const user = useUser();
   const queryClient = useQueryClient();
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   if (!user) {
     return <NotSignedIn />;
