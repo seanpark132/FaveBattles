@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { storage } from "../../firebaseConfig";
 import { ref, uploadBytes } from "firebase/storage";
-import {
-  ORIGINAL_BUCKET_NAME,
+import { 
   GOOGLE_CLOUD_STORAGE_BASE_URL,
   FORMATTED_BUCKET_NAME,
 } from "../../utils/global_consts";
@@ -56,16 +55,15 @@ export default function AddNewImage({
 
         const imagePath = `all_games/${gameId}/${name_count}`;
         const newImgRef = ref(storage, imagePath);
-        await uploadBytes(newImgRef, img);
-        const originalImgUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${ORIGINAL_BUCKET_NAME}/${imagePath}`;
-        const formattedBaseUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${FORMATTED_BUCKET_NAME}/${imagePath}`;
-        const url_384w = `${formattedBaseUrl}_384w`;
-        const url_683w = `${formattedBaseUrl}_683w`;
-        const url_960w = `${formattedBaseUrl}_960w`;
+        await uploadBytes(newImgRef, img);       
+        const originalFormattedUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${FORMATTED_BUCKET_NAME}/${imagePath}`;
+        const url_384w = `${originalFormattedUrl}_384w`;
+        const url_683w = `${originalFormattedUrl}_683w`;
+        const url_960w = `${originalFormattedUrl}_960w`;
 
         return {
           id: name_count,
-          url: originalImgUrl,
+          url: originalFormattedUrl,
           url_384w: url_384w,
           url_683w: url_683w,
           url_960w: url_960w,

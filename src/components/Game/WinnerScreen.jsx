@@ -5,8 +5,8 @@ export default function WinnerScreen({ gameType, winner }) {
       {gameType === "image" ? (
         <img
           className="winner-img object-contain"
-          src={winner.url}
-          srcSet={`${winner.url_384w} 384w, ${winner.url_683w} 683w, ${winner.url}`}
+          src={winner.url_960w}
+          srcSet={`${winner.url_384w} 384w, ${winner.url_683w} 683w, ${winner.url_960w}`}
           sizes="(max-width: 769px) 35vw, (max-width: 1367px) 45vw, 60vw"
           alt="winner image"
         />

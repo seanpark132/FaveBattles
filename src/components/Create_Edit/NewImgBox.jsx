@@ -96,7 +96,7 @@ export default function NewImgBox({
             ? `${choiceData.url_384w}?retry=${retryCount}`
             : choiceData.url_384w
         }
-        zoomSrc={choiceData.url}
+        zoomSrc={choiceData.url_960w}
         onError={handleImageError}
         alt={`${choiceData.name} image`}
         loading="lazy"
