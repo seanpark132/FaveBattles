@@ -28,7 +28,7 @@ export default function Edit({ gameData }) {
   const [isRecentlyAdded, setIsRecentlyAdded] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
 
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const user = useUser();
   const queryClient = useQueryClient();

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { storage } from "../../firebaseConfig";
-import { v4 } from "uuid";
 import { ref, uploadBytes } from "firebase/storage";
-import Compressor from "compressorjs";
-import { BUCKET_NAME } from "../../utils/global_consts";
+import {
+  BUCKET_NAME,
+  GOOGLE_CLOUD_STORAGE_BASE_URL,
+} from "../../utils/global_consts";
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -14,7 +15,8 @@ export default function AddNewImage({
 }) {
   const [inputtedImgs, setInputtedImgs] = useState([]);
   const [isAddImagesDisabled, setIsAddImagesDisabled] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [uploadedImageCount, setUploadedImageCount] = useState(0);
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (isAddImagesDisabled) {
@@ -34,51 +36,35 @@ export default function AddNewImage({
     setInputtedImgs([]);
 
     const imgsArray = Object.values(images);
-
-    imgsArray.forEach((img) => {
-      new Compressor(img, {
-        quality: 0.8,
-        mimeType: "image/webp",
-        maxWidth: 960,
-        maxHeight: 960,
-        success(result) {
-          setInputtedImgs((prev) => [...prev, result]);
-        },
-        error(error) {
-          console.error("An error occurred in adding your files.", error);
-          toast("An error occurred in adding your files. Please try again.");
-        },
-      });
-    });
+    setInputtedImgs(imgsArray);
   }
 
-  async function uploadImage(inputImages) {
-    if (inputImages.length === 0) {
+  async function uploadImage() {
+    if (inputtedImgs.length === 0) {
       toast("Please add a file first");
       return;
     }
 
     try {
-      const uploadPromises = inputImages.map(async (img) => {
-        const id = v4();
-        const imagePath = `all_games/${gameId}/${id}`;
+      setIsAddImagesDisabled(true);
+      const uploadPromises = inputtedImgs.map(async (img) => {
+        const fileName = img.name;
+        const nameOnly = fileName.split(".").slice(0, -1).join(".");
+        const name_count = `${nameOnly}_${uploadedImageCount}`;
+        setUploadedImageCount((prev) => prev + 1);
+        const imagePath = `all_games/${gameId}/${name_count}`;
         const newImgRef = ref(storage, imagePath);
         await uploadBytes(newImgRef, img);
-        const imgUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${imagePath}`;
+        const imgUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${BUCKET_NAME}/${imagePath}`;
         const url_384w = `${imgUrl}_384w`;
         const url_683w = `${imgUrl}_683w`;
-        const charsToRemove = 5;
-
-        const defaultName = (
-          img.name.charAt(0).toUpperCase() + img.name.slice(1)
-        ).slice(0, img.name.length - charsToRemove);
 
         return {
-          id: id,
+          id: name_count,
           url: imgUrl,
           url_384w: url_384w,
           url_683w: url_683w,
-          name: defaultName,
+          name: nameOnly,
           numWins: 0,
           numGames: 0,
           numFirst: 0,
@@ -124,8 +110,7 @@ export default function AddNewImage({
               : "bg-sky-300"
         } mt-4 w-fit rounded border-transparent px-20 py-2 text-lg`}
         onClick={() => {
-          uploadImage(inputtedImgs);
-          setIsAddImagesDisabled(true);
+          uploadImage();
         }}
         disabled={isAddImagesDisabled}
       >
