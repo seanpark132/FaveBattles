@@ -8,7 +8,7 @@ export default function NewVideoBox({
   setNumCompletesToDeduct,
   isEditPage,
 }) {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   function handleNameChange(event) {
     setChoicesData((prev) => {

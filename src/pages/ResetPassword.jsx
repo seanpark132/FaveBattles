@@ -7,7 +7,7 @@ import { useTheme } from "../context/ThemeContext";
 export default function ResetPassword() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   async function resetPassword(e) {
     e.preventDefault();

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { storage } from "../../firebaseConfig";
 import { ref, uploadBytes } from "firebase/storage";
 import {
-  BUCKET_NAME,
+  ORIGINAL_BUCKET_NAME,
   GOOGLE_CLOUD_STORAGE_BASE_URL,
+  FORMATTED_BUCKET_NAME,
 } from "../../utils/global_consts";
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
@@ -52,18 +53,22 @@ export default function AddNewImage({
         const nameOnly = fileName.split(".").slice(0, -1).join(".");
         const name_count = `${nameOnly}_${uploadedImageCount}`;
         setUploadedImageCount((prev) => prev + 1);
+
         const imagePath = `all_games/${gameId}/${name_count}`;
         const newImgRef = ref(storage, imagePath);
         await uploadBytes(newImgRef, img);
-        const imgUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${BUCKET_NAME}/${imagePath}`;
-        const url_384w = `${imgUrl}_384w`;
-        const url_683w = `${imgUrl}_683w`;
+        const originalImgUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${ORIGINAL_BUCKET_NAME}/${imagePath}`;
+        const formattedBaseUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${FORMATTED_BUCKET_NAME}/${imagePath}`;
+        const url_384w = `${formattedBaseUrl}_384w`;
+        const url_683w = `${formattedBaseUrl}_683w`;
+        const url_960w = `${formattedBaseUrl}_960w`;
 
         return {
           id: name_count,
-          url: imgUrl,
+          url: originalImgUrl,
           url_384w: url_384w,
           url_683w: url_683w,
+          url_960w: url_960w,
           name: nameOnly,
           numWins: 0,
           numGames: 0,

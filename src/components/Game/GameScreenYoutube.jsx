@@ -11,7 +11,7 @@ export default function GameScreenYoutube({
   rightChosen,
   animationsInProgress,
 }) {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <div className="flex w-full flex-1 pb-4">

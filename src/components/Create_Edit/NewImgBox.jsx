@@ -18,7 +18,7 @@ export default function NewImgBox({
 }) {
   const [isAlreadyAdded, setIsAlreadyAdded] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!isRendered) {

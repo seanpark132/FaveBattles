@@ -18,7 +18,7 @@ export default function DisplayGameBox({ type, gameData }) {
   );
   const queryClient = useQueryClient();
   const user = useUser();
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   async function handleDelete(gameId) {
     if (user.uid !== gameData.creatorId) {

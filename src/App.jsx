@@ -31,7 +31,7 @@ export default function App() {
     queryKey: ["allGamesData"],
     queryFn: () => getAllGameData(),
   });
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const navigate = useNavigate();
 
   if (allGamesDataQuery.isLoading) return <h1 className="m-6">Loading...</h1>;
