@@ -1,27 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="icon" href="/logo-favicon.ico" />
-		<link
-			id="prime-react-theme"
-			rel="stylesheet"
-			href="/themes/lara-light-teal/theme.css"
-		/>
-		<meta
-			name="description"
-			content="Play and create fun tournament-style games to discover your favorite food, anime, music, 
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/logo-favicon.ico" />
+    <link
+      id="prime-react-theme"
+      rel="stylesheet"
+      href="/themes/lara-light-teal/theme.css"
+    />
+    <meta
+      name="description"
+      content="Play and create fun tournament-style games to discover your favorite food, anime, music, 
 			and much more! Play with friends to see where opinions differ, or look at the rankings to see where your favorite lands!"
-		/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>FaveBattles</title>
-		<script
-			src="https://kit.fontawesome.com/f0ed931035.js"
-			crossorigin="anonymous"
-		></script>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script type="module" src="/src/main.jsx"></script>
-	</body>
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FaveBattles</title>
+  </head>
+  <body>
+    <svg
+      aria-hidden="true"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <defs>
+        <symbol id="icon-home" viewBox="0 0 32 32">
+          <path
+            d="M32 18.451l-16-12.42-16 12.42v-5.064l16-12.42 16 12.42zM28 18v12h-8v-8h-8v8h-8v-12l12-9z"
+          ></path>
+        </symbol>
+        <symbol id="icon-pencil" viewBox="0 0 32 32">
+          <path
+            d="M27 0c2.761 0 5 2.239 5 5 0 1.126-0.372 2.164-1 3l-2 2-7-7 2-2c0.836-0.628 1.874-1 3-1zM2 23l-2 9 9-2 18.5-18.5-7-7-18.5 18.5zM22.362 11.362l-14 14-1.724-1.724 14-14 1.724 1.724z"
+          ></path>
+        </symbol>
+        <symbol id="icon-user" viewBox="0 0 32 32">
+          <path
+            d="M18 22.082v-1.649c2.203-1.241 4-4.337 4-7.432 0-4.971 0-9-6-9s-6 4.029-6 9c0 3.096 1.797 6.191 4 7.432v1.649c-6.784 0.555-12 3.888-12 7.918h28c0-4.030-5.216-7.364-12-7.918z"
+          ></path>
+        </symbol>
+        <symbol id="icon-search" viewBox="0 0 32 32">
+          <path
+            d="M31.008 27.231l-7.58-6.447c-0.784-0.705-1.622-1.029-2.299-0.998 1.789-2.096 2.87-4.815 2.87-7.787 0-6.627-5.373-12-12-12s-12 5.373-12 12 5.373 12 12 12c2.972 0 5.691-1.081 7.787-2.87-0.031 0.677 0.293 1.515 0.998 2.299l6.447 7.58c1.104 1.226 2.907 1.33 4.007 0.23s0.997-2.903-0.23-4.007zM12 20c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z"
+          ></path>
+        </symbol>
+        <symbol id="icon-bin2" viewBox="0 0 32 32">
+          <path
+            d="M6 32h20l2-22h-24zM20 4v-4h-8v4h-10v6l2-2h24l2 2v-6h-10zM18 4h-4v-2h4v2z"
+          ></path>
+        </symbol>
+        <symbol id="icon-menu" viewBox="0 0 32 32">
+          <path d="M2 6h28v6h-28zM2 14h28v6h-28zM2 22h28v6h-28z"></path>
+        </symbol>
+        <symbol id="icon-sun" viewBox="0 0 32 32">
+          <path
+            d="M16 7.383c-4.76 0-8.617 3.857-8.617 8.617s3.857 8.617 8.617 8.617 8.617-3.857 8.617-8.617-3.857-8.617-8.617-8.617z"
+          ></path>
+          <path d="M14.744 0h2.51v4.831h-2.51v-4.831z"></path>
+          <path d="M14.744 27.169h2.51v4.831h-2.51v-4.831z"></path>
+          <path
+            d="M5.573 3.799l3.416 3.416-1.774 1.774-3.416-3.416 1.774-1.774z"
+          ></path>
+          <path d="M23.010 24.784l3.417 3.417 1.774-1.775-3.416-3.416z"></path>
+          <path d="M0 14.744h4.83v2.51h-4.83v-2.51z"></path>
+          <path d="M27.168 14.745v2.51l4.832-0.001v-2.51z"></path>
+          <path d="M3.799 26.426l1.773 1.775 3.416-3.417-1.773-1.774z"></path>
+          <path d="M28.201 5.572l-1.775-1.773-3.416 3.416 1.775 1.775z"></path>
+        </symbol>
+        <symbol id="icon-plus" viewBox="0 0 32 32">
+          <path
+            d="M31 12h-11v-11c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v11h-11c-0.552 0-1 0.448-1 1v6c0 0.552 0.448 1 1 1h11v11c0 0.552 0.448 1 1 1h6c0.552 0 1-0.448 1-1v-11h11c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1z"
+          ></path>
+        </symbol>
+        <symbol id="icon-cross" viewBox="0 0 32 32">
+          <path
+            d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"
+          ></path>
+        </symbol>
+        <symbol id="icon-enter" viewBox="0 0 32 32">
+          <path
+            d="M12 16h-10v-4h10v-4l6 6-6 6zM32 0v26l-12 6v-6h-12v-8h2v6h10v-18l8-4h-18v8h-2v-10z"
+          ></path>
+        </symbol>
+        <symbol id="icon-exit" viewBox="0 0 32 32">
+          <path
+            d="M24 20v-4h-10v-4h10v-4l6 6zM22 18v8h-10v6l-12-6v-26h22v10h-2v-8h-16l8 4v18h8v-6z"
+          ></path>
+        </symbol>
+        <symbol id="icon-play3" viewBox="0 0 32 32">
+          <path d="M6 4l20 12-20 12z"></path>
+        </symbol>
+        <symbol id="icon-table2" viewBox="0 0 32 32">
+          <path
+            d="M0 2v28h32v-28h-32zM12 20v-6h8v6h-8zM20 22v6h-8v-6h8zM20 6v6h-8v-6h8zM10 6v6h-8v-6h8zM2 14h8v6h-8v-6zM22 14h8v6h-8v-6zM22 12v-6h8v6h-8zM2 22h8v6h-8v-6zM22 28v-6h8v6h-8z"
+          ></path>
+        </symbol>
+        <symbol id="icon-moon" viewBox="0 0 32 32">
+          <path
+            d="M16.826 31.982c-9.278 0-16.826-7.549-16.826-16.826 0-6.426 3.577-12.2 9.336-15.067 0.259-0.129 0.571-0.079 0.775 0.125s0.257 0.516 0.13 0.774c-1.051 2.135-1.583 4.431-1.583 6.821 0 8.536 6.944 15.481 15.479 15.481 2.417 0 4.735-0.545 6.891-1.618 0.259-0.129 0.571-0.079 0.774 0.125 0.205 0.204 0.256 0.516 0.129 0.774-2.852 5.805-8.641 9.411-15.104 9.411z"
+          ></path>
+        </symbol>
+      </defs>
+    </svg>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

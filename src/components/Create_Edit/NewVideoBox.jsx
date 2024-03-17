@@ -1,6 +1,7 @@
 import cloneDeep from "lodash.clonedeep";
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
+import Icon from "../Icon";
 
 export default function NewVideoBox({
   choiceData,
@@ -61,11 +62,11 @@ export default function NewVideoBox({
         </div>
         <button
           type="button"
-          className="absolute right-0 top-0 h-fit bg-red-500 px-1.5 py-1"
+          className="absolute right-0 top-0 h-fit bg-red-500 px-1.5 pb-1 pt-0.5"
           onClick={deleteBtn}
           aria-label="Delete video"
         >
-          <i className="fa-solid fa-xmark fa-lg text-white"></i>
+          <Icon name="cross" styles="text-white" />
         </button>
       </div>
     </div>
@@ -98,11 +99,11 @@ export default function NewVideoBox({
         </div>
         <button
           type="button"
-          className="absolute right-0 top-0 h-fit rounded border-transparent bg-red-500 px-1.5 py-1"
+          className="absolute right-0 top-0 h-fit rounded border-transparent bg-red-500 px-1.5 pb-1 pt-0.5"
           onClick={deleteBtn}
           aria-label="Delete video"
         >
-          <i className="fa-solid fa-xmark fa-lg text-white"></i>
+          <Icon name="cross" styles="text-white" />
         </button>
       </div>
     </>
