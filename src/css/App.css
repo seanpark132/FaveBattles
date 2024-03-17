@@ -140,6 +140,13 @@ textarea.dark {
   transition: 400ms;
 }
 
+.icon {
+	display: inline-block;	
+  width: 1em;
+	height: 1em;
+	fill: currentColor;
+}
+
 .skeleton {
   animation: skeleton-loading 2s linear infinite;
 }
