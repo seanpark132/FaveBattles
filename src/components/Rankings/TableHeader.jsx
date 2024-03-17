@@ -1,10 +1,11 @@
 import { InputText } from "primereact/inputtext";
+import Icon from "../Icon";
 
 export const TableHeader = ({ gameData, theme, setFilters }) => {
   return (
     <div className="m-2">
       <span className="p-input-icon-left mt-2">
-        <i className="fa-solid fa-magnifying-glass"></i>
+        <Icon name="search" />
         <InputText
           onInput={(e) =>
             setFilters({

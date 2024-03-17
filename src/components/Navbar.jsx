@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
+import Icon from "./Icon";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,21 +54,21 @@ export default function Navbar() {
     <nav className={`sticky top-0 flex items-center justify-between ${theme}`}>
       <div ref={menuRef}>
         <button
-          className="ml-4 text-2xl"
+          className="ml-3 flex align-middle text-2xl"
           onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-label="Menu"
         >
-          <i className="fa-solid fa-bars select-none"></i>
+          <Icon name="menu" />
         </button>
         <div className={`nav-menu ${isMenuOpen && "open"} ${theme}`}>
           <ul>
             <li className="mt-2">
               <Link
                 to="/create"
-                className="md:text-lg"
+                className="flex items-center md:text-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <i className="fa-solid fa-plus fa-xs mr-4"></i>
+                <Icon name="plus" styles="mr-2" />
                 Create a new game
               </Link>
             </li>
@@ -75,34 +76,35 @@ export default function Navbar() {
               {user ? (
                 <Link
                   to="/profile"
-                  className="md:text-lg"
+                  className="flex items-center md:text-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <i className="fa-solid fa-user mr-3"></i>My Profile
+                  <Icon name="user" styles="mr-2" />
+                  My Profile
                 </Link>
               ) : (
                 <Link
                   to="/sign-in"
-                  className="md:text-lg"
+                  className="flex items-center md:text-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <i className="fa-solid fa-right-from-bracket mr-3"></i>
+                  <Icon name="enter" styles="mr-2" />
                   Sign In
                 </Link>
               )}
             </li>
-            <li className="my-2">
-              {user && (
+            {user && (
+              <li className="my-2">
                 <button
-                  className="text-red-500 md:text-lg"
+                  className="flex items-center text-red-500 md:text-lg"
                   onClick={signOutUser}
                   aria-label="Sign out"
                 >
-                  <i className="fa-solid fa-right-from-bracket mr-3 -scale-x-100"></i>
+                  <Icon name="exit" styles="mr-2" />
                   Sign Out
                 </button>
-              )}
-            </li>
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -111,42 +113,42 @@ export default function Navbar() {
       </Link>
       <div ref={themeRef}>
         <button
-          className="mr-4 select-none"
+          className="mr-4 flex items-center"
           onClick={() => setIsThemeOpen((prev) => !prev)}
           aria-label="Theme menu"
         >
           {theme === "dark" ? (
-            <i className="fa-solid fa-moon text-2xl text-sky-400" />
+            <Icon name="moon" styles="text-sky-400 md:text-lg" />
           ) : (
-            <i className="fa-solid fa-sun text-xl text-yellow-400" />
+            <Icon name="sun" styles="text-yellow-500 md:text-lg" />
           )}
         </button>
         <div className={`nav-theme-menu ${isThemeOpen && "open"} ${theme}`}>
           <ul>
             <li className="mt-2">
               <button
-                className="flex"
+                className="flex items-center md:text-lg"
                 onClick={() => {
                   setTheme("dark");
                   setIsThemeOpen((prev) => !prev);
                 }}
                 aria-label="Dark mode"
               >
-                <i className="fa-solid fa-moon mr-4 w-4 self-center text-2xl text-sky-400" />
-                <p className="self-center md:text-lg">Dark Mode</p>
+                <Icon name="moon" styles="mr-2 text-sky-400" />
+                Dark Mode
               </button>
             </li>
             <li className="my-2">
               <button
-                className="flex"
+                className="flex items-center md:text-lg"
                 onClick={() => {
                   setTheme("light");
                   setIsThemeOpen((prev) => !prev);
                 }}
                 aria-label="Light mode"
               >
-                <i className="fa-solid fa-sun mr-4 w-4 self-center text-xl text-yellow-400" />
-                <p className="self-center md:text-lg">Light Mode</p>
+                <Icon name="sun" styles="mr-2 text-yellow-500" />
+                Light Mode
               </button>
             </li>
           </ul>

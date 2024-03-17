@@ -6,6 +6,7 @@ import { deleteGame } from "../api/deleteGame";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useUser } from "../context/AuthContext";
+import Icon from "./Icon";
 
 export default function DisplayGameBox({ type, gameData }) {
   const { firstHighest, secondHighest } = useMemo(
@@ -71,41 +72,45 @@ export default function DisplayGameBox({ type, gameData }) {
       </h3>
       <p className={`home-box-desc ${theme}`}>{gameData.description}</p>
       <div className="mt-auto">
-        <Link
-          to={`/game/${gameData.id}`}
-          className={`m-3 inline-block w-28 rounded-lg border-transparent py-2 pl-3 ${
-            theme === "dark" ? "bg-green-800" : "bg-green-300"
-          } hover:bg-green-500 hover:text-inherit`}
-        >
-          <i className="fa-solid fa-play fa-xs mr-2"></i>Play!
-        </Link>
-        <Link
-          to={`/rankings/${gameData.id}`}
-          className={`m-3 inline-block w-28 rounded-lg border-transparent py-2 pl-3 ${
-            theme === "dark" ? "bg-purple-800" : "bg-purple-300"
-          } hover:bg-purple-500 hover:text-inherit`}
-        >
-          <i className="fa-sharp fa-solid fa-square-poll-horizontal fa-sm mr-2"></i>
-          Rankings
-        </Link>
+        <div className="flex">
+          <Link
+            to={`/game/${gameData.id}`}
+            className={`m-3 flex w-28 items-center rounded-lg border-transparent py-2 pl-3 ${
+              theme === "dark" ? "bg-green-800" : "bg-green-300"
+            } hover:bg-green-500 hover:text-inherit`}
+          >
+            <Icon name="play3" styles="mr-2" />
+            Play!
+          </Link>
+          <Link
+            to={`/rankings/${gameData.id}`}
+            className={`m-3 flex w-28 items-center rounded-lg border-transparent py-2 pl-3 ${
+              theme === "dark" ? "bg-purple-800" : "bg-purple-300"
+            } hover:bg-purple-500 hover:text-inherit`}
+          >
+            <Icon name="table2" styles="mr-2" />
+            Rankings
+          </Link>
+        </div>
         {type === "profile" && (
-          <div>
+          <div className="flex">
             <Link
               to={`/edit-game/${gameData.id}`}
-              className={`m-3 inline-block w-28 rounded-lg border-transparent py-2 pl-3 ${
+              className={`m-3 flex w-28 items-center rounded-lg border-transparent py-2 pl-3 ${
                 theme === "dark" ? "bg-sky-700" : "bg-sky-300"
               } hover:bg-sky-500 hover:text-inherit`}
             >
-              <i className="fa-solid fa-pen-to-square mr-2"></i>
+              <Icon name="pencil" styles="mr-2" />
               Edit
             </Link>
             <button
-              className={`m-3 inline-block w-28 rounded-lg border-transparent py-2 pl-3 text-left font-normal ${
+              className={`m-3 flex w-28 items-center rounded-lg border-transparent py-2 pl-3 text-left font-normal ${
                 theme === "dark" ? "bg-red-700" : "bg-red-300"
               } hover:bg-red-500 hover:text-inherit`}
               onClick={() => handleDelete(gameData.id)}
             >
-              <i className="fa-solid fa-trash mr-2"></i>DELETE
+              <Icon name="bin2" styles="mr-2" />
+              DELETE
             </button>
           </div>
         )}

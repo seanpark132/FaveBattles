@@ -9,6 +9,7 @@ import { Dropdown } from "primereact/dropdown";
 import { CATEGORY_OPTIONS } from "../../utils/global_consts";
 import { useTheme } from "../../context/ThemeContext";
 import SelectDropdown from "./SelectDropdown";
+import Icon from "../Icon";
 
 export default function FiltersAndSearch({
   allGamesData,
@@ -114,7 +115,7 @@ export default function FiltersAndSearch({
             className={`home-search-btn ${theme}`}
             aria-label="Search by title"
           >
-            <i className="fa-solid fa-magnifying-glass"></i>
+            <Icon name="search" />
           </button>
         </div>
       </div>

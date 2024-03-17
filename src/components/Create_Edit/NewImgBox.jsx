@@ -5,6 +5,7 @@ import { deleteStoredImage } from "../../api/deleteStoredImage";
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
 import SkeletonNewImgBox from "../skeletons/SkeletonNewImgBox";
+import Icon from "../Icon";
 
 export default function NewImgBox({
   gameId,
@@ -118,11 +119,11 @@ export default function NewImgBox({
       </div>
       <button
         type="button"
-        className="absolute right-0 top-0 h-fit rounded border-transparent bg-red-500 px-1.5 py-1"
+        className="absolute right-0 top-0 h-fit rounded border-transparent bg-red-500 px-1.5 pb-1 pt-0.5"
         onClick={handleDeleteBtn}
         aria-label="Delete image"
       >
-        <i className="fa-solid fa-xmark fa-lg text-white"></i>
+        <Icon name="cross" styles="text-white" />
       </button>
     </div>
   );
