@@ -1,6 +1,8 @@
-// Landing page for create game function, 2 options: images (upload images), youtube videos (youtube URL)
-
 import { Link } from "react-router-dom";
+import {
+  GOOGLE_CLOUD_STORAGE_BASE_URL,
+  ORIGINAL_BUCKET_NAME,
+} from "../utils/global_consts";
 
 export default function Create() {
   return (
@@ -12,7 +14,7 @@ export default function Create() {
           </h1>
           <img
             className="h-5/12 hidden w-full md:block"
-            src="/create-img-example.JPG"
+            src={`${GOOGLE_CLOUD_STORAGE_BASE_URL}/${ORIGINAL_BUCKET_NAME}/website_images/create-img-example.webp`}
             alt="image-choice"
           />
         </Link>
@@ -22,7 +24,7 @@ export default function Create() {
           </h1>
           <img
             className="h-5/12 hidden w-full md:block"
-            src="/create-video-example.JPG"
+            src={`${GOOGLE_CLOUD_STORAGE_BASE_URL}/${ORIGINAL_BUCKET_NAME}/website_images/create-video-example.webp`}
             alt="video-choice"
           />
         </Link>
