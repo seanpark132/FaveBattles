@@ -62,6 +62,10 @@ export default function AddGameDetails({
               ...baseStyles,
               color: theme === "dark" ? "black" : "white",
             }),
+            input: (baseStyles) => ({
+              ...baseStyles,
+              color: theme === "dark" ? "white" : "black",
+            }),
           }}
           value={selectedCategories}
           onChange={setSelectedCategories}

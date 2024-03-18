@@ -6,6 +6,7 @@ import { useTheme } from "./context/ThemeContext";
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import "react-toastify/dist/ReactToastify.css";
+import "./css/index.css";
 import "./css/SignUp.css";
 import "./css/App.css";
 import "./css/Home.css";
