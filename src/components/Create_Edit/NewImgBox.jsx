@@ -19,7 +19,7 @@ export default function NewImgBox({
 }) {
   const [isAlreadyAdded, setIsAlreadyAdded] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!isRendered) {
@@ -94,10 +94,10 @@ export default function NewImgBox({
       <Image
         src={
           retryCount > 0
-            ? `${choiceData.url_384w}?retry=${retryCount}`
-            : choiceData.url_384w
+            ? `${choiceData.url_sm}?retry=${retryCount}`
+            : choiceData.url_sm
         }
-        zoomSrc={choiceData.url}
+        zoomSrc={choiceData.url_lg}
         onError={handleImageError}
         alt={`${choiceData.name} image`}
         loading="lazy"

@@ -19,7 +19,7 @@ export default function CreateVideo() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const navigate = useNavigate();
   const user = useUser();
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   if (!user) {
     return <NotSignedIn />;

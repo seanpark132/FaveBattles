@@ -1,7 +1,7 @@
 import { useTheme } from "../../context/ThemeContext";
 
 export default function SkeletonNewImgBox() {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <div

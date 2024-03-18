@@ -78,6 +78,8 @@ export default function CreateImg() {
     );
 
     if (isConfirmed) {
+      // send choicesData to a Lambda and delete all from there
+      
       try {
         choicesData.forEach(async (choice) => {
           await deleteStoredImage(gameId, choice.id);
@@ -100,7 +102,7 @@ export default function CreateImg() {
       return;
     }
 
-    if (selectedCategories.length === 0) {
+    if (selectedCategories.length < 1) {
       toast("Please select at least 1 category");
       return;
     }
@@ -119,7 +121,7 @@ export default function CreateImg() {
       creatorId: user.uid,
       choices: choicesData,
       categories: selectedCategories,
-      mainCategory: selectedCategories[0]?.label,
+      mainCategory: selectedCategories[0].label,
       numStarts: 0,
       numCompletes: 0,
       createdOn: Date.now(),

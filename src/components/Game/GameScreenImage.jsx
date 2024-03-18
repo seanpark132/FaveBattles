@@ -21,8 +21,8 @@ export default function GameScreenImage({
         <div className="relative flex h-full w-fit justify-center">
           <img
             className="max-h-full max-w-full object-contain"
-            src={leftChoice.url}
-            srcSet={`${leftChoice.url_384w} 384w, ${leftChoice.url_683w} 683w, ${leftChoice.url} 960w`}
+            src={leftChoice.url_lg}
+            srcSet={`${leftChoice.url_sm} 384w, ${leftChoice.url_md} 683w, ${leftChoice.url_lg} 960w`}
             sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
             alt={`${leftChoice.name} image`}
           />
@@ -39,8 +39,8 @@ export default function GameScreenImage({
         <div className="relative flex h-full w-fit justify-center">
           <img
             className="max-h-full max-w-full object-contain"
-            src={rightChoice.url}
-            srcSet={`${rightChoice.url_384w} 384w, ${rightChoice.url_683w} 683w, ${rightChoice.url} 960w`}
+            src={rightChoice.url_lg}
+            srcSet={`${rightChoice.url_sm} 384w, ${rightChoice.url_md} 683w, ${rightChoice.url_lg} 960w`}
             sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
             alt={`${rightChoice.name} image`}
           />

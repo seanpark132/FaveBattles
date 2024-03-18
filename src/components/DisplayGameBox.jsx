@@ -19,7 +19,7 @@ export default function DisplayGameBox({ type, gameData }) {
   );
   const queryClient = useQueryClient();
   const user = useUser();
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   async function handleDelete(gameId) {
     if (user.uid !== gameData.creatorId) {
@@ -46,7 +46,7 @@ export default function DisplayGameBox({ type, gameData }) {
           src={
             gameData.gameType === "video-youtube"
               ? firstHighest.thumbnailUrl
-              : firstHighest.url_384w
+              : firstHighest.url_sm
           }
           alt={`${firstHighest.name} image`}
           loading="lazy"
@@ -56,7 +56,7 @@ export default function DisplayGameBox({ type, gameData }) {
           src={
             gameData.gameType === "video-youtube"
               ? secondHighest.thumbnailUrl
-              : secondHighest.url_384w
+              : secondHighest.url_sm
           }
           alt={`${secondHighest.name} image`}
           loading="lazy"

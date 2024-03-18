@@ -8,7 +8,7 @@ export default function AddGameDetails({
   selectedCategories,
   setSelectedCategories,
 }) {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   function handleChange(event) {
     const { name, value } = event.target;

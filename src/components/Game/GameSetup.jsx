@@ -15,7 +15,7 @@ export default function GameSetup({
   setRightChoice,
   gameData,
 }) {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   // at the start of the game, when the user selects the game size "n", randomly get n choices from pool
   function getRandomChoices(array, gameSize) {

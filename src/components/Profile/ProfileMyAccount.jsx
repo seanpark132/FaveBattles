@@ -4,7 +4,7 @@ import { useTheme } from "../../context/ThemeContext";
 
 export default function ProfileMyAccount() {
   const user = useUser();
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <section className="flex w-full flex-col px-6">

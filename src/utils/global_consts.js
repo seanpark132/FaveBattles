@@ -16,4 +16,8 @@ export const CATEGORY_OPTIONS = [
 
 export const FIRESTORE_COLLECTION_NAME = "all_games";
 
-export const BUCKET_NAME = "favebattles.appspot.com";
+export const GOOGLE_CLOUD_STORAGE_BASE_URL = "https://storage.googleapis.com";
+
+export const ORIGINAL_BUCKET_NAME = "favebattles.appspot.com";
+
+export const FORMATTED_BUCKET_NAME = "favebattles_formatted_images";

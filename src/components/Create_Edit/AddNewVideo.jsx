@@ -6,7 +6,7 @@ import { useTheme } from "../../context/ThemeContext";
 export default function AddNewVideo({ setChoicesData }) {
   const [inputUrl, setInputUrl] = useState("");
   const [inputTime, setInputTime] = useState("");
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   function convertInputTimeToSeconds(timeString) {
     if (timeString.length === 0) {
