@@ -93,10 +93,10 @@ export default function NewImgBox({
       <Image
         src={
           retryCount > 0
-            ? `${choiceData.url_384w}?retry=${retryCount}`
-            : choiceData.url_384w
+            ? `${choiceData.url_sm}?retry=${retryCount}`
+            : choiceData.url_sm
         }
-        zoomSrc={choiceData.url_960w}
+        zoomSrc={choiceData.url_lg}
         onError={handleImageError}
         alt={`${choiceData.name} image`}
         loading="lazy"
