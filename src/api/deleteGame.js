@@ -2,6 +2,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { FIRESTORE_COLLECTION_NAME } from "../utils/global_consts";
 import { deleteStoredImage } from "./deleteStoredImage";
+import { toast } from "react-toastify";
 
 export async function deleteGame(gameId, gameData) {
   try {
