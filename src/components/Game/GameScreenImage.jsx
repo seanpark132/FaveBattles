@@ -22,7 +22,7 @@ export default function GameScreenImage({
           <img
             className="max-h-full max-w-full object-contain"
             src={leftChoice.url_lg}
-            srcSet={`${leftChoice.url_sm} sm, ${leftChoice.url_md} md, ${leftChoice.url_lg} lg`}
+            srcSet={`${leftChoice.url_sm} 384w, ${leftChoice.url_md} 683w, ${leftChoice.url_lg} 960w`}
             sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
             alt={`${leftChoice.name} image`}
           />
@@ -40,7 +40,7 @@ export default function GameScreenImage({
           <img
             className="max-h-full max-w-full object-contain"
             src={rightChoice.url_lg}
-            srcSet={`${rightChoice.url_sm} sm, ${rightChoice.url_md} md, ${rightChoice.url_lg} lg`}
+            srcSet={`${rightChoice.url_sm} 384w, ${rightChoice.url_md} 683w, ${rightChoice.url_lg} 960w`}
             sizes="(max-width: 769px) 25vw, (max-width: 1367px) 35vw, 50vw"
             alt={`${rightChoice.name} image`}
           />

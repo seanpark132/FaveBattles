@@ -50,10 +50,11 @@ export default function AddNewImage({
       const uploadPromises = inputtedImgs.map(async (img) => {
         const fileName = img.name;
         const nameOnly = fileName.split(".").slice(0, -1).join(".");
+        const nameNoSpace = nameOnly.replace(/ /g, "_");
         const suffixId = generateRandomAlphanumeric(4);
-        const name_count = `${nameOnly}_${suffixId}`;
+        const uniqueName = `${nameNoSpace}_${suffixId}`;
 
-        const imagePath = `all_games/${gameId}/${name_count}`;
+        const imagePath = `all_games/${gameId}/${uniqueName}`;
         const newImgRef = ref(storage, imagePath);
         await uploadBytes(newImgRef, img);
         const originalFormattedUrl = `${GOOGLE_CLOUD_STORAGE_BASE_URL}/${FORMATTED_BUCKET_NAME}/${imagePath}`;
@@ -62,7 +63,7 @@ export default function AddNewImage({
         const url_lg = `${originalFormattedUrl}_lg`;
 
         return {
-          id: name_count,
+          id: uniqueName,
           url: originalFormattedUrl,
           url_sm: url_sm,
           url_md: url_md,
