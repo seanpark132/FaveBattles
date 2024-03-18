@@ -7,6 +7,7 @@ import {
 } from "../../utils/global_consts";
 import { toast } from "react-toastify";
 import { useTheme } from "../../context/ThemeContext";
+import { generateRandomAlphanumeric } from "../../utils/generateRandomAlphanumeric";
 
 export default function AddNewImage({
   gameId,
@@ -15,7 +16,6 @@ export default function AddNewImage({
 }) {
   const [inputtedImgs, setInputtedImgs] = useState([]);
   const [isAddImagesDisabled, setIsAddImagesDisabled] = useState(false);
-  const [uploadedImageCount, setUploadedImageCount] = useState(0);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -50,8 +50,8 @@ export default function AddNewImage({
       const uploadPromises = inputtedImgs.map(async (img) => {
         const fileName = img.name;
         const nameOnly = fileName.split(".").slice(0, -1).join(".");
-        const name_count = `${nameOnly}_${uploadedImageCount}`;
-        setUploadedImageCount((prev) => prev + 1);
+        const suffixId = generateRandomAlphanumeric(4);
+        const name_count = `${nameOnly}_${suffixId}`;
 
         const imagePath = `all_games/${gameId}/${name_count}`;
         const newImgRef = ref(storage, imagePath);
