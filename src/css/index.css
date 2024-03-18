@@ -1,0 +1,87 @@
+:root {
+  --focus-blue: #2688ff;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color: black;
+  background-color: white;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.17rem;
+  font-weight: bold;
+}
+
+button {
+  font-weight: 600;
+}
+
+a:hover,
+button:hover {
+  color: #9e9fa5;
+}
+
+input {
+  border: 1px solid #9e9fa5;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+select.dark,
+input.dark {
+  background-color: #535353;
+  border: 1px solid #535353;
+}
+
+select:focus,
+input:focus {
+  outline: 1px solid var(--focus-blue);
+  border-color: var(--focus-blue);
+}
+
+select {
+  border: 1px solid #9e9fa5;
+  border-radius: 0.25rem;
+}
+
+label {
+  font-weight: 500;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  height: 2.75rem;
+  background-color: white;
+  box-shadow: 0rem 0.125rem 0.25rem rgb(0, 0, 0, 0.25);
+}
+
+nav.dark {
+  background-color: #444444;
+  box-shadow: 0rem 0.125rem 0.25rem rgb(255, 255, 255, 0.25);
+}
+
+textarea {
+  resize: none;
+  border: 1px solid #9e9fa5;
+}
+
+textarea:focus {
+  outline-color: var(--focus-blue);
+}
+
+textarea.dark {
+  background-color: #535353;
+  border: 1px solid #535353;
+}
