@@ -5,7 +5,6 @@ import {
   filterGameDataByTitle,
   sortGameDataByProperty,
 } from "../../utils/sort_functions";
-import { Dropdown } from "primereact/dropdown";
 import { CATEGORY_OPTIONS } from "../../utils/global_consts";
 import { useTheme } from "../../context/ThemeContext";
 import SelectDropdown from "./SelectDropdown";
@@ -52,6 +51,7 @@ export default function FiltersAndSearch({
     if (e.key !== "Enter") {
       return;
     }
+    e.preventDefault();
 
     const titleFiltered = filterGameDataByTitle(sortedData, searchInput);
 

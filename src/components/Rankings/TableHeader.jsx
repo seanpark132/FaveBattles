@@ -1,4 +1,5 @@
 import { InputText } from "primereact/inputtext";
+import { FilterMatchMode } from "primereact/api";
 import Icon from "../Icon";
 
 export const TableHeader = ({ gameData, theme, setFilters }) => {
